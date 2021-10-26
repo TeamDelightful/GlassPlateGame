@@ -2,7 +2,7 @@
 		//Variables (Client ID, Websocket, Button data)
 		let playerId = null;
 		let gameId = null;
-		let ws = new WebSocket("ws://linux.cs.pdx.edu:27000")
+		let ws = new WebSocket("ws://localhost:27000")
 		const hostButton = document.getElementById("create-button");
 		//Shows Game number in game
 		const divGameId = document.getElementById("divGameId");
