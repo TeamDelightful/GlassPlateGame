@@ -1,0 +1,91 @@
+html, body {
+	background-color: #FFFFFF;
+	z-index: -2;
+	font-family: 'Playfair Display', serif;
+	margin: 0;
+	height: 100%;
+}
+
+@font-face {
+	font-family: bluefiresfont;
+	src: url(../fonts/bluefiresfont/bluefires2.otf);
+}
+
+.title {
+	color: #000000;
+	font-family: bluefiresfont;
+	font-size: 2em;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.top-left {
+	position: fixed;
+	top: 10%;
+	left: 10%;
+}
+
+@media (max-width: 320px) {}
+@media (min-width: 321px) and (max-width: 375px){}
+@media (min-width: 376px) and (max-width: 599px){}
+@media (min-width: 600px) and (max-width: 767px){}
+@media (min-width: 768px) and (max-width: 1023px){}
+@media (min-width: 1024px) and (max-width: 1349px){}
+@media (min-width: 1350px) and (max-width: 1919px){}
+@media (min-width: 1920px){}
+
+a.button-link{
+	color: #000000;
+	text-decoration: none;	
+}
+a.button-link:focus{
+	color: #000000;
+	text-decoration: none;
+}
+a.button-link:hover{
+	color: #000000;
+	text-decoration: none;
+}
+.all-home-buttons{
+	background-color: #000000;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #000000;
+	color: #000000;
+	padding: 3px 19px 9px 19px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1.5rem;
+	font-family: 'Playfair Display', serif;
+	font-weight: 700;
+	font-variant: small-caps;
+	line-height: 97%;
+	border-radius: 25px;
+	box-shadow: inset 0 8px 16px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button-group{
+	display: flex;
+	justify-content: center;
+}
+
+#create-button{
+	background-color: #ECFFF5;
+	margin: 0px 30px 0px 0px;
+}
+#join-button{
+	background-color: #F6F1FF;
+	margin: 0px 30px 0px 0px;
+	
+}
+#other-button{
+	background-color: #FFF1FB;
+	margin: 0px 0px 0px 0px;
+	
+}
