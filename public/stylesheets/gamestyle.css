@@ -1,20 +1,39 @@
-html, body {
+:root {
+	--ltgreen: #ECFFF5;
+	--ltpurple: #F6F1FF;
+	--ltpink: #FFF1FB;
+	--ltblue: #DAE5F5;
+	--ltyellow: #FFF9DB;
+	--drkgreen: #53FCA2;
+	--drkpurple: #B38BFC;
+	--drkpink: #FF8ADD;
+	--drkblue: #7EB2FC;
+	--drkyellow: #FFE76E;
+}
+
+
+html{
 	background-color: #FFFFFF;
 	z-index: -2;
 	font-family: 'Playfair Display', serif;
-	margin: 0;
+	margin: auto;
 	height: 100%;
+	width: 100%;
 }
 
-@font-face {
-	font-family: bluefiresfont;
-	src: url(../fonts/bluefiresfont/bluefires2.otf);
+body{
+	display: flex;
 }
+
 
 .title {
 	color: #000000;
 	font-family: bluefiresfont;
 	font-size: 2em;
+}
+
+.title-image{
+	
 }
 
 .centered {
@@ -28,6 +47,21 @@ html, body {
 	position: fixed;
 	top: 10%;
 	left: 10%;
+}
+
+.playersAndBoard {
+	display: flex;
+	justify-content: flex-start;
+}
+
+
+#divBoard{
+	transform: scale(0.5);
+	
+}
+
+.top-logo{
+	margin: 20px 20px 10px -20px;
 }
 
 @media (max-width: 320px) {}
@@ -76,16 +110,63 @@ a.button-link:hover{
 }
 
 #create-button{
-	background-color: #ECFFF5;
-	margin: 0px 30px 0px 0px;
+	background-color: var(--ltgreen);
+	margin: 10px 30px 0px 10px;
+	height: 40px;
+	width: 200px;
+	
 }
 #join-button{
-	background-color: #F6F1FF;
-	margin: 0px 30px 0px 0px;
+	background-color: var(--ltpurple);
+	margin: 10px 30px 0px 10px;
+	height: 40px;
+	width: 200px;
 	
 }
-#other-button{
-	background-color: #FFF1FB;
-	margin: 0px 0px 0px 0px;
+.gotojoin-button{
+	background-color: var(--ltpurple);
+	margin: 10px 30px 0px 10px;
+	height: 40px;
+	width: 200px;
 	
+}
+
+#other-button{
+	background-color: var(--ltpink);
+	margin: 10px 30px 0px 10px;
+	height: 40px;
+	width: 200px;
+	
+	
+}
+
+.card {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 200px;
+	height: 200px;
+}
+
+.join-box{
+	display: flex;
+	justify-content: flex-start;
+}
+
+#theGameId{
+	background: var(--ltpurple);
+	border-color: black;
+	width: 100px;
+	height: 35px;
+	margin: 10px 20px 0px 10px;
+}
+
+#download {
+	display: block;
+	height: 80px;
+	width: 400px;
+	font-size: xx-large;
+	background-color: black;
+	color: white;
+	font-weight: bolder;
+	text-decoration: underline;
 }
