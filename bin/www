@@ -34,7 +34,7 @@ httpServer.on('listening', onListening);
   // Include for function to create random game id and set to track all currently in use
   // game IDs (Rochele)
   var createGameId = require('../public/javascripts/createGameId');
-  var inUseGameIds = new Set;
+  var inUseGameIds = new Set();
 
   //var StateMachine = require('javascript-state-machine');
 
@@ -48,7 +48,6 @@ httpServer.on('listening', onListening);
 
 
     var playerId = pId;
-    //var pId;
 
     //Binding TCP to connection
     const connection = request.accept(null, request.origin);
@@ -86,7 +85,8 @@ httpServer.on('listening', onListening);
           //the players connected to game stored in an array
           "players": [],
           // board state 2x2 array [name, die, colors]
-          "boardState":  result.boardState
+          "boardState":  result.boardState,
+          "chatLog": []
         }
         // print statements
         console.log(games[gameId])
@@ -113,11 +113,13 @@ httpServer.on('listening', onListening);
         //if there is no game, return
         if(!games[gameId]) return;
 
+        let logJoinMessage = "Player " + playerId + ": has joined.";
+        games[gameId].chatLog.push(logJoinMessage);
         //Data sent to player
         const gameData = {
           "method": "join",
-          "game": games[gameId],
-          "boardState": games[gameId].boardState
+          "boardState": games[gameId].boardState,
+          "logJoinMessage": logJoinMessage
         }
 
         // if 2 players or more join, start game
@@ -141,24 +143,42 @@ httpServer.on('listening', onListening);
         playerId = result.playerId;
         const gameId = result.gameId;
         games[gameId].boardState = result.boardState;
-
+        // Update log when a player makes a move (Rochele)
+        let chatMessage = "Player " + playerId + " made a move!";
+        games[gameId].chatLog.push(chatMessage);
+        const gameData = {
+          "method": "updateChat",
+          "chatMessage": chatMessage
+        }
+        games[gameId].players.forEach( p => {
+          players[p.playerId].connection.send(JSON.stringify(gameData));
+        })
       }
       
       // Send game information to player for download (Rochele)
       if(result.method == "download") {
-
         const gameId = result.gameId;
         playerId = result.playerId;
-
-        //const playerId = result.playerId;
         const gameData = {
           "method": "download",
-          "game": games[gameId]
+          "chatLog": games[gameId].chatLog
         }
-
         const con = players[playerId].connection;
-        //send gameData to client as JSON string
         con.send(JSON.stringify(gameData));
+      }
+
+      // Update logs when someone types a message (Rochele)
+      if(result.method === 'chat') {
+        let gameId = result.gameId;
+        let chatMessage = result.chatMessage;
+        games[gameId].chatLog.push(chatMessage);
+        const gameData = {
+          "method": "updateChat",
+          "chatMessage": chatMessage
+        }
+        games[gameId].players.forEach( p => {
+          players[p.playerId].connection.send(JSON.stringify(gameData));
+        })
       }
     })
 

@@ -4,8 +4,8 @@ let gameId = null;
 let ws = new WebSocket("ws://localhost:27000")
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
-//Shows player number in game
-const divPlayers = document.getElementById("divPlayers");
+// Live log feed lives here (Rochele)
+const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
 joinButton.addEventListener("click", x => {
@@ -13,6 +13,8 @@ joinButton.addEventListener("click", x => {
 	if (gameId === null) {
 		gameId = theGameId.value;
 	}
+	gameId = gameId.toUpperCase();
+
 	const gameData = {
 		"method": "join",
 		"playerId": playerId,
@@ -53,58 +55,34 @@ ws.onmessage = message => {
 
 	}
 
+	// Update live log/chat (Rochele)
+	if(response.method === 'updateChat') {
+		let chatMessage = document.createElement('p');
+		chatMessage.textContent = response.chatMessage;
+		document.getElementById('chat-messages').appendChild(chatMessage);
+		const messageDiv = document.getElementById('chat-messages');
+		let xH = messageDiv.scrollHeight; 
+		messageDiv.scrollTo(0, xH);
+	}
+
 	// Create file with game data and download to local machine (Rochele)
 	if(response.method === 'download') {
-		let jsonString = JSON.stringify(response.game);
-		// Start file download.
-		var element = document.createElement('a');
-		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonString));
-		element.setAttribute('download', "gameLog.txt");
-		element.style.display = 'none';
-		document.body.appendChild(element);
-		element.click();
-		document.body.removeChild(element);
-	}			
+		downloadLog(response.chatLog);
+	}					
 
 	//join game
 	if (response.method === "join") {
-		const game = response.game;
-		// Create and add Download button to bottom of board (Rochele)
-		const hasButton = document.getElementById('download');
-		if(!hasButton) {
-			const downloadButton = document.createElement("button");
-			downloadButton.id = "download";
-			downloadButton.appendChild(document.createTextNode('Download Game Log'));
-			downloadButton.addEventListener("click", x => {
-    			if (confirm("Would you like to download and save a copy of this game?")) {
-        			// Get game data
-        			const gameData = {
-        				"method": "download",
-    					"playerId": playerId,
-            			"gameId": gameId,
-        			}
-        			ws.send(JSON.stringify(gameData));
-    			}
-    			else {
-        			return;
-				}
-			})
-			divBoard.appendChild(downloadButton);
+		//const game = response.game;
+		
+		// Call function to create log/chat feed and add join message (Rochele)
+		const hasLog = document.getElementById('chat');
+		if(!hasLog) {
+			createLogFeed();
 		}
+		let p = document.createElement('p');
+		p.textContent = response.logJoinMessage;
+		document.getElementById('chat-messages').appendChild(p);
 		
 		pixiStart(response.boardState);
-
-		while(divPlayers.firstChild) {
-			divPlayers.removeChild(divPlayers.firstChild)
-		}
-								
-		game.players.forEach( p => {
-			const d = document.createElement("div");
-			const para = document.createElement("p");
-			d.style.width = "200px";
-			d.textContent = "Player ID: " + p.playerId + " has joined.";
-			divPlayers.appendChild(para);
-			divPlayers.appendChild(d);
-		})
 	}
 }

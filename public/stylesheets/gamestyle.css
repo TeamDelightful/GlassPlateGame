@@ -160,13 +160,12 @@ a.button-link:hover{
 	margin: 10px 20px 0px 10px;
 }
 
-#download {
-	display: block;
-	height: 80px;
-	width: 400px;
-	font-size: xx-large;
-	background-color: black;
-	color: white;
-	font-weight: bolder;
-	text-decoration: underline;
+#chat {
+	width: 220px;
 }
+#chat-messages {
+	height: 400px;
+	word-wrap: break-word;
+	overflow-y: scroll;
+}
+
