@@ -1,8 +1,6 @@
-// Create random string for 5 char room code
+// Compare random string to already in use ids until generates one that is unique.
 exports.createGameId = function(aSet) {
-    // declare all usable characters
     let mySet = new Set(aSet);
-    console.log(mySet);
     let gameId = generateString();
     while (mySet.has(gameId)) {
         gameId = generateString();
@@ -10,11 +8,12 @@ exports.createGameId = function(aSet) {
     return gameId;
 };
 
+// Generate a string of five random characters
 generateString = function() {
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let result = '';
+    const chars ='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let string = '';
     for ( let i = 0; i < 5; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
+        string += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    return result;
+    return string;
 };

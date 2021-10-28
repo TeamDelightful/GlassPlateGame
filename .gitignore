@@ -2,4 +2,4 @@ test.html
 node_modules
 *.suo
 /.vs
-*.json
+
