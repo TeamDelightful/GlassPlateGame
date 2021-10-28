@@ -55,6 +55,7 @@ ticker.stop();
 //  name:string, (must be exactly as in the card's image)
 //  connections: [redbool,greenbool,bluebool,yellowbool],
 //  dieState: string ("blank", okay", "permit", or "challenge")
+//  cardFlipped: bool,
 //}
 
 let colors = {
@@ -72,6 +73,7 @@ function pixiStart(boardState){
 
   cards = boardState;
 
+  console.log(cards)
 
   cards.forEach(load);
   PIXI.Loader.shared.load(setup);
@@ -81,6 +83,7 @@ function pixiStart(boardState){
 function load(item){
   if(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + ".png"] === undefined){
     PIXI.Loader.shared.add("../images/4x4x150cards/" + item.name + ".png");
+    PIXI.Loader.shared.add("../images/4x4x150cards/" + item.name + "_text.png");
   }
 }
 
@@ -94,10 +97,10 @@ function sendState(){
           name: item.name,
           connections: item.connections,
           dieState: item.dieState,
+          cardFlipped: item.cardFlipped,
       }
     )
   });
-
 
   const gameDataOut = {
     "method": "play",
@@ -105,8 +108,6 @@ function sendState(){
     "gameId": gameId,
     "boardState": board
   }
-
-  console.log(gameDataOut)
 
   ws.send(JSON.stringify(gameDataOut));
 }
@@ -161,6 +162,7 @@ function setup() { //sets all cards up with their default states
                    cards[i].container.getChildAt(2).visible = cards[i].connections[1];
                    cards[i].container.getChildAt(3).visible = cards[i].connections[2];
                    cards[i].container.getChildAt(4).visible = cards[i].connections[3];
+                   cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
                }
             }); //card state update from internal, every frame
 
@@ -249,6 +251,15 @@ function setupPalate(){
     PIXIapp.stage.addChild(connectPalate);
 }
 
+function showText(){
+    this.parent.cardParent.cardFlipped = true;
+    sendState();
+}
+
+function hideText(){
+    this.parent.cardParent.cardFlipped = false;
+    sendState();
+}
 
 function cardSetup(item){
     item.container = new PIXI.Container();
@@ -272,8 +283,18 @@ function cardSetup(item){
     item.container.getChildAt(0).zIndex = 0;
     item.container.getChildAt(0).interactive = true;
     item.container.getChildAt(0).showingName = false;
-    item.container.getChildAt(0).on('pointerdown', showName)
-        .on('pointerup', hideName);
+    item.container.getChildAt(0).on('mouseover', showName)
+        .on('mouseout', hideName)
+        .on('pointerdown',showText)
+        .on('pointerup', hideText);
+
+    cardText = new PIXI.Container();
+    cardText.height = 600;
+    cardText.width = 600;
+    cardText.zIndex = 1;
+    cardText.addChild(new PIXI.Sprite(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + "_text.png"].texture));
+    cardText.visible = false;
+    item.container.getChildAt(0).addChild(cardText);
 
     item.container.getChildAt(1).x = layout.tileSize/2;
     item.container.getChildAt(1).y = layout.cardSize - layout.tileSize/2;
@@ -510,7 +531,7 @@ function showName(){
 //hides the cards name when even occurs
 function hideName() {
     if(this.showingName === true){
-        this.getChildAt(0).destroy();
+        this.getChildAt(1).destroy();
         this.showingName = false;
     }
 }
