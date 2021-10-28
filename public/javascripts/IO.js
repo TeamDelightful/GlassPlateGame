@@ -73,8 +73,6 @@ function pixiStart(boardState){
 
   cards = boardState;
 
-  console.log(cards)
-
   cards.forEach(load);
   PIXI.Loader.shared.load(setup);
   document.getElementById("divBoard").appendChild(PIXIapp.view);
@@ -251,15 +249,6 @@ function setupPalate(){
     PIXIapp.stage.addChild(connectPalate);
 }
 
-function showText(){
-    this.parent.cardParent.cardFlipped = true;
-    sendState();
-}
-
-function hideText(){
-    this.parent.cardParent.cardFlipped = false;
-    sendState();
-}
 
 function cardSetup(item){
     item.container = new PIXI.Container();
@@ -534,4 +523,14 @@ function hideName() {
         this.getChildAt(1).destroy();
         this.showingName = false;
     }
+}
+
+function showText(){
+    this.parent.cardParent.cardFlipped = true;
+    sendState();
+}
+
+function hideText(){
+    this.parent.cardParent.cardFlipped = false;
+    sendState();
 }
