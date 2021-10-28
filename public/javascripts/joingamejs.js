@@ -51,6 +51,7 @@ ws.onmessage = message => {
 			cards[i].name = card.name
 			cards[i].connections = card.connections;
 			cards[i].dieState = card.dieState;
+			cards[i].cardFlipped = card.cardFlipped;
 		});
 
 	}

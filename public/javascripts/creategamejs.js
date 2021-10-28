@@ -22,21 +22,25 @@
 								name: "ambivalence",
 								connections: [false,false,false,false],
 								dieState: "blank",
+								cardFlipped: false,
 						},
 						{
 								name: "anthropomorphism",
 								connections: [false,false,false,false],
 								dieState: "blank",
+								cardFlipped: false,
 						},
 						{
 								name: "art_versus_nature",
 								connections: [false,false,false,false],
 								dieState: "blank",
+								cardFlipped: false,
 						},
 						{
 								name: "city_as_artifact",
 								connections: [false,false,false,false],
 								dieState: "blank",
+								cardFlipped: false,
 						}
 				]
 			}
