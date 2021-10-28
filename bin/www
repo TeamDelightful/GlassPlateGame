@@ -112,39 +112,20 @@ httpServer.on('listening', onListening);
 
         //if there is no game, return
         if(!games[gameId]) return;
-
-        let logJoinMessage = "Player " + playerId + ": has joined.";
-        games[gameId].chatLog.push(logJoinMessage);
-        //Data sent to player
-        const gameData = {
-          "method": "join",
-          "boardState": games[gameId].boardState,
-          "logJoinMessage": logJoinMessage
-        }
-
-        // if 2 players or more join, start game
-        broadcastState();
-
-        //adds a player to the game
+        // Add player to game
         games[gameId].players.push({
           "playerId": playerId
         })
+        //Data sent to player to set up game
+        const joinData = {
+          "method": "join",
+          "boardState": games[gameId].boardState,
+          "chatLog": games[gameId].chatLog
+        }
+        players[playerId].connection.send(JSON.stringify(joinData));
+
         //Announce new connections
-        games[gameId].players.forEach( p => {
-          players[p.playerId].connection.send(JSON.stringify(gameData));
-        })
-
-
-      }
-
-      //Play game server logic
-      if (result.method === "play") {
-
-        playerId = result.playerId;
-        const gameId = result.gameId;
-        games[gameId].boardState = result.boardState;
-        // Update log when a player makes a move (Rochele)
-        let chatMessage = "Player " + playerId + " made a move!";
+        let chatMessage = "Player " + playerId + ": has joined.";
         games[gameId].chatLog.push(chatMessage);
         const gameData = {
           "method": "updateChat",
@@ -153,6 +134,40 @@ httpServer.on('listening', onListening);
         games[gameId].players.forEach( p => {
           players[p.playerId].connection.send(JSON.stringify(gameData));
         })
+        // if 2 players or more join, start game
+        broadcastState();
+      }
+
+      //Play game server logic
+      if (result.method === "play") {
+
+        playerId = result.playerId;
+        const gameId = result.gameId;
+        let chatMessage = null;
+        let oldBoardState = games[gameId].boardState;
+        let newBoardState = result.boardState;
+        // Update log when a player makes a move (Rochele)
+        // These for loops iterate over previous boardstate and compare it
+        // to new boardstate to log specific changes.
+        for(let i = 0; i < oldBoardState.length; ++i) {
+          let oldConnections = oldBoardState[i].connections;
+          let newConnections = newBoardState[i].connections;
+          for(let j = 0; j < oldConnections.length; ++j) {
+            if(oldConnections[j] !== newConnections[j]) 
+              chatMessage = "Player " + playerId + " made a move!";
+          }
+        }
+        games[gameId].boardState = result.boardState;
+        if(chatMessage !== null) {
+          games[gameId].chatLog.push(chatMessage);
+          const gameData = {
+            "method": "updateChat",
+            "chatMessage": chatMessage
+          }
+          games[gameId].players.forEach( p => {
+            players[p.playerId].connection.send(JSON.stringify(gameData));
+          })          
+        }
       }
       
       // Send game information to player for download (Rochele)
