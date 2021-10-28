@@ -73,16 +73,8 @@ ws.onmessage = message => {
 
 	//join game
 	if (response.method === "join") {
-		//const game = response.game;
-		
 		// Call function to create log/chat feed and add join message (Rochele)
-		const hasLog = document.getElementById('chat');
-		if(!hasLog) {
-			createLogFeed();
-		}
-		let p = document.createElement('p');
-		p.textContent = response.logJoinMessage;
-		document.getElementById('chat-messages').appendChild(p);
+		createLogFeed(response.chatLog);
 		
 		pixiStart(response.boardState);
 	}

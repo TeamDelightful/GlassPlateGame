@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 function downloadLog(log) {
     let logString = "~ GAME RECORD FOR THE GLASS PLATE GAME ~"; 
 	log.forEach(p => {logString = logString + '\n' + p});

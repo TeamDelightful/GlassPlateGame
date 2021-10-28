@@ -1,4 +1,4 @@
-function createLogFeed() {
+function createLogFeed(chatLog) {
     // Create log/chat feed
     let chatDiv = document.createElement('div');
     chatDiv.id = 'chat';
@@ -55,4 +55,15 @@ function createLogFeed() {
         }
     })
     divChatLog.appendChild(downloadButton);
+    loadCurrentLog(chatLog);
 }
+
+// Function to load current log into chat feed
+function loadCurrentLog(chatLog) {
+    chatLog.forEach(element => {
+        let chatMessage = document.createElement('p');
+		chatMessage.textContent = element;
+		document.getElementById('chat-messages').appendChild(chatMessage);
+		const messageDiv = document.getElementById('chat-messages');
+    });
+};
