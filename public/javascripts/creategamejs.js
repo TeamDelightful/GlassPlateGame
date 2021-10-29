@@ -44,9 +44,9 @@
 				deck = cardSelected;
 			} else {
 				for(let i = 0; i < total; i++){
-					temp = Math.floor(Math.random() * max) + 1;
+					temp = Math.floor(Math.random() * max);
 					while(deck.includes(temp)){
-						temp = Math.floor(Math.random() * max) + 1;
+						temp = Math.floor(Math.random() * max);
 					}
 					deck[i] = cardSelected[temp];
 				}
