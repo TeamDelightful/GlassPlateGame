@@ -26,8 +26,8 @@ PIXI.utils.sayHello(type);
 let layout = {
     cardSize: 600,
     tileSize: 60,
-    boardHeight: 2000,
-    boardWidth: 3000,
+    boardHeight: 900,
+    boardWidth: 1440,
     //boardSize: 1500
 }
 
@@ -65,8 +65,8 @@ let colors = {
 
 //to be pulled from gamestate code
 let cards;
-let scale = 1;
-let zoomIncrement = 0.01;
+let scale = 0.3;
+let zoomIncrement = 0.05;
 
 function pixiStart(boardState){
 
