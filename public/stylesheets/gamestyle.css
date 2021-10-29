@@ -170,7 +170,6 @@ a.button-link:hover{
 }
 
 #scroll-div {
-	background-color: var(--ltpink);
 	word-wrap: break-word;
 	overflow-y: scroll;
 	width: 300px;
