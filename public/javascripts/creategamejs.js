@@ -10,8 +10,47 @@
 
 		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
+		//card names
+		var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
+		"city_as_artifact", "coding", "contemplation", "creation", "death",
+		"education", "emotional_manipulation", "eternity_continuity",
+		"freedom", "fundamental_theorem_of_calculus", "gestalt", "harmony",
+		"helplessness", "hidden_potential", "intuition", "joy", "magic",
+		"metamorphosis", "monetary_value",
+		"multiplication_of_mechanical_advantage", "myth",
+		"nature_tending_towards_perfection",
+		"ontogeny_recapitulates_philogeny", "point_of_view_perspective",
+		"reaching_out", "return", "society_as_active_passive_hierarchy",
+		"species_specific_norms", "structural_strength",
+		"structured_improvisation", "struggle", "symbolic_handles",
+		"synergy", "syntax", "the_need_not_to_judge",
+		"unwanted_relationships"];
+
+		var cardSelected = [];
+
 		//button events
 		hostButton.addEventListener("click", x => {
+
+			for (var i = 0; i < cardIds.length; i++) {
+				var idstatus = document.getElementById(cardIds[i]);
+				if(idstatus.checked){
+					cardSelected.push(cardIds[i]);
+				}
+			}
+			var total = 4;
+			var deck = [];
+			var max = cardSelected.length;
+			if(total == max){
+				deck = cardSelected;
+			} else {
+				for(let i = 0; i < total; i++){
+					temp = Math.floor(Math.random() * max) + 1;
+					while(deck.includes(temp)){
+						temp = Math.floor(Math.random() * max) + 1;
+					}
+					deck[i] = cardSelected[temp];
+				}
+			}
 
 			const gameData = {
 				"method": "host",
@@ -19,25 +58,25 @@
 				"gameId": gameId,
 				"boardState": [
 						{
-								name: "ambivalence",
+								name: deck[0],
 								connections: [false,false,false,false],
 								dieState: "blank",
 								cardFlipped: false,
 						},
 						{
-								name: "anthropomorphism",
+								name: deck[1],
 								connections: [false,false,false,false],
 								dieState: "blank",
 								cardFlipped: false,
 						},
 						{
-								name: "art_versus_nature",
+								name: deck[2],
 								connections: [false,false,false,false],
 								dieState: "blank",
 								cardFlipped: false,
 						},
 						{
-								name: "city_as_artifact",
+								name: deck[3],
 								connections: [false,false,false,false],
 								dieState: "blank",
 								cardFlipped: false,
