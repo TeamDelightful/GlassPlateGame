@@ -66,6 +66,7 @@ let colors = {
 //to be pulled from gamestate code
 let cards;
 let scale = 1;
+let zoomIncrement = 0.01;
 
 function pixiStart(boardState){
 
@@ -115,22 +116,15 @@ function sendState(){
 //interface for adding connections
 let connectPalate = null;
 
+//interface for zooming in and out
+let zoomControl = null;
+
 function setup() { //sets all cards up with their default states
 
     cards.forEach(cardSetup);
-/*
-    let rowCount = Math.floor(layout.boardSize / layout.cardSize);
-
-    let currentCard = 0;
-
-    while(currentCard < cards.length){
-        cards[currentCard].container.position.set(layout.boardSize * ((currentCard % rowCount) * 2 + 1)  / (rowCount * 2),
-                                                  layout.boardSize * (((Math.floor(currentCard / rowCount)) * 2) + 1) / (rowCount * 2) );
 
 
-        currentCard++;
-    }
-*/
+
     ticker.add(function (time) {
       //Update tiles and die state
       for (let i = 0; i < cards.length; i++){
@@ -167,14 +161,54 @@ function setup() { //sets all cards up with their default states
                                     (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
       });
 
+      connectPalate.scale.set(scale);
+
     }); //card state update from internal, every frame
 
 
     setupPalate();
+    setupZoom();
 
     ticker.start();
 
 
+}
+
+function setupZoom(){
+  zoomControl = new PIXI.Container();
+  zoomControl.height = 2*layout.tileSize;
+  zoomControl.width = layout.tileSize;
+  zoomControl.zindex = 3;
+  zoomControl.pivot.set(layout.tileSize, 0);
+  zoomControl.position.set(layout.boardWidth,0);
+
+  zoomControl.addChild(
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize),
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,layout.tileSize,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize)
+  )
+  zoomControl.getChildAt(0).addChild(new PIXI.Text("+"));
+  zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(0).getChildAt(0).anchor.set(0.5,0.5);
+  zoomControl.getChildAt(0).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize/2);
+  zoomControl.getChildAt(0).on("click", plusZoom);
+  zoomControl.getChildAt(0).interactive = true;
+
+  zoomControl.getChildAt(1).addChild(new PIXI.Text("-"));
+  zoomControl.getChildAt(1).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(1).getChildAt(0).anchor.set(0.5,0.5);
+  zoomControl.getChildAt(1).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize*3/2);
+  zoomControl.getChildAt(1).on("click", minusZoom);
+  zoomControl.getChildAt(1).interactive = true;
+
+  PIXIapp.stage.addChild(zoomControl);
+}
+
+function plusZoom(){
+  scale += zoomIncrement;
+}
+
+function minusZoom(){
+  scale -= zoomIncrement;
 }
 
 
@@ -183,7 +217,8 @@ function setupPalate(){
     connectPalate.height = layout.tileSize * 4;
     connectPalate.width = layout.tileSize;
     connectPalate.zIndex = 3;
-    connectPalate.position.set(layout.boardWidth - layout.tileSize, layout.boardHeight / 2 - 2 * layout.tileSize);
+    connectPalate.pivot.set(layout.tileSize, layout.tileSize*2);
+    connectPalate.position.set(layout.boardWidth, layout.boardHeight / 2);
     connectPalate.addChild(
         new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
         new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
