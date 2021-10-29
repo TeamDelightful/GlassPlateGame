@@ -33,7 +33,6 @@ function printCheckBoxes(){
     for (var i = 0; i < cardIds.length; i++) {
         var check = document.createElement("INPUT");
         check.setAttribute("type", "checkbox");
-        check.checked = true;
         check.id = cardIds[i];
         var label = document.createElement('label')
         label.htmlFor = cardIds[i];
@@ -67,6 +66,32 @@ function printRadio(){
 		theDiv2.appendChild(linebreak);
 	}
 }
-printRadio();
-printCheckBoxes();
+
+var options = ["Random Deck", "Select Deck"];
+
+function printOptions(){
+    var theDiv3 = document.getElementById("scroll-div-3");
+	for (var i = 0; i < options.length; i++) {
+		var radiobox = document.createElement('input');
+		radiobox.type = "radio";
+		radiobox.id = options[i];
+		radiobox.name = "options";
+		radiobox.value = options[i];
+		if(i == 0){
+			radiobox.checked = true;
+		}
+		var label = document.createElement('label')
+        label.htmlFor = options[i];
+        label.appendChild(document.createTextNode(options[i]));
+		linebreak = document.createElement("br");
+		theDiv3.appendChild(radiobox);
+        theDiv3.appendChild(label);
+		theDiv3.appendChild(linebreak);
+	}
+}
+
+printOptions();
+
+
+
 

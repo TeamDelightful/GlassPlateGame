@@ -3,7 +3,6 @@
 		let playerId = null;
 		let gameId = null;
 		let ws = new WebSocket("ws://localhost:27000")
-		const hostButton = document.getElementById("create-button");
 		//Shows Game number in game
 		const divGameId = document.getElementById("divGameId");
 		const divShareId = document.getElementById("divShareId");
@@ -30,55 +29,99 @@
 
 		var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
 
-		//button events
-		hostButton.addEventListener("click", x => {
-
-			for (var i = 0; i < cardIds.length; i++) {
-				var idstatus = document.getElementById(cardIds[i]);
-				if(idstatus.checked){
-					cardSelected.push(cardIds[i]);
+		//Select button code
+		const selectButton = document.getElementById("select-button");
+		selectButton.addEventListener("click", x => {
+			var optionSelected = options[0];
+			for (var i = 0; i < options.length; i++) {
+				var optionStatus = document.getElementById(options[i]);
+				if(optionStatus.checked){
+					optionSelected = optionStatus.value;
 				}
 			}
-			var total = 4;
-			for (var i = 0; i < sizes.length; i++) {
-				var sizeStatus = document.getElementById(sizes[i]);
-				if(sizeStatus.checked){
-					total = sizeStatus.value;
-				}
+			if(optionSelected == options[0]){
+				printRadio();
+				var theBDiv = document.getElementById("button-div");
+				var button = document.createElement('input');
+				button.type = "button";
+				button.class = "all-home-buttons";
+				button.id = "create-button";
+				button.ariaLabel = "create game button";
+				button.value = "Create Game"
+				theBDiv.appendChild(button);
 			}
-			var deck = [];
-			var max = cardSelected.length;
-			if(total == max){
-				deck = cardSelected;
-			} else {
-				for(let i = 0; i < total; i++){
-					temp = Math.floor(Math.random() * max);
-					while(deck.includes(cardSelected[temp])){
-						temp = Math.floor(Math.random() * max);
+			if(optionSelected == options[1]){
+				printCheckBoxes();
+				var theBDiv = document.getElementById("button-div");
+				var button = document.createElement('input');
+				button.type = "button";
+				button.class = "all-home-buttons";
+				button.id = "create-button";
+				button.ariaLabel = "create game button";
+				button.value = "Create Game"
+				theBDiv.appendChild(button);
+				
+			}
+			//button events
+			const hostButton = document.getElementById("create-button");
+			hostButton.addEventListener("click", x => {
+				if(optionSelected == options[1]){
+					for (var i = 0; i < cardIds.length; i++) {
+						var idstatus = document.getElementById(cardIds[i]);
+						if(idstatus.checked){
+							cardSelected.push(cardIds[i]);
+						}
 					}
-					deck[i] = cardSelected[temp];
+				} else {
+					cardSelected = cardIds;
 				}
-			}
-
-			const gameData = {
-				"method": "host",
-				"playerId": playerId,
-				"gameId": gameId,
-				"boardState": []
-			}
-			for(let i = 0; i < total; i++){
-				gameData.boardState[i] = {
-					name: deck[i],
-					connections: [false,false,false,false],
-					dieState: "blank",
-					cardFlipped: false,
+				var total = 4;
+				if(optionSelected == options[0]){
+					for (var i = 0; i < sizes.length; i++) {
+						var sizeStatus = document.getElementById(sizes[i]);
+						if(sizeStatus.checked){
+							total = sizeStatus.value;
+						}
+					} 
+				} else {
+					total = cardSelected.length;
+					}
+				var deck = [];
+				var max = cardSelected.length;
+				if(total == max){
+					deck = cardSelected;
+				} else {
+					for(let i = 0; i < total; i++){
+						temp = Math.floor(Math.random() * max);
+						while(deck.includes(cardSelected[temp])){
+							temp = Math.floor(Math.random() * max);
+						}
+						deck[i] = cardSelected[temp];
+					}
 				}
-			}
+
+				const gameData = {
+					"method": "host",
+					"playerId": playerId,
+					"gameId": gameId,
+					"boardState": []
+				}
+				for(let i = 0; i < total; i++){
+					gameData.boardState[i] = {
+						name: deck[i],
+						connections: [false,false,false,false],
+						dieState: "blank",
+						cardFlipped: false,
+					}
+				}
 
 
-			ws.send(JSON.stringify(gameData));
+				ws.send(JSON.stringify(gameData));
 
+			})
 		})
+
+		
 
 		//Websocket communication
 		ws.onmessage = message => {
