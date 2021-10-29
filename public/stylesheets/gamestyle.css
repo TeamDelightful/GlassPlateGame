@@ -169,6 +169,10 @@ a.button-link:hover{
 	overflow-y: scroll;
 }
 
-#scoll-div {
+#scroll-div {
 	background-color: var(--ltpink);
+	word-wrap: break-word;
+	overflow-y: scroll;
+	width: 300px;
+	height: 200px;
 }

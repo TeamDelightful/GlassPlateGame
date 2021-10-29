@@ -13,6 +13,21 @@ var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
 	"synergy", "syntax", "the_need_not_to_judge",
 	"unwanted_relationships"];
 
+	var cardNames = ["ambivalence", "anthropomorphism", "art versus nature",
+	"city as artifact", "coding", "contemplation", "creation", "death",
+	"education", "emotional manipulation", "eternity continuity",
+	"freedom", "fundamental theorem of calculus", "gestalt", "harmony",
+	"helplessness", "hidden potential", "intuition", "joy", "magic",
+	"metamorphosis", "monetary value",
+	"multiplication of mechanical advantage", "myth",
+	"nature tending towards perfection",
+	"ontogeny recapitulates philogeny", "point of view perspective",
+	"reaching out", "return", "society as active passive hierarchy",
+	"species specific norms", "structural strength",
+	"structured improvisation", "struggle", "symbolic handles",
+	"synergy", "syntax", "the need not to judge",
+	"unwanted relationships"];
+
 function printCheckBoxes(){
     var theDiv = document.getElementById("scroll-div");
     for (var i = 0; i < cardIds.length; i++) {
@@ -22,9 +37,11 @@ function printCheckBoxes(){
         check.id = cardIds[i];
         var label = document.createElement('label')
         label.htmlFor = cardIds[i];
-        label.appendChild(document.createTextNode(cardIds[i]));
+		linebreak = document.createElement("br");
+        label.appendChild(document.createTextNode(cardNames[i]));
         theDiv.appendChild(check);
         theDiv.appendChild(label);
+		theDiv.appendChild(linebreak);
     }
 }
 
