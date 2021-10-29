@@ -26,25 +26,23 @@ PIXI.utils.sayHello(type);
 let layout = {
     cardSize: 600,
     tileSize: 60,
-    boardSize: 1500
+    boardHeight: 2000,
+    boardWidth: 3000,
+    //boardSize: 1500
 }
-
-let lastUpdateDelta = 0;
 
 
 
 const PIXIapp = new PIXI.Application({
-    width: layout.boardSize,
-    height: layout.boardSize,
+    width: layout.boardWidth,
+    height: layout.boardHeight,
+    //resizeTo: document.getElementById("divBoard"),
     antialias: true,
     transparent: false,
     resolution: 1
 });
 
 
-
-
-//document.body.replaceChild(app.view,              use this to replace a canvas html element once we figure out how to do that
 
 let ticker = PIXI.Ticker.shared;
 ticker.autoStart = false;
@@ -67,7 +65,7 @@ let colors = {
 
 //to be pulled from gamestate code
 let cards;
-
+let scale = 1;
 
 function pixiStart(boardState){
 
@@ -78,6 +76,7 @@ function pixiStart(boardState){
   document.getElementById("divBoard").appendChild(PIXIapp.view);
 };
 
+//load all textures here, then setup is called
 function load(item){
   if(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + ".png"] === undefined){
     PIXI.Loader.shared.add("../images/4x4x150cards/" + item.name + ".png");
@@ -112,8 +111,6 @@ function sendState(){
 
 
 
-//load all textures here, then setup is called
-
 
 //interface for adding connections
 let connectPalate = null;
@@ -121,7 +118,7 @@ let connectPalate = null;
 function setup() { //sets all cards up with their default states
 
     cards.forEach(cardSetup);
-
+/*
     let rowCount = Math.floor(layout.boardSize / layout.cardSize);
 
     let currentCard = 0;
@@ -133,43 +130,45 @@ function setup() { //sets all cards up with their default states
 
         currentCard++;
     }
-
+*/
     ticker.add(function (time) {
-               for (let i = 0; i < cards.length; i++){
-                   switch (cards[i].dieState) {
-                       case "blank":
-                           cards[i].container.getChildAt(6).text = "";
-                           break;
-                       case "okay":
-                           cards[i].container.getChildAt(6).text = "O";
-                           break;
-
-                       case "permit":
-                           cards[i].container.getChildAt(6).text = "P";
-                           break;
-
-                       case "challenge":
-                           cards[i].container.getChildAt(6).text = "C";
-                           break;
-
-                       default:
-                           console.log("Die state not recognied");
-                   }
-
-                   cards[i].container.getChildAt(1).visible = cards[i].connections[0];
-                   cards[i].container.getChildAt(2).visible = cards[i].connections[1];
-                   cards[i].container.getChildAt(3).visible = cards[i].connections[2];
-                   cards[i].container.getChildAt(4).visible = cards[i].connections[3];
-                   cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
-               }
-            }); //card state update from internal, every frame
-
-    ticker.add(function (time) {
-        if (lastUpdateDelta += ticker.deltaMS > 10){
-            //update from network or state machine
-            lastUpdateDelta = 0;
+      //Update tiles and die state
+      for (let i = 0; i < cards.length; i++){
+        switch (cards[i].dieState) {
+          case "blank":
+            cards[i].container.getChildAt(6).text = "";
+            break;
+          case "okay":
+            cards[i].container.getChildAt(6).text = "O";
+            break;
+          case "permit":
+            cards[i].container.getChildAt(6).text = "P";
+            break;
+          case "challenge":
+            cards[i].container.getChildAt(6).text = "C";
+            break;
+          default:
+            console.log("Die state not recognied");
         }
-    }); //10 ms resolution updates from statemachine or network
+        cards[i].container.getChildAt(1).visible = cards[i].connections[0];
+        cards[i].container.getChildAt(2).visible = cards[i].connections[1];
+        cards[i].container.getChildAt(3).visible = cards[i].connections[2];
+        cards[i].container.getChildAt(4).visible = cards[i].connections[3];
+        cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
+      }
+
+      //Update card position and scale
+      let rowWidth = Math.floor(layout.boardWidth / (layout.cardSize * scale * 1.5));
+
+      cards.forEach((item, i) => {
+        item.container.scale.set(scale);
+
+        item.container.position.set((layout.boardWidth/(rowWidth+1)) * ( (i%rowWidth) + 1),
+                                    (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
+      });
+
+    }); //card state update from internal, every frame
+
 
     setupPalate();
 
@@ -184,7 +183,7 @@ function setupPalate(){
     connectPalate.height = layout.tileSize * 4;
     connectPalate.width = layout.tileSize;
     connectPalate.zIndex = 3;
-    connectPalate.position.set(layout.boardSize - layout.tileSize, layout.boardSize / 2 - 2 * layout.tileSize);
+    connectPalate.position.set(layout.boardWidth - layout.tileSize, layout.boardHeight / 2 - 2 * layout.tileSize);
     connectPalate.addChild(
         new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
         new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
@@ -326,7 +325,6 @@ function cardSetup(item){
     item.container.getChildAt(5).on("pointerdown", popup);
 
     item.container.getChildAt(6).height = layout.tileSize/2;
-    //item.container.getChildAt(6).width = layout.tileSize;
     item.container.getChildAt(6).zIndex = 2;
     item.container.getChildAt(6).anchor.set(0.5);
     item.container.getChildAt(6).x = layout.cardSize - layout.tileSize/2;
