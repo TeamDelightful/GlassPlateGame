@@ -28,6 +28,8 @@
 
 		var cardSelected = [];
 
+		var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
+
 		//button events
 		hostButton.addEventListener("click", x => {
 
@@ -38,6 +40,12 @@
 				}
 			}
 			var total = 4;
+			for (var i = 0; i < sizes.length; i++) {
+				var sizeStatus = document.getElementById(sizes[i]);
+				if(sizeStatus.checked){
+					total = sizeStatus.value;
+				}
+			}
 			var deck = [];
 			var max = cardSelected.length;
 			if(total == max){
@@ -56,34 +64,16 @@
 				"method": "host",
 				"playerId": playerId,
 				"gameId": gameId,
-				"boardState": [
-						{
-								name: deck[0],
-								connections: [false,false,false,false],
-								dieState: "blank",
-								cardFlipped: false,
-						},
-						{
-								name: deck[1],
-								connections: [false,false,false,false],
-								dieState: "blank",
-								cardFlipped: false,
-						},
-						{
-								name: deck[2],
-								connections: [false,false,false,false],
-								dieState: "blank",
-								cardFlipped: false,
-						},
-						{
-								name: deck[3],
-								connections: [false,false,false,false],
-								dieState: "blank",
-								cardFlipped: false,
-						}
-				]
+				"boardState": []
 			}
-
+			for(let i = 0; i < total; i++){
+				gameData.boardState[i] = {
+					name: deck[i],
+					connections: [false,false,false,false],
+					dieState: "blank",
+					cardFlipped: false,
+				}
+			}
 
 
 			ws.send(JSON.stringify(gameData));
