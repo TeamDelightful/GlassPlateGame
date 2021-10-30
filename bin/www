@@ -13,6 +13,7 @@ app.set('port', port);
 const http = require('http');
 const websocketServer = require("websocket").server
 var path = require('path');
+const stateMac = require('../public/javascripts/stateMachine');
 
 //Express Start
 //handled in app.js
@@ -24,224 +25,247 @@ httpServer.on('error', onError);
 httpServer.on('listening', onListening);
 
 //Variables
-  // player id placeholder
-  var pId = 1;
-  var hostKey = "not host";
-  //Objects for games and players used with their IDs as index
-  const players = {};
-  const games = {};
+// player id placeholder
+var pId = 1;
+var hostKey = "not host";
+//Objects for games and players used with their IDs as index
+const players = {};
+const games = {};
 
-  // Include for function to create random game id and set to track all currently in use
-  // game IDs (Rochele)
-  var createGameId = require('../public/javascripts/createGameId');
-  var inUseGameIds = new Set();
+// Include for function to create random game id and set to track all currently in use
+// game IDs (Rochele)
+var createGameId = require('../public/javascripts/createGameId');
+var inUseGameIds = new Set();
 
-  //var StateMachine = require('javascript-state-machine');
+//var StateMachine = require('javascript-state-machine');
 
-  // Turn Http into WebSocket
-  const wsServer = new websocketServer({
-    "httpServer": httpServer,
-  });
+// Turn Http into WebSocket
+const wsServer = new websocketServer({
+		"httpServer": httpServer,
+		});
 
-  //Run Websocket
-  wsServer.on("request", request => {
-
-
-    var playerId = pId;
-
-    //Binding TCP to connection
-    const connection = request.accept(null, request.origin);
-
-    //const connection = request.accept(null, request.origin);
-    connection.on("close", () => {
-      if(hostKey === "not host"){
-        console.log("PlayerID: " + playerId + " disconnected.")}
-      else {
-        console.log("Created Game and Disconnected " + playerId)}
-    });
-
-    // receive message from the client here
-    connection.on("message", message => {
-
-      //Converts JSON message from the browser into javascript object using parse() method
-      const result = JSON.parse(message.utf8Data)
-
-      //Host game server logic
-      if (result.method === "host") {
-        //gets player id
-        playerId = 0;
-
-        // Generate unique game ID and add to inUseCode set (Rochele)
-        // Will be removed upon end of game
-        const gameId = createGameId.createGameId(inUseGameIds);
-        inUseGameIds.add(gameId);
-
-        hostKey = "host";
-
-        games[gameId] = {
-          "id": gameId,
-          //Card amount in game hardcoded as of now
-          "cards": 4,
-          //the players connected to game stored in an array
-          "players": [],
-          // board state 2x2 array [name, die, colors]
-          "boardState":  result.boardState,
-          "chatLog": []
-        }
-        // print statements
-        console.log(games[gameId])
-
-        //Data sent to player
-        const gameData = {
-          "method": "host",
-          "game": games[gameId],
-          "id": gameId,
-          "boardState": games[gameId].boardState
-        }
-        //Send game id back to webpage
-        connection.send(JSON.stringify(gameData));
-      }
-
-      //Join game server logic
-      if (result.method === "join") {
-
-        playerId = result.playerId;
-        hostKey = "not host";
-        pId++;
-        const gameId = result.gameId;
-
-        //if there is no game, return
-        if(!games[gameId]) return;
-
-        let logJoinMessage = "Player " + playerId + ": has joined.";
-        games[gameId].chatLog.push(logJoinMessage);
-        //Data sent to player
-        const gameData = {
-          "method": "join",
-          "boardState": games[gameId].boardState,
-          "logJoinMessage": logJoinMessage
-        }
-
-        // if 2 players or more join, start game
-        broadcastState();
-
-        //adds a player to the game
-        games[gameId].players.push({
-          "playerId": playerId
-        })
-        //Announce new connections
-        games[gameId].players.forEach( p => {
-          players[p.playerId].connection.send(JSON.stringify(gameData));
-        })
+//Run Websocket
+wsServer.on("request", request => {
 
 
-      }
+		var playerId = pId;
 
-      //Play game server logic
-      if (result.method === "play") {
+		//Binding TCP to connection
+		const connection = request.accept(null, request.origin);
 
-        playerId = result.playerId;
-        const gameId = result.gameId;
-        games[gameId].boardState = result.boardState;
-        // Update log when a player makes a move (Rochele)
-        let chatMessage = "Player " + playerId + " made a move!";
-        games[gameId].chatLog.push(chatMessage);
-        const gameData = {
-          "method": "updateChat",
-          "chatMessage": chatMessage
-        }
-        games[gameId].players.forEach( p => {
-          players[p.playerId].connection.send(JSON.stringify(gameData));
-        })
-      }
-      
-      // Send game information to player for download (Rochele)
-      if(result.method == "download") {
-        const gameId = result.gameId;
-        playerId = result.playerId;
-        const gameData = {
-          "method": "download",
-          "chatLog": games[gameId].chatLog
-        }
-        const con = players[playerId].connection;
-        con.send(JSON.stringify(gameData));
-      }
+		//const connection = request.accept(null, request.origin);
+		connection.on("close", () => {
+				if(hostKey === "not host"){
+				console.log("PlayerID: " + playerId + " disconnected.")}
+				else {
+				console.log("Created Game and Disconnected " + playerId)}
+				});
 
-      // Update logs when someone types a message (Rochele)
-      if(result.method === 'chat') {
-        let gameId = result.gameId;
-        let chatMessage = result.chatMessage;
-        games[gameId].chatLog.push(chatMessage);
-        const gameData = {
-          "method": "updateChat",
-          "chatMessage": chatMessage
-        }
-        games[gameId].players.forEach( p => {
-          players[p.playerId].connection.send(JSON.stringify(gameData));
-        })
-      }
-    })
+		// receive message from the client here
+		connection.on("message", message => {
 
-    // generate player id
-    if(playerId != 0 || hostKey === "not host"){
-      playerId++;
-    }
+				//Converts JSON message from the browser into javascript object using parse() method
+				const result = JSON.parse(message.utf8Data)
 
-    players[playerId] = {
-    "connection": connection
-    }
+				//Host game server logic
+				if (result.method === "host") {
+				//gets player id
+				playerId = 0;
 
-    // data pack sent to player
-    const gameData = {
-      "method": "connect",
-      "playerId": playerId
-    }
+				// Generate unique game ID and add to inUseCode set (Rochele)
+				// Will be removed upon end of game
+				const gameId = createGameId.createGameId(inUseGameIds);
+				inUseGameIds.add(gameId);
 
-    //pack up gameData to JSON string
-    connection.send(JSON.stringify(gameData))
+				hostKey = "host";
 
-  })
+				games[gameId] = {
+				"id": gameId,
+				//Card amount in game hardcoded as of now
+				"cards": 4,
+				//the players connected to game stored in an array
+				"players": [],
+				// board state 2x2 array [name, die, colors]
+				"boardState":  result.boardState,
+				"chatLog": []
+				}
+				// print statements
+				console.log(games[gameId])
+
+					//Data sent to player
+					const gameData = {
+						"method": "host",
+						"game": games[gameId],
+						"id": gameId,
+						"boardState": games[gameId].boardState
+					}
+				//Send game id back to webpage
+				connection.send(JSON.stringify(gameData));
+				}
+
+				//Join game server logic
+				if (result.method === "join") {
+
+					playerId = result.playerId;
+					hostKey = "not host";
+					pId++;
+					const gameId = result.gameId;
+
+					//if there is no game, return
+					if(!games[gameId]) return;
+					// Add player to game
+					games[gameId].players.push({
+							"playerId": playerId
+							})
+					//Data sent to player to set up game
+					const joinData = {
+						"method": "join",
+						"boardState": games[gameId].boardState,
+						"chatLog": games[gameId].chatLog
+					}
+					players[playerId].connection.send(JSON.stringify(joinData));
+
+					//Announce new connections
+					let chatMessage = "Player " + playerId + ": has joined.";
+					games[gameId].chatLog.push(chatMessage);
+					const gameData = {
+						"method": "updateChat",
+						"chatMessage": chatMessage
+					}
+					games[gameId].players.forEach( p => {
+							players[p.playerId].connection.send(JSON.stringify(gameData));
+							})
+					// if 2 players or more join, start game
+					broadcastState();
+				}
+
+				let i = 0;
+
+				//Play game server logic
+				if (result.method === "play") {
+					
+					//Itterates over the cards on the board, sends them to the statemachine to see
+					//if action is permittable, if not it revertse change to old state.
+					for(g in Object.keys(result.boardState)){
+						stateMac.dieCheck(result.boardState[g], games[result.gameId].boardState[g])
+					}
+
+					playerId = result.playerId;
+					const gameId = result.gameId;
+					let chatMessage = null;
+					let oldBoardState = games[gameId].boardState;
+					let newBoardState = result.boardState;
+					// Update log when a player makes a move (Rochele)
+					// These for loops iterate over previous boardstate and compare it
+					// to new boardstate to log specific changes.
+					for(let i = 0; i < oldBoardState.length; ++i) {
+						let oldConnections = oldBoardState[i].connections;
+						let newConnections = newBoardState[i].connections;
+						for(let j = 0; j < oldConnections.length; ++j) {
+							if(oldConnections[j] !== newConnections[j]) 
+								chatMessage = "Player " + playerId + " made a move!";
+						}
+					}
+					games[gameId].boardState = result.boardState;
+					if(chatMessage !== null) {
+						games[gameId].chatLog.push(chatMessage);
+						const gameData = {
+							"method": "updateChat",
+							"chatMessage": chatMessage
+						}
+						games[gameId].players.forEach( p => {
+								players[p.playerId].connection.send(JSON.stringify(gameData));
+								})          
+					}
+				}
+
+				// Send game information to player for download (Rochele)
+				if(result.method == "download") {
+					const gameId = result.gameId;
+					playerId = result.playerId;
+					const gameData = {
+						"method": "download",
+						"chatLog": games[gameId].chatLog
+					}
+					const con = players[playerId].connection;
+					con.send(JSON.stringify(gameData));
+				}
+
+				// Update logs when someone types a message (Rochele)
+				if(result.method === 'chat') {
+					let gameId = result.gameId;
+					let chatMessage = result.chatMessage;
+					games[gameId].chatLog.push(chatMessage);
+					const gameData = {
+						"method": "updateChat",
+						"chatMessage": chatMessage
+					}
+					games[gameId].players.forEach( p => {
+							players[p.playerId].connection.send(JSON.stringify(gameData));
+							})
+				}
+		})
+
+		// generate player id
+		if(playerId != 0 || hostKey === "not host"){
+			playerId++;
+		}
+
+		players[playerId] = {
+			"connection": connection
+		}
+
+		// data pack sent to player
+		const gameData = {
+			"method": "connect",
+			"playerId": playerId
+		}
+
+		//pack up gameData to JSON string
+		connection.send(JSON.stringify(gameData))
+
+})
 
 
-  //Broadcasting function, broadcasts the gamestate to all players
-  function broadcastState(){
+//Broadcasting function, broadcasts the gamestate to all players
+function broadcastState(){
 
-    for (const g of Object.keys(games)) {
-      //update gamestate
-      const game = games[g]
+	for (const g of Object.keys(games)) {
+		//update gamestate
+		const game = games[g]
 
-      const gameData = {
-        "method": "update",
-        "game": game
-      }
-      //Send updated game to all players
-      game.players.forEach( p => {
-        players[p.playerId].connection.send(JSON.stringify(gameData));
-      })
-    }
+			const gameData = {
+				"method": "update",
+				"game": game
+			}
+		//Send updated game to all players
+		game.players.forEach( p => {
+				players[p.playerId].connection.send(JSON.stringify(gameData));
+				})
+	}
 
-    setTimeout(broadcastState, 500);
+	setTimeout(broadcastState, 500);
 
-  }
+}
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+	var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-    }
+	if (isNaN(port)) {
+		// named pipe
+		return val;
+	}
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+	if (port >= 0) {
+		// port number
+		return port;
+	}
 
-  return false;
+	return false;
 }
 
 /**
@@ -249,27 +273,27 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+	var bind = typeof port === 'string'
+		? 'Pipe ' + port
+		: 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+		case 'EACCES':
+			console.error(bind + ' requires elevated privileges');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error(bind + ' is already in use');
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
 }
 
 /**
@@ -277,9 +301,9 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = httpServer.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+	var addr = httpServer.address();
+	var bind = typeof addr === 'string'
+		? 'pipe ' + addr
+		: 'port ' + addr.port;
+	debug('Listening on ' + bind);
 }

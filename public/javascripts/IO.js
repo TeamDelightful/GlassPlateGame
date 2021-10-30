@@ -26,25 +26,23 @@ PIXI.utils.sayHello(type);
 let layout = {
     cardSize: 600,
     tileSize: 60,
-    boardSize: 1500
+    boardHeight: 900,
+    boardWidth: 1440,
+    //boardSize: 1500
 }
-
-let lastUpdateDelta = 0;
 
 
 
 const PIXIapp = new PIXI.Application({
-    width: layout.boardSize,
-    height: layout.boardSize,
+    width: layout.boardWidth,
+    height: layout.boardHeight,
+    //resizeTo: document.getElementById("divBoard"),
     antialias: true,
     transparent: false,
     resolution: 1
 });
 
 
-
-
-//document.body.replaceChild(app.view,              use this to replace a canvas html element once we figure out how to do that
 
 let ticker = PIXI.Ticker.shared;
 ticker.autoStart = false;
@@ -67,7 +65,8 @@ let colors = {
 
 //to be pulled from gamestate code
 let cards;
-
+let scale = 0.3;
+let zoomIncrement = 0.05;
 
 function pixiStart(boardState){
 
@@ -78,6 +77,7 @@ function pixiStart(boardState){
   document.getElementById("divBoard").appendChild(PIXIapp.view);
 };
 
+//load all textures here, then setup is called
 function load(item){
   if(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + ".png"] === undefined){
     PIXI.Loader.shared.add("../images/4x4x150cards/" + item.name + ".png");
@@ -112,70 +112,103 @@ function sendState(){
 
 
 
-//load all textures here, then setup is called
-
 
 //interface for adding connections
 let connectPalate = null;
+
+//interface for zooming in and out
+let zoomControl = null;
 
 function setup() { //sets all cards up with their default states
 
     cards.forEach(cardSetup);
 
-    let rowCount = Math.floor(layout.boardSize / layout.cardSize);
 
-    let currentCard = 0;
-
-    while(currentCard < cards.length){
-        cards[currentCard].container.position.set(layout.boardSize * ((currentCard % rowCount) * 2 + 1)  / (rowCount * 2),
-                                                  layout.boardSize * (((Math.floor(currentCard / rowCount)) * 2) + 1) / (rowCount * 2) );
-
-
-        currentCard++;
-    }
 
     ticker.add(function (time) {
-               for (let i = 0; i < cards.length; i++){
-                   switch (cards[i].dieState) {
-                       case "blank":
-                           cards[i].container.getChildAt(6).text = "";
-                           break;
-                       case "okay":
-                           cards[i].container.getChildAt(6).text = "O";
-                           break;
-
-                       case "permit":
-                           cards[i].container.getChildAt(6).text = "P";
-                           break;
-
-                       case "challenge":
-                           cards[i].container.getChildAt(6).text = "C";
-                           break;
-
-                       default:
-                           console.log("Die state not recognied");
-                   }
-
-                   cards[i].container.getChildAt(1).visible = cards[i].connections[0];
-                   cards[i].container.getChildAt(2).visible = cards[i].connections[1];
-                   cards[i].container.getChildAt(3).visible = cards[i].connections[2];
-                   cards[i].container.getChildAt(4).visible = cards[i].connections[3];
-                   cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
-               }
-            }); //card state update from internal, every frame
-
-    ticker.add(function (time) {
-        if (lastUpdateDelta += ticker.deltaMS > 10){
-            //update from network or state machine
-            lastUpdateDelta = 0;
+      //Update tiles and die state
+      for (let i = 0; i < cards.length; i++){
+        switch (cards[i].dieState) {
+          case "blank":
+            cards[i].container.getChildAt(6).text = "";
+            break;
+          case "okay":
+            cards[i].container.getChildAt(6).text = "O";
+            break;
+          case "permit":
+            cards[i].container.getChildAt(6).text = "P";
+            break;
+          case "challenge":
+            cards[i].container.getChildAt(6).text = "C";
+            break;
+          default:
+            console.log("Die state not recognied");
         }
-    }); //10 ms resolution updates from statemachine or network
+        cards[i].container.getChildAt(1).visible = cards[i].connections[0];
+        cards[i].container.getChildAt(2).visible = cards[i].connections[1];
+        cards[i].container.getChildAt(3).visible = cards[i].connections[2];
+        cards[i].container.getChildAt(4).visible = cards[i].connections[3];
+        cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
+      }
+
+      //Update card position and scale
+      let rowWidth = Math.floor(layout.boardWidth / (layout.cardSize * scale * 1.5));
+
+      cards.forEach((item, i) => {
+        item.container.scale.set(scale);
+
+        item.container.position.set((layout.boardWidth/(rowWidth+1)) * ( (i%rowWidth) + 1),
+                                    (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
+      });
+
+      connectPalate.scale.set(scale);
+
+    }); //card state update from internal, every frame
+
 
     setupPalate();
+    setupZoom();
 
     ticker.start();
 
 
+}
+
+function setupZoom(){
+  zoomControl = new PIXI.Container();
+  zoomControl.height = 2*layout.tileSize;
+  zoomControl.width = layout.tileSize;
+  zoomControl.zindex = 3;
+  zoomControl.pivot.set(layout.tileSize, 0);
+  zoomControl.position.set(layout.boardWidth,0);
+
+  zoomControl.addChild(
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize),
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,layout.tileSize,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize)
+  )
+  zoomControl.getChildAt(0).addChild(new PIXI.Text("+"));
+  zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(0).getChildAt(0).anchor.set(0.5,0.5);
+  zoomControl.getChildAt(0).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize/2);
+  zoomControl.getChildAt(0).on("click", plusZoom);
+  zoomControl.getChildAt(0).interactive = true;
+
+  zoomControl.getChildAt(1).addChild(new PIXI.Text("-"));
+  zoomControl.getChildAt(1).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(1).getChildAt(0).anchor.set(0.5,0.5);
+  zoomControl.getChildAt(1).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize*3/2);
+  zoomControl.getChildAt(1).on("click", minusZoom);
+  zoomControl.getChildAt(1).interactive = true;
+
+  PIXIapp.stage.addChild(zoomControl);
+}
+
+function plusZoom(){
+  scale += zoomIncrement;
+}
+
+function minusZoom(){
+  scale -= zoomIncrement;
 }
 
 
@@ -184,7 +217,8 @@ function setupPalate(){
     connectPalate.height = layout.tileSize * 4;
     connectPalate.width = layout.tileSize;
     connectPalate.zIndex = 3;
-    connectPalate.position.set(layout.boardSize - layout.tileSize, layout.boardSize / 2 - 2 * layout.tileSize);
+    connectPalate.pivot.set(layout.tileSize, layout.tileSize*2);
+    connectPalate.position.set(layout.boardWidth, layout.boardHeight / 2);
     connectPalate.addChild(
         new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
         new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
@@ -326,7 +360,6 @@ function cardSetup(item){
     item.container.getChildAt(5).on("pointerdown", popup);
 
     item.container.getChildAt(6).height = layout.tileSize/2;
-    //item.container.getChildAt(6).width = layout.tileSize;
     item.container.getChildAt(6).zIndex = 2;
     item.container.getChildAt(6).anchor.set(0.5);
     item.container.getChildAt(6).x = layout.cardSize - layout.tileSize/2;
