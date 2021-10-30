@@ -1,6 +1,7 @@
 //Variables (Client ID, Websocket, Button data)
 let playerId = null;
 let gameId = null;
+let clickcounter = null;
 let ws = new WebSocket("ws://localhost:27000")
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
@@ -8,22 +9,49 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+//card names
+var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
+	"city_as_artifact", "coding", "contemplation", "creation", "death",
+	"education", "emotional_manipulation", "eternity_continuity",
+	"freedom", "fundamental_theorem_of_calculus", "gestalt", "harmony",
+	"helplessness", "hidden_potential", "intuition", "joy", "magic",
+	"metamorphosis", "monetary_value",
+	"multiplication_of_mechanical_advantage", "myth",
+	"nature_tending_towards_perfection",
+	"ontogeny_recapitulates_philogeny", "point_of_view_perspective",
+	"reaching_out", "return", "society_as_active_passive_hierarchy",
+	"species_specific_norms", "structural_strength",
+	"structured_improvisation", "struggle", "symbolic_handles",
+	"synergy", "syntax", "the_need_not_to_judge",
+	"unwanted_relationships"];
+
+var cardSelected = [];
+
+var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
+
+
+
+
+
 joinButton.addEventListener("click", x => {
 
-	if (gameId === null) {
-		gameId = theGameId.value;
+	clickcounter++;
+	if(clickcounter == 1){
+		
+		if (gameId === null) {
+			gameId = document.getElementById('theGame').textContent;
+		}
+		gameId = gameId.toUpperCase();
+		
+		const gameData = {
+			"method": "join",
+			"playerId": playerId,
+			"gameId": gameId
+		}
+		
+		ws.send(JSON.stringify(gameData));
 	}
-	gameId = gameId.toUpperCase();
-
-	const gameData = {
-		"method": "join",
-		"playerId": playerId,
-		"gameId": gameId
-    }
-
-	ws.send(JSON.stringify(gameData));
-
-})
+});
 
 //Websocket communication
 ws.onmessage = message => {
@@ -87,3 +115,4 @@ ws.onmessage = message => {
 		pixiStart(response.boardState);
 	}
 }
+	

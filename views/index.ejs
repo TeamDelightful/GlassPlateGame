@@ -8,6 +8,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com"> 
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 		
 		<link href="stylesheets/gamestyle.css" type="text/css" rel="stylesheet">
 		
@@ -15,12 +16,31 @@
 	</head>
 	<body>
 		<div class="centered">
-			<div aria-label="the glass plate game graphic" class="title-image"><img src="/images/theGPG.png" alt="glass plate game graphic"></div>
+			<div aria-label="the glass plate game graphic" class="title-image"><a href="/" aria-label="link back to main page"><img src="/images/theGPG.png" alt="glass plate game graphic"></a></div>
 			<div class="button-group">
-				<a href="creategame" aria-label="link to create a game" class="button-link"><button aria-label="create game button link" class="all-home-buttons" id="create-button">create game</button></a>
-				<a href="joingame" aria-label="link to join a game" class="button-link"><button aria-label="join game button link" class="all-home-buttons" id="join-button">join game</button></a>
+				
+				<div class="dropdown"><button aria-label="create game button" class="all-home-buttons" id="create-button">create game</button>
+					<div id="create-game-dropdown" class="dropdown-content d-c-create">
+						<p id="divGameId"></p>
+						<div id="divGoToJoin" aria-label="go to join game"></div>
+					</div>
+				</div>
+				
+				<div class="dropdown"><button aria-label="join game button" class="all-home-buttons" id="join-button">join game</button>
+					<div id="join-game-dropdown" class="dropdown-content d-c-join">
+						<div id="divEnterId"><p>Enter Game ID:</p>
+						<input type="text" id="theGameId" placeholder=" ID Number" aria-label="enter game code here"></div>
+						<button id="submit-btn">Submit</button>
+						<div id="codeJoin" aria-label="go to join game"></div>
+					</div>
+				</div>
+				
 				<a href="https://glassplategame.com" aria-label="link to find out more about the glass plate game" class="button-link"><button aria-label="go to more info. button link" class="all-home-buttons" id="other-button">find out more</button></a>
 			</div>
+	
+			<script type="text/javascript" src="/javascripts/maingamejs.js"></script>
 		</div>
+
 	</body>
 </html>
+
