@@ -48,6 +48,49 @@ body{
 	left: 5%;
 }
 
+.make-board{
+	position: fixed;
+	top: 40%;
+	left: 30%;
+	display: flex;
+	justify-content: space-around;
+}
+
+
+#scroll-div-2 {
+	margin: 5px 5px 5px 5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	width: 130px;
+}
+
+#scroll-div-3 {	
+	margin: 5px 5px 5px 5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	width: 130px;
+}
+
+#scroll-div-4{	
+	margin: 10px 5px 5px -5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 500;
+	width: 100px;
+	
+}
+#scroll-div {
+	margin: 20px 5px 5px -35px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	height: 250px;
+}
+
 .playersAndBoard {
 	display: flex;
 	justify-content: flex-start;
@@ -106,6 +149,24 @@ a.button-link:hover{
 .button-group{
 	display: flex;
 	justify-content: center;
+}
+
+#start-game{
+	height: 40px;
+	width: 200px;
+	cursor: pointer;
+	background-color: var(--ltpink);
+	
+}
+
+.start1{
+	margin: 10px 0px 0px -50px;
+	
+}
+
+.start2{
+	margin: 10px 0px 0px -255px;
+	
 }
 
 #create-button{
@@ -303,26 +364,6 @@ a.button-link:hover{
 	font-weight: 400;
 	line-height: 120%;
 	
-#scroll-div {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 200px;
-}
-
-#scroll-div-2 {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 120px;
-}
-
-#scroll-div-3 {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 120px;
-}
 
 #select-button{
 	background-color: var(--ltgreen);
