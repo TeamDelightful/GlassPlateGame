@@ -7,6 +7,7 @@
   "bufferutil": "^4.0.5",
   "clipboard": "^2.0.8",
   "cookie-parser": "^1.4.5",
+  "cors": "^2.8.5",
   "ejs": "^3.1.6",
   "express": "^4.17.1",
   "express-ws-routes": "^1.1.0",

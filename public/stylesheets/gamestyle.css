@@ -28,7 +28,6 @@ body{
 
 .title {
 	color: #000000;
-	font-family: bluefiresfont;
 	font-size: 2em;
 }
 
@@ -38,15 +37,58 @@ body{
 
 .centered {
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
 .top-left {
 	position: fixed;
-	top: 10%;
-	left: 10%;
+	top: 5%;
+	left: 5%;
+}
+
+.make-board{
+	position: fixed;
+	top: 40%;
+	left: 30%;
+	display: flex;
+	justify-content: space-around;
+}
+
+
+#scroll-div-2 {
+	margin: 5px 5px 5px 5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	width: 130px;
+}
+
+#scroll-div-3 {	
+	margin: 5px 5px 5px 5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	width: 130px;
+}
+
+#scroll-div-4{	
+	margin: 10px 5px 5px -5px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 500;
+	width: 100px;
+	
+}
+#scroll-div {
+	margin: 20px 5px 5px -35px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	word-wrap: break-word;
+	overflow-y: scroll;
+	height: 250px;
 }
 
 .playersAndBoard {
@@ -109,20 +151,144 @@ a.button-link:hover{
 	justify-content: center;
 }
 
+#start-game{
+	height: 40px;
+	width: 200px;
+	cursor: pointer;
+	background-color: var(--ltpink);
+	
+}
+
+.start1{
+	margin: 10px 0px 0px -50px;
+	
+}
+
+.start2{
+	margin: 10px 0px 0px -255px;
+	
+}
+
 #create-button{
 	background-color: var(--ltgreen);
 	margin: 10px 30px 0px 10px;
 	height: 40px;
 	width: 200px;
+	cursor: pointer;
 	
 }
+
+#create-button:hover, #create-button:focus{
+	background-color: var(--drkgreen);
+}
+
+.dropdown{
+	position: relative;
+	display: inline-block;
+		
+}
+
+.dropdown-content{
+	display: none;
+	position: absolute;
+	min-width: 180px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	margin: 5px 0px 0px 20px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	padding: 12px 16px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #000000;
+	
+}
+
+.dropdown-content a{
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #000000;
+	
+}
+
+.dropdown-content a:hover {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #000000;
+	
+}
+
+.show{
+	display: block;
+}
+
+.d-c-create{
+	background-color: var(--ltgreen);
+	
+}
+
+.d-c-create a:hover {
+	background-color: var(--drkpurple);
+}
+
 #join-button{
 	background-color: var(--ltpurple);
 	margin: 10px 30px 0px 10px;
 	height: 40px;
 	width: 200px;
+	cursor: pointer;
 	
 }
+
+#join-button:hover, #join-button:focus{
+	background-color: var(--drkpurple);
+}
+
+
+.d-c-join{
+	background-color: var(--ltpurple);
+}
+
+
+.d-c-join a:hover {
+	background-color: var(--drkpurple);
+}
+
+#divJoinWithCode{
+	color: var(--darkpurple);
+	margin: 5px 5px 5px 30px;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #000000;
+}
+
+
+#submit-btn{
+	margin: 5px 5px 5px 55px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	
+}
+
+#leave-button{
+	background-color: var(--ltyellow);
+	margin: 10px 30px 0px 10px;
+	height: 40px;
+	width: 200px;
+	
+}
+
 .gotojoin-button{
 	background-color: var(--ltpurple);
 	margin: 10px 30px 0px 10px;
@@ -136,9 +302,13 @@ a.button-link:hover{
 	margin: 10px 30px 0px 10px;
 	height: 40px;
 	width: 200px;
-	
-	
 }
+
+#other-button:hover, #other-button:focus{
+	background-color: var(--drkpink);
+}
+
+
 
 .card {
 	background-repeat: no-repeat;
@@ -150,45 +320,50 @@ a.button-link:hover{
 .join-box{
 	display: flex;
 	justify-content: flex-start;
+	margin: -40px 0px -15px 20px;
+	font-size: 1.35rem;
+	font-family: 'Playfair Display', serif;
+	font-weight: 700;
+	font-variant: small-caps;
+	line-height: 130%;
 }
+
+#theGame{
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 300;
+}
+
 
 #theGameId{
 	background: var(--ltpurple);
 	border-color: black;
 	width: 100px;
 	height: 35px;
-	margin: 10px 20px 0px 10px;
+	margin: 0px 20px 0px 0px;
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 300;
+	font-size: 1rem;
+	
 }
 
 #chat {
 	width: 220px;
+	margin: 10px 0px 15px 20px;
 }
 #chat-messages {
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	line-height: 120%;
 	height: 400px;
 	word-wrap: break-word;
 	overflow-y: scroll;
 }
 
-#scroll-div {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 200px;
-}
-
-#scroll-div-2 {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 120px;
-}
-
-#scroll-div-3 {
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 300px;
-	height: 120px;
-}
+#divBoard{
+	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-weight: 400;
+	line-height: 120%;
+	
 
 #select-button{
 	background-color: var(--ltgreen);

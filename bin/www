@@ -100,8 +100,59 @@ wsServer.on("request", request => {
 						"boardState": games[gameId].boardState
 					}
 				//Send game id back to webpage
-				connection.send(JSON.stringify(gameData));
+					connection.send(JSON.stringify(gameData));
 				}
+			
+			
+				if(result.method === "host-join"){
+					hostKey = "host";
+					const gameId = result.gameId;
+					const playerId = result.playerId;					
+					
+					games[gameId] = {
+						"id": gameId,
+						"players": [],
+						"boardState": result.boardState,
+						"chatLog": []
+					}
+
+					games[gameId].players.push({
+						"playerId": playerId
+					})
+					
+										
+					//if there is no game, return
+					if(!games[gameId]) return;
+					
+					//Data sent to player
+					const gameData = {
+						"method": "host-join",
+						"game": games[gameId],
+						"id": gameId,
+						"boardState": games[gameId].boardState,
+						"chatLog": games[gameId].chatLog,
+						"players": games[gameId].players
+
+					}
+					//Send game id back to webpage
+					connection.send(JSON.stringify(gameData));
+					
+					//Announce new connections
+					let chatMessage = "Player " + playerId + ": has started the game.";
+					games[gameId].chatLog.push(chatMessage);
+					const game2Data = {
+						"method": "updateChat",
+						"chatMessage": chatMessage
+					}
+					games[gameId].players.forEach( p => {
+						players[p.playerId].connection.send(JSON.stringify(game2Data));
+					})
+					// if 2 players or more join, start game
+					broadcastState();
+					
+					
+				}
+
 
 				//Join game server logic
 				if (result.method === "join") {
@@ -121,9 +172,16 @@ wsServer.on("request", request => {
 					const joinData = {
 						"method": "join",
 						"boardState": games[gameId].boardState,
-						"chatLog": games[gameId].chatLog
+						"chatLog": games[gameId].chatLog,
+						"players": games[gameId].players
 					}
 					players[playerId].connection.send(JSON.stringify(joinData));
+
+
+					// print statements
+					console.log(games[gameId]);
+					
+					console.log(joinData);
 
 					//Announce new connections
 					let chatMessage = "Player " + playerId + ": has joined.";
