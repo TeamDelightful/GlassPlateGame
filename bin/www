@@ -218,7 +218,7 @@ wsServer.on("request", request => {
 						let oldConnections = oldBoardState[i].connections;
 						let newConnections = newBoardState[i].connections;
 						for(let j = 0; j < oldConnections.length; ++j) {
-							if(oldConnections[j] !== newConnections[j])
+							if(oldConnections[j].active !== newConnections[j].active)
 								chatMessage = "Player " + playerId + " made a move!";
 						}
 					}
