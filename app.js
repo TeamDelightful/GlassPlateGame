@@ -7,8 +7,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var createGameRouter = require('./routes/creategame');
-var joinGameRouter = require('./routes/joingame');
 var gameRouter = require('./routes/game')
 let games = [];
 
@@ -67,8 +65,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/creategame', createGameRouter);
-app.use('/joingame', joinGameRouter);
 app.use('/game', gameRouter);
 
 // catch 404 and forward to error handler
