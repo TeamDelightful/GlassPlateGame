@@ -35,7 +35,7 @@ ws.onmessage = message => {
 		playerId = response.playerId;
 		console.log("Player ID: " + playerId + " connected.");
 	}
-	
+
 	//host game
 	if (response.method === "host") {
 		gameId = response.game.id;
@@ -50,7 +50,6 @@ ws.onmessage = message => {
 		response.game.boardState.forEach((card, i) => {
 			cards[i].name = card.name
 			cards[i].connections = card.connections;
-			cards[i].dieState = card.dieState;
 			cards[i].cardFlipped = card.cardFlipped;
 		});
 
@@ -62,20 +61,20 @@ ws.onmessage = message => {
 		chatMessage.textContent = response.chatMessage;
 		document.getElementById('chat-messages').appendChild(chatMessage);
 		const messageDiv = document.getElementById('chat-messages');
-		let xH = messageDiv.scrollHeight; 
+		let xH = messageDiv.scrollHeight;
 		messageDiv.scrollTo(0, xH);
 	}
 
 	// Create file with game data and download to local machine (Rochele)
 	if(response.method === 'download') {
 		downloadLog(response.chatLog);
-	}					
+	}
 
 	//join game
 	if (response.method === "join") {
 		// Call function to create log/chat feed and add join message (Rochele)
 		createLogFeed(response.chatLog);
-		
+
 		pixiStart(response.boardState);
 	}
 }

@@ -4,8 +4,28 @@
 //Checks dieState and executes code
 function dieCheck ( boardState,  oldBoardState ) {
 		//Prevents new tiles being placed on a card while it is challenged
-		if ( boardState.dieState === "challenge" ){
-			boardState.connections = oldBoardState.connections;
+		challengeOnOldBoard = false;
+		oldBoardState.forEach((card, i) => {
+			card.connections.forEach((connection, i) => {
+				if(connection.state == 'challenge'){
+					challengeOnOldBoard = true;
+				}
+			});
+		});
+
+		challengeOnNewBoard = false;
+		boardState.forEach((card, i) => {
+			card.connections.forEach((connection, i) => {
+				if(connection.state == 'challenge'){
+					challengeOnNewBoard = true;
+				}
+			});
+		});
+
+		if(challengeOnOldBoard && challengeOnNewBoard){
+			boardState.forEach((card, i) => {
+				card.connections = oldBoardState[i].connections;
+			});
 		}
 }
 

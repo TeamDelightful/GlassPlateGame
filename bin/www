@@ -102,13 +102,13 @@ wsServer.on("request", request => {
 				//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));
 				}
-			
-			
+
+
 				if(result.method === "host-join"){
 					hostKey = "host";
 					const gameId = result.gameId;
-					const playerId = result.playerId;					
-					
+					const playerId = result.playerId;
+
 					games[gameId] = {
 						"id": gameId,
 						"players": [],
@@ -119,11 +119,11 @@ wsServer.on("request", request => {
 					games[gameId].players.push({
 						"playerId": playerId
 					})
-					
-										
+
+
 					//if there is no game, return
 					if(!games[gameId]) return;
-					
+
 					//Data sent to player
 					const gameData = {
 						"method": "host-join",
@@ -136,7 +136,7 @@ wsServer.on("request", request => {
 					}
 					//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));
-					
+
 					//Announce new connections
 					let chatMessage = "Player " + playerId + ": has started the game.";
 					games[gameId].chatLog.push(chatMessage);
@@ -149,8 +149,8 @@ wsServer.on("request", request => {
 					})
 					// if 2 players or more join, start game
 					broadcastState();
-					
-					
+
+
 				}
 
 
@@ -180,7 +180,7 @@ wsServer.on("request", request => {
 
 					// print statements
 					console.log(games[gameId]);
-					
+
 					console.log(joinData);
 
 					//Announce new connections
@@ -201,12 +201,10 @@ wsServer.on("request", request => {
 
 				//Play game server logic
 				if (result.method === "play") {
-					
+
 					//Itterates over the cards on the board, sends them to the statemachine to see
 					//if action is permittable, if not it revertse change to old state.
-					for(g in Object.keys(result.boardState)){
-						stateMac.dieCheck(result.boardState[g], games[result.gameId].boardState[g])
-					}
+					stateMac.dieCheck(result.boardState, games[result.gameId].boardState)
 
 					playerId = result.playerId;
 					const gameId = result.gameId;
@@ -220,7 +218,7 @@ wsServer.on("request", request => {
 						let oldConnections = oldBoardState[i].connections;
 						let newConnections = newBoardState[i].connections;
 						for(let j = 0; j < oldConnections.length; ++j) {
-							if(oldConnections[j] !== newConnections[j]) 
+							if(oldConnections[j] !== newConnections[j])
 								chatMessage = "Player " + playerId + " made a move!";
 						}
 					}
@@ -233,7 +231,7 @@ wsServer.on("request", request => {
 						}
 						games[gameId].players.forEach( p => {
 								players[p.playerId].connection.send(JSON.stringify(gameData));
-								})          
+								})
 					}
 				}
 
