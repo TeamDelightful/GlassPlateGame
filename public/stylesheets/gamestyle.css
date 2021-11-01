@@ -48,13 +48,21 @@ body{
 	left: 5%;
 }
 
+#host-message{
+	position: fixed;
+	top: 20%;
+	left: 28%;
+	display: flex;
+}
+
 .make-board{
 	position: fixed;
-	top: 40%;
+	top: 30%;
 	left: 30%;
 	display: flex;
 	justify-content: space-around;
 }
+
 
 
 #scroll-div-2 {
