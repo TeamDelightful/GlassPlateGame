@@ -60,7 +60,7 @@
 				button.ariaLabel = "create game button";
 				button.value = "Create Game"
 				theBDiv.appendChild(button);
-				
+
 			}
 			//button events
 			const hostButton = document.getElementById("create-button");
@@ -82,7 +82,7 @@
 						if(sizeStatus.checked){
 							total = sizeStatus.value;
 						}
-					} 
+					}
 				} else {
 					total = cardSelected.length;
 					}
@@ -109,8 +109,25 @@
 				for(let i = 0; i < total; i++){
 					gameData.boardState[i] = {
 						name: deck[i],
-						connections: [false,false,false,false],
-						dieState: "blank",
+						connections: [
+							{
+								active: false,
+								number: 0,
+								state: "number"
+							},{
+								active: false,
+								number: 0,
+								state: "number"
+							},{
+								active: false,
+								number: 0,
+								state: "number"
+							},{
+								active: false,
+								number: 0,
+								state: "number"
+							}
+						],
 						cardFlipped: false,
 					}
 				}
@@ -121,7 +138,7 @@
 			})
 		})
 
-		
+
 
 		//Websocket communication
 		ws.onmessage = message => {
@@ -139,32 +156,32 @@
 				const p = document.createElement("p");
 				const b = document.createElement("button");
 				const t = document.createTextNode(response.game.id);
-				
+
 				const goToJoinButton = document.createElement("button");
 				goToJoinButton.classList.add('all-home-buttons');
 				goToJoinButton.classList.add('gotojoin-button');
-				
-				
+
+
 				d.style.width = "200px";
 				d.textContent = "Your Game ID is: " + response.game.id + ".";
 				goToJoinButton.textContent = "go to join";
-				
+
 				divGameId.appendChild(d);
 				divGameId.appendChild(p);
 				divGoToJoin.appendChild(goToJoinButton);
-				
+
 				if(!isChrome){
 					b.textContent = "Copy ID to clipboard";
 					divShareId.appendChild(b);
 					divShareId.appendChild(p);
-					
+
 					document.getElementById("divShareId").onclick = function () {
 						var copyText = gameId;
 						navigator.clipboard.writeText(copyText);
 						alert("Copied the ID code: " + copyText);
 					};
 				}
-				
+
 				document.getElementById("divGoToJoin").onclick = function () {
 					location.href = "/joingame";
 				};

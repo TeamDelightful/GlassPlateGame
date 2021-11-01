@@ -15,18 +15,18 @@ joinButton.addEventListener("click", x => {
 
 	clickcounter++;
 	if(clickcounter == 1){
-		
+
 		if (gameId === null) {
 			gameId = document.getElementById('theGame').textContent;
 		}
 		gameId = gameId.toUpperCase();
-		
+
 		const gameData = {
 			"method": "join",
 			"playerId": playerId,
 			"gameId": gameId
 		}
-		
+
 		ws.send(JSON.stringify(gameData));
 	}
 });
@@ -41,7 +41,7 @@ ws.onmessage = message => {
 		playerId = response.playerId;
 		console.log("Player ID: " + playerId + " connected.");
 	}
-	
+
 	//host game
 	if (response.method === "host") {
 		gameId = response.game.id;
@@ -56,7 +56,6 @@ ws.onmessage = message => {
 		response.game.boardState.forEach((card, i) => {
 			cards[i].name = card.name
 			cards[i].connections = card.connections;
-			cards[i].dieState = card.dieState;
 			cards[i].cardFlipped = card.cardFlipped;
 		});
 
@@ -68,27 +67,27 @@ ws.onmessage = message => {
 		chatMessage.textContent = response.chatMessage;
 		document.getElementById('chat-messages').appendChild(chatMessage);
 		const messageDiv = document.getElementById('chat-messages');
-		let xH = messageDiv.scrollHeight; 
+		let xH = messageDiv.scrollHeight;
 		messageDiv.scrollTo(0, xH);
 	}
 
 	// Create file with game data and download to local machine (Rochele)
 	if(response.method === 'download') {
 		downloadLog(response.chatLog);
-	}					
+	}
 
 	//join game
 	if (response.method === "join") {
-		
+
 		// Call function to create log/chat feed and add join message (Rochele)
 		createLogFeed(response.chatLog);
-		
-		
+
+
 		let count = response.players.length;
-		
+
 		if(count == 1)
 		{
-			
+
 			//card names
 			var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
 				"city_as_artifact", "coding", "contemplation", "creation", "death",
@@ -104,11 +103,11 @@ ws.onmessage = message => {
 				"structured_improvisation", "struggle", "symbolic_handles",
 				"synergy", "syntax", "the_need_not_to_judge",
 				"unwanted_relationships"];
-			
+
 			var cardSelected = [];
-			
+
 			var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
-						
+
 			var cardNames = ["ambivalence", "anthropomorphism", "art versus nature",
 				"city as artifact", "coding", "contemplation", "creation", "death",
 				"education", "emotional manipulation", "eternity continuity",
@@ -123,7 +122,7 @@ ws.onmessage = message => {
 				"structured improvisation", "struggle", "symbolic handles",
 				"synergy", "syntax", "the need not to judge",
 				"unwanted relationships"];
-			
+
 			function printCheckBoxes(){
 				var theDiv = document.getElementById("scroll-div");
 				for (var i = 0; i < cardIds.length; i++) {
@@ -139,9 +138,9 @@ ws.onmessage = message => {
 					theDiv.appendChild(linebreak);
 				}
 			}
-			
+
 			var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
-			
+
 			function printRadio(){
 				var theDiv2 = document.getElementById("scroll-div-2");
 				for (var i = 0; i < sizes.length; i++) {
@@ -162,7 +161,7 @@ ws.onmessage = message => {
 					theDiv2.appendChild(linebreak);
 				}
 			}
-			
+
 			function printSelectBox(){
 				var theDiv4 = document.getElementById("scroll-div-4");
 				var selButn = document.createElement("button");
@@ -171,9 +170,9 @@ ws.onmessage = message => {
 				selButn.id = "scroll-div-4"
 				theDiv4.appendChild(selButn);
 			}
-			
+
 			var options = ["Random Deck", "Choose Deck"];
-			
+
 			function printOptions(){
 				var theDiv3 = document.getElementById("scroll-div-3");
 				for (var i = 0; i < options.length; i++) {
@@ -194,19 +193,19 @@ ws.onmessage = message => {
 					theDiv3.appendChild(linebreak);
 				}
 			}
-			
+
 			printOptions();
 			printSelectBox();
 
-			
+
 			//Select button code
-			
+
 			const selectButton = document.getElementById("scroll-div-4");
 			selectButton.addEventListener("click", x => {
-				
+
 				deckClickCounter1++;
 				if(deckClickCounter1 == 1){
-					
+
 					var optionSelected = options[0];
 					for (var i = 0; i < options.length; i++) {
 						var optionStatus = document.getElementById(options[i]);
@@ -235,7 +234,7 @@ ws.onmessage = message => {
 						button.ariaLabel = "start game button";
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
-						
+
 					}
 					//button events
 					const hostButton = document.getElementById("start-game");
@@ -257,7 +256,7 @@ ws.onmessage = message => {
 								if(sizeStatus.checked){
 									total = sizeStatus.value;
 								}
-							} 
+							}
 						} else {
 							total = cardSelected.length;
 						}
@@ -274,7 +273,7 @@ ws.onmessage = message => {
 								deck[i] = cardSelected[temp];
 							}
 						}
-						
+
 						const gameData = {
 							"method": "host-join",
 							"playerId": playerId,
@@ -284,79 +283,94 @@ ws.onmessage = message => {
 						for(let i = 0; i < total; i++){
 							gameData.boardState[i] = {
 								name: deck[i],
-								connections: [false,false,false,false],
-								dieState: "blank",
+								connections: [
+									{
+										active: false,
+										number: 0,
+										state: "number"
+									},{
+										active: false,
+										number: 0,
+										state: "number"
+									},{
+										active: false,
+										number: 0,
+										state: "number"
+									},{
+										active: false,
+										number: 0,
+										state: "number"
+									}
+								],
 								cardFlipped: false,
 							}
 						}
-						
+
 						ws.send(JSON.stringify(gameData));
-						
+
 
 						//Websocket communication
 						ws.onmessage = message => {
 							//message data JSON
 							const response = JSON.parse(message.data);
-							
+
 							if(response.method === 'host-join'){
 								gameId = response.game.id;
 								pixiStart(response.boardState);
-								
+
 							}
-							
+
 							//connect
 							if (response.method === "connect"){
 								playerId = response.playerId;
 								console.log("Player ID: " + playerId + " connected.");
 							}
-							
+
 							//host game
 							if (response.method === "host") {
 								gameId = response.game.id;
 								console.log("Game ID: " + response.game.id + " with " + response.game.cards + " cards was created");
 							}
 
-							
+
 							//update gamestate
 							if (response.method === "update") {
 								//no state no game
 								if (!response.game.boardState) return;
-								
+
 								response.game.boardState.forEach((card, i) => {
 									cards[i].name = card.name
 									cards[i].connections = card.connections;
-									cards[i].dieState = card.dieState;
 									cards[i].cardFlipped = card.cardFlipped;
 								});
 
 							}
-							
+
 							// Update live log/chat (Rochele)
 							if(response.method === 'updateChat') {
 								let chatMessage = document.createElement('p');
 								chatMessage.textContent = response.chatMessage;
 								document.getElementById('chat-messages').appendChild(chatMessage);
 								const messageDiv = document.getElementById('chat-messages');
-								let xH = messageDiv.scrollHeight; 
+								let xH = messageDiv.scrollHeight;
 								messageDiv.scrollTo(0, xH);
 							}
-							
+
 							// Create file with game data and download to local machine (Rochele)
 							if(response.method === 'download') {
 								downloadLog(response.chatLog);
-							}					
-							
+							}
+
 						}
 				})
-	
+
 				}
 			})
-			
+
 		}
 		else{
 			pixiStart(response.boardState);
 		}
-		
+
 	}
 }
-	
