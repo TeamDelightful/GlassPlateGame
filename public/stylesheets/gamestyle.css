@@ -98,8 +98,8 @@ body{
 
 
 #divBoard{
-	transform: scale(0.5);
-	
+	transform: scale(0.75);
+	margin: 0px 0px 0px 220px;
 }
 
 .top-logo{
