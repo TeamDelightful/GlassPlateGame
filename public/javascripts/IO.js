@@ -56,6 +56,7 @@ card representated by
 }
 ],
   cardFlipped: bool,
+  moveMade: '',
 }
 */
 let colors = {
@@ -97,6 +98,7 @@ function sendState(){
           name: item.name,
           connections: item.connections,
           cardFlipped: item.cardFlipped,
+          moveMade: item.moveMade,
       }
     )
   });
@@ -316,7 +318,8 @@ function cardSetup(item){
     item.container.getChildAt(0).on('mouseover', showName)
         .on('mouseout', hideName)
         .on('pointerdown',showText)
-        .on('pointerup', hideText);
+        .on('pointerup', hideText)
+        .on('pointerupoutside', hideText);
 
     cardText = new PIXI.Container();
     cardText.height = 600;
@@ -415,6 +418,7 @@ function onDragEnd() {
               if(cards[i].connections[0].active === false){
                 cards[i].connections[0].active = true;
                 cards[i].connections[0].number = nextMoveNumber();
+                cards[i].moveMade = 'placed a red tile on ' + cleanName(cards[i].name);
                 sendState()
               }
             }
@@ -423,6 +427,7 @@ function onDragEnd() {
               if(cards[i].connections[1].active === false){
                 cards[i].connections[1].active = true;
                 cards[i].connections[1].number = nextMoveNumber();
+                cards[i].moveMade = 'placed a green tile on ' + cleanName(cards[i].name);
                 sendState()
               }
             }
@@ -431,6 +436,7 @@ function onDragEnd() {
               if(cards[i].connections[2].active === false){
                 cards[i].connections[2].active = true;
                 cards[i].connections[2].number = nextMoveNumber();
+                cards[i].moveMade = 'placed a blue tile on ' + cleanName(cards[i].name);
                 sendState()
               }
             }
@@ -439,6 +445,7 @@ function onDragEnd() {
               if(cards[i].connections[3].active === false){
                 cards[i].connections[3].active = true;
                 cards[i].connections[3].number = nextMoveNumber();
+                cards[i].moveMade = 'placed a yellow tile on ' + cleanName(cards[i].name);
                 sendState()
               }
             }
@@ -546,21 +553,26 @@ function popup(){
 //the following 5 set functions set the die state for each tile
 function setNumber(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
+    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to '
+    + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number;
     sendState()
 }
 
 function setOkay(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'okay';
+    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to okay';
     sendState()
 }
 
 function setPermit(){
-    this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'permit';
+    this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'permit'
+    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to permit';
     sendState()
 }
 
 function setChallenge(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'challenge';
+    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to challenge';
     sendState()
 }
 
@@ -568,6 +580,7 @@ function removeConnection(){
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
+  this.parent.parent.parent.cardParent.moveMade = 'removed tile from ' + cleanName(this.parent.parent.parent.cardParent.name);
   sendState()
 }
 
@@ -586,7 +599,7 @@ function showName(){
         nameDisplay.width = layout.tileSize * 4;
         nameDisplay.zIndex = 10;
 
-        nameDisplay.addChild(new PIXI.Text(this.parent.cardParent.name, {"textBaseline": "alpahbetic"}))
+        nameDisplay.addChild(new PIXI.Text(cleanName(this.parent.cardParent.name), {"textBaseline": "alpahbetic"}))
 
         this.addChild(nameDisplay);
 
@@ -611,4 +624,10 @@ function showText(){
 function hideText(){
     this.parent.cardParent.cardFlipped = false;
     sendState();
+}
+
+function cleanName(name){
+  let toShow = name.replaceAll('_', ' ');
+  let words = toShow.split(' ');
+  return words.map((word) => {return word[0].toUpperCase() + word.substring(1);}).join(" ");
 }

@@ -57,6 +57,7 @@ ws.onmessage = message => {
 			cards[i].name = card.name
 			cards[i].connections = card.connections;
 			cards[i].cardFlipped = card.cardFlipped;
+			cards[i].moveMade = card.moveMade;
 		});
 
 	}
@@ -303,6 +304,7 @@ ws.onmessage = message => {
 									}
 								],
 								cardFlipped: false,
+								moveMade: '',
 							}
 						}
 
@@ -342,6 +344,7 @@ ws.onmessage = message => {
 									cards[i].name = card.name
 									cards[i].connections = card.connections;
 									cards[i].cardFlipped = card.cardFlipped;
+									cards[i].moveMade = card.moveMade;
 								});
 
 							}
