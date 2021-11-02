@@ -10,6 +10,21 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+document.getElementById("leave-button").addEventListener("click", () => {
+	if (confirm("Are you sure you want to leave the game?")) {
+		window.history.back();
+		const gameData = {
+			"method": "exit",
+			"playerId": playerId,
+			"gameId": gameId
+		}
+
+		ws.send(JSON.stringify(gameData));
+	}
+	else {
+		return;
+	}
+});
 
 joinButton.addEventListener("click", x => {
 
