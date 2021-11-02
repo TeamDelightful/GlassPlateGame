@@ -11,117 +11,1571 @@
 	--drkyellow: #FFE76E;
 }
 
-
 html{
 	background-color: #FFFFFF;
 	z-index: -2;
 	font-family: 'Playfair Display', serif;
-	margin: auto;
-	height: 100%;
-	width: 100%;
 }
 
-body{
-	display: flex;
+@media (max-width: 320px) {
+	body{
+		width: 305px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.25);
+		top: 150px;
+		left: -125px;
+	}
+	
+	.button-group{
+		position: relative;
+		top: -30px;
+		left: 40px;
+	}
+
+	.top-left {
+		position: relative;
+		width: 305px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 7%;
+	}
+
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+		
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 305px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: -10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 760px;
+		left: -10px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		left: 20px;
+		top: 35px;
+		width: 305px;
+		
+	}
+
+	#chatDesc{
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+	}
+
+	#divChatLog{
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 275px;
+		height: 450px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 240px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 380px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 275px;
+		height: 650px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 300px;
+		height: 75px;
+	}
+	
 }
-
-
-.title {
-	color: #000000;
-	font-size: 2em;
+@media (min-width: 321px) and (max-width: 375px){
+	body{
+		width: 320px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.25);
+		top: 150px;
+		left: -95px;
+	}
+	
+	.button-group{
+		position: relative;
+		top: -30px;
+		left: 65px;
+	}
+	
+	.top-left {
+		position: relative;
+		width: 320px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 7%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 320px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: -10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 760px;
+		left: -10px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		left: 20px;
+		top: 35px;
+		width: 320px;
+		
+	}
+	
+	#chatDesc{
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+	}
+	
+	#divChatLog{
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 310px;
+		height: 450px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 300px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 380px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 310px;
+		height: 650px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 320px;
+		height: 75px;
+	}
+	
+	
 }
+@media (min-width: 376px) and (max-width: 599px){
+		
+	body{
+		width: 370px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.30);
+		top: 180px;
+		left: -120px;
+	}
+	
+	.button-group{
+		position: relative;
+		top: 10px;
+		left: 85px;
+	}
+	
+	.top-left {
+		position: relative;
+		width: 370px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 7%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 370px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: -10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 790px;
+		left: -10px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		left: 20px;
+		top: 65px;
+		width: 320px;
+		
+	}
+	
+	#chatDesc{
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+	}
+	
+	#divChatLog{
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 350px;
+		height: 490px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	#chat {
+		width: 320px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 400px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 350px;
+		height: 680px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 376px;
+		height: 100px;
+	}
+	
+	
+}
+@media (min-width: 600px) and (max-width: 767px){
+	
+	body{
+		width: 595px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.45);
+		top: 200px;
+		left: -160px;
+	}
+	
+	.button-group{
+		position: inherit;
+		width: 305px;
+		transform: scale(1.15);
+		top: 70px;
+		left: 175px;
+	}
+	
+	
+	.top-left {
+		position: relative;
+		width: 595px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 7%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 370px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: -10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 790px;
+		left: -10px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		left: 20px;
+		top: 65px;
+		width: 320px;
+		
+	}
+	
+	#chatDesc{
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+	}
+	
+	#divChatLog{
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 550px;
+		height: 150px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 520px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 145px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 550px;
+		height: 680px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 600px;
+		height: 100px;
+	}
+	
+	
+	
+	
+}
+@media (min-width: 768px) and (max-width: 1023px){
+	
+	body{
+		width: 765px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.55);
+		top: 200px;
+		left: -160px;
+	}
+	
+	.button-group{
+		position: inherit;
+		width: 765px;
+		transform: scale(1);
+		top: 70px;
+		left: 15px;
+	}
+	
+	
+	.top-left {
+		position: relative;
+		width: 765px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 7%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 370px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: 10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 790px;
+		left: 20px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		left: 20px;
+		top: 65px;
+		width: 900px;
+		
+	}
+	
+	#chatDesc{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+		align-self: flex-start;
+		left: 10px;
+		width: 250px;
+	}
+	
+	#divChatLog{
+		align-self: flex-end;
+		position: relative;
+		top: 30px;
+		left: -180px;
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 340px;
+		height: 680px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 220px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 600px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		align-self: flex-end;
+		position: relative;
+		top: 40px;
+		left: -150px;
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 600px;
+		height: 680px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 765px;
+		height: 100px;
+		
+	}
+	
+}
+@media (min-width: 1024px) and (max-width: 1349px){
+		
+	body{
+		width: 1020px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(0.75);
+		top: 220px;
+		left: -100px;
+	}
+	
+	.button-group{
+		position: inherit;
+		width: 1020px;
+		transform: scale(1.15);
+		top: 140px;
+		left: 170px;
+	}
+	
+	
+	.top-left {
+		position: relative;
+		width: 1020px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 4%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		width: 1020px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 10px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 10px;
+		left: 10px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 790px;
+		left: 20px;
+		
+	}
+	
+	#scroll-div {
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		left: 20px;
+		top: 65px;
+		width: 1120px;
+		
+	}
+	
+	#chatDesc{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+		align-self: flex-start;
+		left: 10px;
+		width: 250px;
+	}
+	
+	#divChatLog{
+		align-self: flex-end;
+		position: relative;
+		top: 30px;
+		left: -200px;
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 340px;
+		height: 680px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 220px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 600px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		align-self: flex-end;
+		position: relative;
+		top: 40px;
+		left: -170px;
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 800px;
+		height: 680px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 1024px;
+		height: 150px;
+	}
+	
+	
+}
+@media (min-width: 1350px) and (max-width: 1919px){
+		
+	body{
+		width: 1345px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(1);
+		top: 300px;
+		left: 80px;
+	}
+	
+	.button-group{
+		position: inherit;
+		width: 1345px;
+		transform: scale(1.25);
+		top: 280px;
+		left: 440px;
+	}
+	
+	
+	.top-left {
+		position: relative;
+		width: 1345px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 4%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 1345px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 50px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		left: 100px;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+		height: 50px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		top: 10px;
+		left: 50px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+		width: 50px;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		left: 135px;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 0px;
+		left: 70px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 5px;
+		left: -230px;
+		z-index: 2;
+	}
+	
+	#scroll-div {
+		position: relative;
+		top: 90px;
+		left: -350px;
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+		height: 110px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		left: 20px;
+		top: 65px;
+		width: 1745px;
+		
+	}
+	
+	#chatDesc{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+		align-self: flex-start;
+		left: 20px;
+		width: 250px;
+	}
+	
+	#divChatLog{
+		align-self: flex-end;
+		position: relative;
+		top: 40px;
+		left: -250px;
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 300px;
+		height: 680px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 220px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 600px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	
+	
+	
+	#divBoard{
+		align-self: flex-end;
+		position: relative;
+		top: 50px;
+		left: -220px;
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 1150px;
+		height: 680px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
 
-.title-image{
+	#extra{
+		width: 1350px;
+		height: 200px;
+	}
+
+}
+@media (min-width: 1920px){
+	
+	body{
+		width: 1915px;
+		height: auto;
+		overflow: scroll;
+		
+	}
+	.centered {
+		position: relative;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, -50%);
+	}
+	.title-image{
+		position: relative;
+		transform: scale(1.35);
+		top: 350px;
+		left: 500px;
+	}
+	
+	.button-group{
+		position: inherit;
+		width: 1915px;
+		transform: scale(1.75);
+		top: 380px;
+		left: 1155px;
+	}
+	
+	
+	.top-left {
+		position: relative;
+		width: 1915px;
+		overflow-y: scroll;
+		top: 0px;
+		left: 4%;
+	}
+	
+	.top-logo{
+		margin: 20px 20px 10px -10px;
+	}
+	
+	.join-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		margin: -40px 0px -15px 20px;
+		font-size: 1.35rem;
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		font-variant: small-caps;
+		line-height: 130%;
+	}
+	
+	.make-board{
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 1915px;
+		top: 15px;
+		left: 40px;
+	}
+	
+	#host-message{
+		position: relative;
+		top: 0px;
+		left: 50px;
+		font-size: .75rem;
+	}
+	
+	#scroll-div-3 {	
+		position: relative;
+		left: 100px;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+		height: 50px;
+	}
+	
+	#submitBtn{
+		position: relative;
+		top: 10px;
+		left: 50px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 500;
+		width: 50px;
+	}
+	
+	#scroll-div-2 {
+		position: relative;
+		left: 135px;
+		margin: 5px 5px 5px 5px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 130px;
+	}
+	
+	#start-game{
+		height: 40px;
+		width: 200px;
+		cursor: pointer;
+		background-color: var(--ltpink);
+	}
+	
+	.start1{
+		position: relative;
+		top: 0px;
+		left: 70px;
+		
+	}
+	
+	.start2{
+		position: relative;
+		top: 5px;
+		left: -230px;
+		z-index: 2;
+	}
+	
+	#scroll-div {
+		position: relative;
+		top: 90px;
+		left: -350px;
+		margin: -30px 15px 20px 0px;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		font-size: .9rem;
+		word-wrap: break-word;
+		overflow-y: scroll;
+		width: 275px;
+		height: 110px;
+	}
+	
+	.chatAndBoard{
+		position: relative;
+		display: flex;
+		left: 20px;
+		top: 65px;
+		width: 2100px;
+		
+	}
+	
+	#chatDesc{
+		position: relative;
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+		align-self: flex-start;
+		left: 20px;
+		width: 250px;
+	}
+	
+	#divChatLog{
+		align-self: flex-end;
+		position: relative;
+		top: 40px;
+		left: -250px;
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 300px;
+		height: 880px;
+		overflow-y: scroll;
+		background-color: var(--ltblue);
+	}
+	
+	#chat {
+		width: 220px;
+		margin: 10px 0px 15px 20px;
+	}
+	#chat-messages {
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		line-height: 120%;
+		height: 830px;
+		word-wrap: break-word;
+		overflow-y: scroll;
+	}
+	
+	#divBoard{
+		align-self: flex-end;
+		position: relative;
+		top: 50px;
+		left: -220px;
+		margin: 5px 0px 20px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 25px;
+		border-color: black;
+		width: 1450px;
+		height: 880px;
+		overflow-y: scroll;
+		transform: scale(1);
+	}
+	
+	#extra{
+		width: 1350px;
+		height: 200px;
+	}
 	
 }
 
-.centered {
-	position: fixed;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.top-left {
-	position: fixed;
-	top: 5%;
-	left: 5%;
-}
-
-#host-message{
-	position: fixed;
-	top: 20%;
-	left: 28%;
-	display: flex;
-}
-
-.make-board{
-	position: fixed;
-	top: 30%;
-	left: 30%;
-	display: flex;
-	justify-content: space-around;
-}
-
-
-
-#scroll-div-2 {
-	margin: 5px 5px 5px 5px;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 400;
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 130px;
-}
-
-#scroll-div-3 {	
-	margin: 5px 5px 5px 5px;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 400;
-	word-wrap: break-word;
-	overflow-y: scroll;
-	width: 130px;
-}
-
-#scroll-div-4{	
-	margin: 10px 5px 5px -5px;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 500;
-	width: 100px;
-	
-}
-#scroll-div {
-	margin: 20px 5px 5px -35px;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 400;
-	word-wrap: break-word;
-	overflow-y: scroll;
-	height: 250px;
-}
-
-.playersAndBoard {
-	display: flex;
-	justify-content: flex-start;
-}
-
-
-#divBoard{
-	transform: scale(0.75);
-	margin: 20px 0px 0px 190px;
-}
-
-.top-logo{
-	margin: 20px 20px 10px -20px;
-}
-
-@media (max-width: 320px) {}
-@media (min-width: 321px) and (max-width: 375px){}
-@media (min-width: 376px) and (max-width: 599px){}
-@media (min-width: 600px) and (max-width: 767px){}
-@media (min-width: 768px) and (max-width: 1023px){}
-@media (min-width: 1024px) and (max-width: 1349px){}
-@media (min-width: 1350px) and (max-width: 1919px){}
-@media (min-width: 1920px){}
 
 a.button-link{
 	color: #000000;
@@ -152,29 +1606,6 @@ a.button-link:hover{
 	line-height: 97%;
 	border-radius: 25px;
 	box-shadow: inset 0 8px 16px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-.button-group{
-	display: flex;
-	justify-content: center;
-}
-
-#start-game{
-	height: 40px;
-	width: 200px;
-	cursor: pointer;
-	background-color: var(--ltpink);
-	
-}
-
-.start1{
-	margin: 10px 0px 0px -50px;
-	
-}
-
-.start2{
-	margin: 10px 0px 0px -255px;
-	
 }
 
 #create-button{
@@ -325,17 +1756,6 @@ a.button-link:hover{
 	height: 200px;
 }
 
-.join-box{
-	display: flex;
-	justify-content: flex-start;
-	margin: -40px 0px -15px 20px;
-	font-size: 1.35rem;
-	font-family: 'Playfair Display', serif;
-	font-weight: 700;
-	font-variant: small-caps;
-	line-height: 130%;
-}
-
 #theGame{
 	font-family: 'IBM Plex Sans Condensed', sans-serif;
 	font-weight: 300;
@@ -354,24 +1774,6 @@ a.button-link:hover{
 	
 }
 
-#chat {
-	width: 220px;
-	margin: 10px 0px 15px 20px;
-}
-#chat-messages {
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 400;
-	line-height: 120%;
-	height: 400px;
-	word-wrap: break-word;
-	overflow-y: scroll;
-}
-
-#divBoard{
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
-	font-weight: 400;
-	line-height: 120%;
-	
 
 #select-button{
 	background-color: var(--ltgreen);
