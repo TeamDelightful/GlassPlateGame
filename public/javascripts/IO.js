@@ -9,9 +9,10 @@ PIXI.utils.sayHello(type);
 //layout variables
 let layout = {
     cardSize: 600,
-    tileSize: 60,
+    tileSize: 100,
     boardHeight: 900,
     boardWidth: 1440,
+    zoomButtonSize: 60
     //boardSize: 1500
 }
 
@@ -187,27 +188,27 @@ function setup() { //sets all cards up with their default states
 
 function setupZoom(){
   zoomControl = new PIXI.Container();
-  zoomControl.height = 2*layout.tileSize;
-  zoomControl.width = layout.tileSize;
+  zoomControl.height = 2*layout.zoomButtonSize;
+  zoomControl.width = layout.zoomButtonSize;
   zoomControl.zindex = 3;
-  zoomControl.pivot.set(layout.tileSize, 0);
+  zoomControl.pivot.set(layout.zoomButtonSize, 0);
   zoomControl.position.set(layout.boardWidth,0);
 
   zoomControl.addChild(
-    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize),
-    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,layout.tileSize,layout.tileSize,layout.tileSize).endFill().drawRect(0,0,layout.tileSize,layout.tileSize)
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize),
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,layout.zoomButtonSize,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize)
   )
   zoomControl.getChildAt(0).addChild(new PIXI.Text("+"));
-  zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.zoomButtonSize;
   zoomControl.getChildAt(0).getChildAt(0).anchor.set(0.5,0.5);
-  zoomControl.getChildAt(0).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize/2);
+  zoomControl.getChildAt(0).getChildAt(0).position.set(layout.zoomButtonSize/2,layout.zoomButtonSize/2);
   zoomControl.getChildAt(0).on("click", plusZoom);
   zoomControl.getChildAt(0).interactive = true;
 
   zoomControl.getChildAt(1).addChild(new PIXI.Text("-"));
-  zoomControl.getChildAt(1).getChildAt(0).height = 0.8 * layout.tileSize;
+  zoomControl.getChildAt(1).getChildAt(0).height = 0.8 * layout.zoomButtonSize;
   zoomControl.getChildAt(1).getChildAt(0).anchor.set(0.5,0.5);
-  zoomControl.getChildAt(1).getChildAt(0).position.set(layout.tileSize/2,layout.tileSize*3/2);
+  zoomControl.getChildAt(1).getChildAt(0).position.set(layout.zoomButtonSize/2,layout.zoomButtonSize*3/2);
   zoomControl.getChildAt(1).on("click", minusZoom);
   zoomControl.getChildAt(1).interactive = true;
 
