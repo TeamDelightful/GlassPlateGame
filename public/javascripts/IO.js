@@ -316,7 +316,8 @@ function cardSetup(item){
     item.container.getChildAt(0).on('mouseover', showName)
         .on('mouseout', hideName)
         .on('pointerdown',showText)
-        .on('pointerup', hideText);
+        .on('pointerup', hideText)
+        .on('pointerupoutside', hideText);
 
     cardText = new PIXI.Container();
     cardText.height = 600;
