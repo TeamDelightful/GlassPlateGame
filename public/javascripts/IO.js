@@ -316,9 +316,7 @@ function cardSetup(item){
     item.container.getChildAt(0).zIndex = 0;
     item.container.getChildAt(0).interactive = true;
     item.container.getChildAt(0).showingName = false;
-    item.container.getChildAt(0).on('mouseover', showName)
-        .on('mouseout', hideName)
-        .on('pointerdown',showText)
+    item.container.getChildAt(0).on('pointerdown',showText)
         .on('pointerup', hideText)
         .on('pointerupoutside', hideText);
 
@@ -589,32 +587,6 @@ function removeConnection(){
 function removePopup(){
     this.parent.menuExist = false;
     this.destroy()
-}
-
-//shows the cards name when event occurs
-function showName(){
-    if(this.showingName === false) {
-        nameDisplay = new PIXI.Graphics().beginFill(0xD3D3D3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill();
-        nameDisplay.interactive = true;
-        nameDisplay.height = layout.tileSize ;
-        nameDisplay.width = layout.tileSize * 4;
-        nameDisplay.zIndex = 10;
-
-        nameDisplay.addChild(new PIXI.Text(cleanName(this.parent.cardParent.name), {"textBaseline": "alpahbetic"}))
-
-        this.addChild(nameDisplay);
-
-        nameDisplay.position.set(0,0);
-        this.showingName = true;
-    }
-}
-
-//hides the cards name when even occurs
-function hideName() {
-    if(this.showingName === true){
-        this.getChildAt(1).destroy();
-        this.showingName = false;
-    }
 }
 
 function showText(){
