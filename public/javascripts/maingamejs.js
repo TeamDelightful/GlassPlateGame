@@ -4,6 +4,7 @@
 		let gameId = null;
 		let clickcount = null;
 		let clickcount2 = null;
+		let clickcount3 = null;
 		let ws = new WebSocket("ws://localhost:27000")
 		const hostButton = document.getElementById("create-button");
 		const joinLink = document.getElementById("divGoToJoin");
@@ -55,18 +56,21 @@
 
 			document.getElementById("submit-btn").addEventListener("click", c => {
 
-				var linkId = document.getElementById("theGameId").value;
-				const d = document.createElement("div");
-				const a = document.createElement("a");
-				const l = document.createTextNode("Join Game");
-
-				document.getElementById("submit-btn").appendChild(d);
-				a.appendChild(l);
-				a.title = "Link to Game";
-				a.href = "game/" + linkId;
-				codeJoin.appendChild(a);
-
-				})
+				clickcount3++
+				if(clickcount3 == 1){
+					
+					var linkId = document.getElementById("theGameId").value;
+					const d = document.createElement("div");
+					const a = document.createElement("a");
+					const l = document.createTextNode("Join Game");
+					
+					document.getElementById("submit-btn").appendChild(d);
+					a.appendChild(l);
+					a.title = "Link to Game";
+					a.href = "game/" + linkId;
+					codeJoin.appendChild(a);
+				}
+			})
 
 			document.getElementById("join-game-dropdown").addEventListener("click", e => {
 				e.stopPropagation();
