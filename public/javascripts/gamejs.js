@@ -225,6 +225,8 @@ ws.onmessage = message => {
 						button.ariaLabel = "start game button";
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
+						var sd1 = document.getElementById("scroll-div");
+						sd1.parentNode.removeChild(sd1);
 					}
 					if(optionSelected == options[1]){
 						printCheckBoxes();
@@ -394,13 +396,12 @@ ws.onmessage = message => {
 					var bDiv = document.getElementById("button-div");
 					bDiv.parentNode.removeChild(bDiv);
 					
-					var sd1 = document.getElementById("scroll-div");
-					sd1.parentNode.removeChild(sd1);
-					
 					var jB = document.getElementById("join-button");
 					jB.parentNode.removeChild(jB);
 					
-					
+					var sd1 = document.getElementById("scroll-div");
+					sd1.parentNode.removeChild(sd1);
+						
 				})
 
 				}

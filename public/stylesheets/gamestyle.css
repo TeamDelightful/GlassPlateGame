@@ -1083,6 +1083,7 @@ html{
 		word-wrap: break-word;
 		overflow-y: scroll;
 		width: 275px;
+		
 	}
 	
 	.chatAndBoard{
@@ -1246,6 +1247,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
 		width: 70px;
+		height: 20px;
+		
 	}
 	
 	#scroll-div-2 {
@@ -1283,14 +1286,15 @@ html{
 	#scroll-div {
 		position: relative;
 		top: 90px;
-		left: -350px;
-		margin: -30px 15px 20px 0px;
+		left: -430px;
+		margin: -30px 15px 120px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
 		overflow-y: scroll;
 		width: 275px;
+		
 	}
 	
 	.chatAndBoard{
@@ -1340,10 +1344,7 @@ html{
 		word-wrap: break-word;
 		overflow-y: scroll;
 	}
-	
-	
-	
-	
+
 	#divBoard{
 		align-self: flex-end;
 		position: relative;
@@ -1456,6 +1457,7 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
 		width: 70px;
+		height: 20px;
 	}
 	
 	#scroll-div-2 {
@@ -1493,8 +1495,8 @@ html{
 	#scroll-div {
 		position: relative;
 		top: 90px;
-		left: -350px;
-		margin: -30px 15px 20px 0px;
+		left: -430px;
+		margin: -30px 15px 120px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
