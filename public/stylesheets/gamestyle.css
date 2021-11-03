@@ -1725,7 +1725,7 @@ a.button-link:hover{
 	margin: 10px 30px 0px 10px;
 	height: 40px;
 	width: 200px;
-	
+	display: none;
 }
 
 .gotojoin-button{

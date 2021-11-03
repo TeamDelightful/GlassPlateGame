@@ -28,7 +28,8 @@ document.getElementById("leave-button").addEventListener("click", () => {
 });
 
 joinButton.addEventListener("click", x => {
-
+	let leaveButton = document.getElementById('leave-button');
+	leaveButton.style.display = "block";
 	clickcounter++;
 	if(clickcounter == 1){
 
