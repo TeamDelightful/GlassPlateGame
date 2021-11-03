@@ -241,6 +241,8 @@ ws.onmessage = message => {
 						button.ariaLabel = "start game button";
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
+						var sd1 = document.getElementById("scroll-div");
+						sd1.parentNode.removeChild(sd1);
 					}
 					if(optionSelected == options[1]){
 						printCheckBoxes();
@@ -390,6 +392,32 @@ ws.onmessage = message => {
 
 						}
 					}
+					
+										
+					var hostmsg = document.getElementById("host-message");
+					hostmsg.parentNode.removeChild(hostmsg);
+					
+					var sd3 = document.getElementById("scroll-div-3");
+					sd3.parentNode.removeChild(sd3);
+					
+					var sd4 = document.getElementById("scroll-div-4");
+					sd4.parentNode.removeChild(sd4);
+					
+					var subB = document.getElementById("submitBtn");
+					subB.parentNode.removeChild(subB);
+					
+					var sd2 = document.getElementById("scroll-div-2");
+					sd2.parentNode.removeChild(sd2);
+					
+					var bDiv = document.getElementById("button-div");
+					bDiv.parentNode.removeChild(bDiv);
+					
+					var jB = document.getElementById("join-button");
+					jB.parentNode.removeChild(jB);
+					
+					var sd1 = document.getElementById("scroll-div");
+					sd1.parentNode.removeChild(sd1);
+						
 				})
 
 				}
@@ -397,6 +425,31 @@ ws.onmessage = message => {
 
 		}
 		else{
+			var jB = document.getElementById("join-button");
+			jB.parentNode.removeChild(jB);
+			
+			var hostmsg = document.getElementById("host-message");
+			hostmsg.parentNode.removeChild(hostmsg);
+			
+			var sd3 = document.getElementById("scroll-div-3");
+			sd3.parentNode.removeChild(sd3);
+			
+			var sd4 = document.getElementById("scroll-div-4");
+			sd4.parentNode.removeChild(sd4);
+			
+			var subB = document.getElementById("submitBtn");
+			subB.parentNode.removeChild(subB);
+			
+			var sd2 = document.getElementById("scroll-div-2");
+			sd2.parentNode.removeChild(sd2);
+			
+			var bDiv = document.getElementById("button-div");
+			bDiv.parentNode.removeChild(bDiv);
+			
+			var sd1 = document.getElementById("scroll-div");
+			sd1.parentNode.removeChild(sd1);
+			
+			
 			createLogFeed(response.chatLog);
 
 			pixiStart(response.boardState);

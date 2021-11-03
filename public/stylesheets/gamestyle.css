@@ -196,7 +196,7 @@ html{
 	
 	#extra{
 		width: 300px;
-		height: 75px;
+		height: 100px;
 	}
 	
 }
@@ -379,7 +379,7 @@ html{
 	
 	#extra{
 		width: 320px;
-		height: 75px;
+		height: 100px;
 	}
 	
 	
@@ -952,7 +952,7 @@ html{
 	
 	#extra{
 		width: 765px;
-		height: 100px;
+		height: 150px;
 		
 	}
 	
@@ -1083,6 +1083,7 @@ html{
 		word-wrap: break-word;
 		overflow-y: scroll;
 		width: 275px;
+		
 	}
 	
 	.chatAndBoard{
@@ -1151,7 +1152,7 @@ html{
 	
 	#extra{
 		width: 1024px;
-		height: 150px;
+		height: 200px;
 	}
 	
 	
@@ -1245,7 +1246,9 @@ html{
 		left: 50px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
-		width: 50px;
+		width: 70px;
+		height: 20px;
+		
 	}
 	
 	#scroll-div-2 {
@@ -1260,8 +1263,8 @@ html{
 	}
 	
 	#start-game{
-		height: 40px;
-		width: 200px;
+		height: 43px;
+		width: 211px;
 		cursor: pointer;
 		background-color: var(--ltpink);
 	}
@@ -1276,22 +1279,22 @@ html{
 	.start2{
 		position: relative;
 		top: 5px;
-		left: -230px;
+		left: -247px;
 		z-index: 2;
 	}
 	
 	#scroll-div {
 		position: relative;
 		top: 90px;
-		left: -350px;
-		margin: -30px 15px 20px 0px;
+		left: -430px;
+		margin: -30px 15px 120px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
 		overflow-y: scroll;
 		width: 275px;
-		height: 110px;
+		
 	}
 	
 	.chatAndBoard{
@@ -1341,10 +1344,7 @@ html{
 		word-wrap: break-word;
 		overflow-y: scroll;
 	}
-	
-	
-	
-	
+
 	#divBoard{
 		align-self: flex-end;
 		position: relative;
@@ -1456,7 +1456,8 @@ html{
 		left: 50px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
-		width: 50px;
+		width: 70px;
+		height: 20px;
 	}
 	
 	#scroll-div-2 {
@@ -1471,8 +1472,8 @@ html{
 	}
 	
 	#start-game{
-		height: 40px;
-		width: 200px;
+		height: 43px;
+		width: 211px;
 		cursor: pointer;
 		background-color: var(--ltpink);
 	}
@@ -1487,22 +1488,21 @@ html{
 	.start2{
 		position: relative;
 		top: 5px;
-		left: -230px;
+		left: -247px;
 		z-index: 2;
 	}
 	
 	#scroll-div {
 		position: relative;
 		top: 90px;
-		left: -350px;
-		margin: -30px 15px 20px 0px;
+		left: -430px;
+		margin: -30px 15px 120px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
 		overflow-y: scroll;
 		width: 275px;
-		height: 110px;
 	}
 	
 	.chatAndBoard{
@@ -1781,4 +1781,8 @@ a.button-link:hover{
 	height: 40px;
 	width: 200px;
 	
+}
+
+#download{
+	left: 20px;
 }
