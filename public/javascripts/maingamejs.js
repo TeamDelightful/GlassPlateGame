@@ -67,7 +67,7 @@
 					document.getElementById("submit-btn").appendChild(d);
 					a.appendChild(l);
 					a.title = "Link to Game";
-					a.href = "game/" + linkId;
+					a.href = "game/" + linkId.toUpperCase();
 					codeJoin.appendChild(a);
 				}
 			})
