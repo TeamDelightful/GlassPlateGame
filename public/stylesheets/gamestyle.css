@@ -1260,8 +1260,8 @@ html{
 	}
 	
 	#start-game{
-		height: 40px;
-		width: 200px;
+		height: 43px;
+		width: 211px;
 		cursor: pointer;
 		background-color: var(--ltpink);
 	}
@@ -1276,7 +1276,7 @@ html{
 	.start2{
 		position: relative;
 		top: 5px;
-		left: -230px;
+		left: -247px;
 		z-index: 2;
 	}
 	
@@ -1471,8 +1471,8 @@ html{
 	}
 	
 	#start-game{
-		height: 40px;
-		width: 200px;
+		height: 43px;
+		width: 211px;
 		cursor: pointer;
 		background-color: var(--ltpink);
 	}
@@ -1487,7 +1487,7 @@ html{
 	.start2{
 		position: relative;
 		top: 5px;
-		left: -230px;
+		left: -247px;
 		z-index: 2;
 	}
 	
