@@ -24,12 +24,9 @@ let PIXIstyle = new PIXI.TextStyle({
   padding: 30
 })
 
-
-
 const PIXIapp = new PIXI.Application({
-    width: layout.boardWidth,
-    height: layout.boardHeight,
-    //resizeTo: document.getElementById("divBoard"),
+
+    resizeTo: document.getElementById("divBoard"),
     antialias: true,
     transparent: false,
     resolution: 1
@@ -122,9 +119,6 @@ function sendState(){
   ws.send(JSON.stringify(gameDataOut));
 }
 
-
-
-
 //interface for adding connections
 let connectPalate = null;
 
@@ -132,7 +126,6 @@ let connectPalate = null;
 let zoomControl = null;
 
 function setup() { //sets all cards up with their default states
-
     cards.forEach(cardSetup);
 
 
@@ -172,12 +165,15 @@ function setup() { //sets all cards up with their default states
       }
 
       //Update card position and scale
-      let rowWidth = Math.floor(layout.boardWidth / (layout.cardSize * scale * 1.5));
+      let rowWidth = Math.floor(PIXIapp.screen.width / (layout.cardSize * scale * 1.5));
+
+      connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
+      zoomControl.position.set(PIXIapp.screen.width,0);
 
       cards.forEach((item, i) => {
         item.container.scale.set(scale);
 
-        item.container.position.set((layout.boardWidth/(rowWidth+1)) * ( (i%rowWidth) + 1),
+        item.container.position.set((PIXIapp.screen.width/(rowWidth+1)) * ( (i%rowWidth) + 1),
                                     (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
       });
 
@@ -200,7 +196,7 @@ function setupZoom(){
   zoomControl.width = layout.zoomButtonSize;
   zoomControl.zindex = 3;
   zoomControl.pivot.set(layout.zoomButtonSize, 0);
-  zoomControl.position.set(layout.boardWidth,0);
+  zoomControl.position.set(PIXIapp.screen.width,0);
 
   zoomControl.addChild(
     new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize),
@@ -210,17 +206,23 @@ function setupZoom(){
   zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.zoomButtonSize;
   zoomControl.getChildAt(0).getChildAt(0).scale.x = zoomControl.getChildAt(0).getChildAt(0).scale.y;
   zoomControl.getChildAt(0).getChildAt(0).anchor.set(0.5,0.5);
+
   zoomControl.getChildAt(0).getChildAt(0).position.set(layout.zoomButtonSize/2,layout.zoomButtonSize/2);
-  zoomControl.getChildAt(0).on("click", plusZoom);
+  zoomControl.getChildAt(0).on("pointerdown", plusZoom);
+
   zoomControl.getChildAt(0).interactive = true;
+  zoomControl.getChildAt(0).buttonMode = true;
 
   zoomControl.getChildAt(1).addChild(new PIXI.Text("-", PIXIstyle));
   zoomControl.getChildAt(1).getChildAt(0).height = 0.8 * layout.zoomButtonSize;
   zoomControl.getChildAt(1).getChildAt(0).scale.x = zoomControl.getChildAt(1).getChildAt(0).scale.y;
   zoomControl.getChildAt(1).getChildAt(0).anchor.set(0.5,0.5);
+
   zoomControl.getChildAt(1).getChildAt(0).position.set(layout.zoomButtonSize/2,layout.zoomButtonSize*3/2);
-  zoomControl.getChildAt(1).on("click", minusZoom);
+  zoomControl.getChildAt(1).on("pointerdown", minusZoom);
+
   zoomControl.getChildAt(1).interactive = true;
+  zoomControl.getChildAt(1).buttonMode = true;
 
   PIXIapp.stage.addChild(zoomControl);
 }
@@ -240,7 +242,7 @@ function setupPalate(){
     connectPalate.width = layout.tileSize;
     connectPalate.zIndex = 3;
     connectPalate.pivot.set(layout.tileSize, layout.tileSize*2);
-    connectPalate.position.set(layout.boardWidth, layout.boardHeight / 2);
+    connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
     connectPalate.addChild(
         new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
         new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
@@ -431,7 +433,7 @@ function onDragEnd() {
               if(cards[i].connections[0].active === false){
                 cards[i].connections[0].active = true;
                 cards[i].connections[0].number = nextMoveNumber();
-                cards[i].moveMade = 'placed a red tile on ' + cleanName(cards[i].name);
+                cards[i].moveMade = "placed a red tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -440,7 +442,7 @@ function onDragEnd() {
               if(cards[i].connections[1].active === false){
                 cards[i].connections[1].active = true;
                 cards[i].connections[1].number = nextMoveNumber();
-                cards[i].moveMade = 'placed a green tile on ' + cleanName(cards[i].name);
+                cards[i].moveMade = "placed a green tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -449,7 +451,7 @@ function onDragEnd() {
               if(cards[i].connections[2].active === false){
                 cards[i].connections[2].active = true;
                 cards[i].connections[2].number = nextMoveNumber();
-                cards[i].moveMade = 'placed a blue tile on ' + cleanName(cards[i].name);
+                cards[i].moveMade = "placed a blue tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -458,7 +460,7 @@ function onDragEnd() {
               if(cards[i].connections[3].active === false){
                 cards[i].connections[3].active = true;
                 cards[i].connections[3].number = nextMoveNumber();
-                cards[i].moveMade = 'placed a yellow tile on ' + cleanName(cards[i].name);
+                cards[i].moveMade = "placed a yellow tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -529,7 +531,6 @@ function popup(){
         okay.y = 0;
         okay.scale.x = okay.scale.y;
 
-
         menu.getChildAt(2).position.set(0,layout.tileSize * 2);
         menu.getChildAt(2).interactive = true;
         menu.getChildAt(2).on("pointerdown", setPermit);
@@ -540,7 +541,6 @@ function popup(){
         permit.x = 0;
         permit.y = 0;
         permit.scale.x = permit.scale.y;
-
 
         menu.getChildAt(3).position.set(0,layout.tileSize * 3);
         menu.getChildAt(3).interactive = true;
@@ -553,7 +553,6 @@ function popup(){
         challenge.y = 0;
         challenge.scale.x = challenge.scale.y;
 
-
         menu.getChildAt(4).position.set(0,layout.tileSize * 4);
         menu.getChildAt(4).interactive = true;
         menu.getChildAt(4).on("pointerdown", removeConnection);
@@ -564,7 +563,6 @@ function popup(){
         remove.x = 0;
         remove.y = 0;
         remove.scale.x = remove.scale.y;
-
 
         menu.on("pointerdown", removePopup);
 
@@ -580,26 +578,26 @@ function popup(){
 //the following 5 set functions set the die state for each tile
 function setNumber(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
-    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to '
+    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to "
     + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number;
     sendState()
 }
 
 function setOkay(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'okay';
-    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to okay';
+    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to okay";
     sendState()
 }
 
 function setPermit(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'permit'
-    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to permit';
+    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to permit";
     sendState()
 }
 
 function setChallenge(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'challenge';
-    this.parent.parent.parent.cardParent.moveMade = 'set ' + cleanName(this.parent.parent.parent.cardParent.name) + ' to challenge';
+    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to challenge";
     sendState()
 }
 
@@ -607,7 +605,7 @@ function removeConnection(){
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
-  this.parent.parent.parent.cardParent.moveMade = 'removed tile from ' + cleanName(this.parent.parent.parent.cardParent.name);
+  this.parent.parent.parent.cardParent.moveMade = "removed a tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
 }
 
@@ -616,6 +614,7 @@ function removePopup(){
     this.parent.menuExist = false;
     this.destroy()
 }
+
 
 function showText(){
     this.parent.cardParent.cardFlipped = true;
