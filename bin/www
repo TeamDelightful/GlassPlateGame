@@ -32,10 +32,8 @@ var hostKey = "not host";
 const players = {};
 const games = {};
 
-// Include for function to create random game id and set to track all currently in use
-// game IDs (Rochele)
+// Include for function to create random and unique game id 
 var createGameId = require('../public/javascripts/createGameId');
-var inUseGameIds = new Set();
 
 //var StateMachine = require('javascript-state-machine');
 
@@ -53,14 +51,13 @@ wsServer.on("request", request => {
 		//Binding TCP to connection
 		const connection = request.accept(null, request.origin);
 
-		//const connection = request.accept(null, request.origin);
 		connection.on("close", () => {
 				if(hostKey === "not host"){
 				console.log("PlayerID: " + playerId + " disconnected.")}
 				else {
 				console.log("Created Game and Disconnected " + playerId)}
 				});
-
+    
 		// receive message from the client here
 		connection.on("message", message => {
 
@@ -72,11 +69,9 @@ wsServer.on("request", request => {
 				//gets player id
 				playerId = 0;
 
-				// Generate unique game ID and add to inUseCode set (Rochele)
-				// Will be removed upon end of game
-				const gameId = createGameId.createGameId(inUseGameIds);
-				inUseGameIds.add(gameId);
-
+				// Generate unique game ID 
+				const gameId = createGameId.createGameId(Object.keys(games));
+		
 				hostKey = "host";
 
 				games[gameId] = {
@@ -89,8 +84,6 @@ wsServer.on("request", request => {
 				"boardState":  result.boardState,
 				"chatLog": []
 				}
-				// print statements
-				console.log(games[gameId])
 
 					//Data sent to player
 					const gameData = {
@@ -178,14 +171,8 @@ wsServer.on("request", request => {
 					}
 					players[playerId].connection.send(JSON.stringify(joinData));
 
-
-					// print statements
-					console.log(games[gameId]);
-
-					console.log(joinData);
-
 					//Announce new connections
-					let chatMessage = "Player " + playerId + ": has joined.";
+					let chatMessage = "Player " + playerId + " has joined.";
 					games[gameId].chatLog.push(chatMessage);
 					const gameData = {
 						"method": "updateChat",
@@ -197,8 +184,6 @@ wsServer.on("request", request => {
 					// if 2 players or more join, start game
 					broadcastState();
 				}
-
-				let i = 0;
 
 				//Play game server logic
 				if (result.method === "play") {
@@ -212,7 +197,7 @@ wsServer.on("request", request => {
 					let chatMessage = null;
 					let oldBoardState = games[gameId].boardState;
 					let newBoardState = result.boardState;
-					// Update log when a player makes a move (Rochele)
+					// Update log when a player makes a move
 					// These for loops iterate over previous boardstate and compare it
 					// to new boardstate to log specific changes.
 					for(let i = 0; i < oldBoardState.length; ++i) {
@@ -235,7 +220,7 @@ wsServer.on("request", request => {
 					}
 				}
 
-				// Send game information to player for download (Rochele)
+				// Send game information to player for download
 				if(result.method == "download") {
 					const gameId = result.gameId;
 					playerId = result.playerId;
@@ -247,7 +232,7 @@ wsServer.on("request", request => {
 					con.send(JSON.stringify(gameData));
 				}
 
-				// Update logs when someone types a message (Rochele)
+				// Update logs when someone types a message
 				if(result.method === 'chat') {
 					let gameId = result.gameId;
 					let chatMessage = result.chatMessage;
@@ -259,6 +244,31 @@ wsServer.on("request", request => {
 					games[gameId].players.forEach( p => {
 							players[p.playerId].connection.send(JSON.stringify(gameData));
 							})
+				}
+
+				if(result.method === "exit") {
+					const gameId = result.gameId;
+					const playerId = result.playerId;
+					// TODO remove player from players object
+					if(games[gameId] !== null) {
+						for(let i = 0; i < games[gameId].players.length; i++){ 
+							if (games[gameId].players[i].playerId === playerId) { 
+								games[gameId].players.splice(i, 1); 
+							}
+						}
+						if(games[gameId].players.length !== 0) {
+							let chatMessage = "Player " + playerId + " has left the game.";
+							games[gameId].chatLog.push(chatMessage);
+							const gameData = {
+								"method": "updateChat",
+								"chatMessage": chatMessage
+							}
+							games[gameId].players.forEach( p => {
+								players[p.playerId].connection.send(JSON.stringify(gameData));
+								})
+						}
+						// TODO if there are no more players, end the game and remove from games object
+					}
 				}
 		})
 
