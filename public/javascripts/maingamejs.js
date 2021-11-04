@@ -109,11 +109,11 @@
 				gameId = response.game.id;
 
 				const gameID = { gameID: gameId };
-									
+
 					fetch(url, {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json',},
-						body: JSON.stringify({"ID":gameID, "addDelete":addToGame}),
+						body: JSON.stringify({gameID, "addDelete":addToGame}),
 					})
 					.then(response => response.json())
 					.then(gameID => {
