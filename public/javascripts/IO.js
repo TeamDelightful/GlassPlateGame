@@ -19,7 +19,7 @@ let layout = {
 let PIXIstyle = new PIXI.TextStyle({
   textBaseline: "alphabetic",
   fontWeight: 750,
-  fontFamily: "arial",
+  fontFamily: "IBM Plex Sans Condensed",
   fontSize: 42,
   padding: 30
 })
