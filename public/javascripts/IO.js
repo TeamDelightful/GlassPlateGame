@@ -11,7 +11,9 @@ let layout = {
     cardSize: 600,
     tileSize: 100,
     boardHeight: 900,
+    boardWidth: 1440,
     zoomButtonSize: 60
+    //boardSize: 1500
 }
 
 let PIXIstyle = new PIXI.TextStyle({
@@ -25,7 +27,9 @@ let PIXIstyle = new PIXI.TextStyle({
 
 
 const PIXIapp = new PIXI.Application({
-    resizeTo: document.getElementById("divBoard"),
+    width: layout.boardWidth,
+    height: layout.boardHeight,
+    //resizeTo: document.getElementById("divBoard"),
     antialias: true,
     transparent: false,
     resolution: 1
@@ -168,16 +172,12 @@ function setup() { //sets all cards up with their default states
       }
 
       //Update card position and scale
-      let rowWidth = Math.floor(PIXIapp.screen.width / (layout.cardSize * scale * 1.5));
-
-      connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
-      zoomControl.position.set(PIXIapp.screen.width,0);
-
+      let rowWidth = Math.floor(layout.boardWidth / (layout.cardSize * scale * 1.5));
 
       cards.forEach((item, i) => {
         item.container.scale.set(scale);
 
-        item.container.position.set((PIXIapp.screen.width/(rowWidth+1)) * ( (i%rowWidth) + 1),
+        item.container.position.set((layout.boardWidth/(rowWidth+1)) * ( (i%rowWidth) + 1),
                                     (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
       });
 
@@ -200,7 +200,7 @@ function setupZoom(){
   zoomControl.width = layout.zoomButtonSize;
   zoomControl.zindex = 3;
   zoomControl.pivot.set(layout.zoomButtonSize, 0);
-  zoomControl.position.set(PIXIapp.screen.width,0);
+  zoomControl.position.set(layout.boardWidth,0);
 
   zoomControl.addChild(
     new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize),
@@ -240,7 +240,7 @@ function setupPalate(){
     connectPalate.width = layout.tileSize;
     connectPalate.zIndex = 3;
     connectPalate.pivot.set(layout.tileSize, layout.tileSize*2);
-    connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
+    connectPalate.position.set(layout.boardWidth, layout.boardHeight / 2);
     connectPalate.addChild(
         new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
         new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
