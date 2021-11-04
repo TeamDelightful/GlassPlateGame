@@ -173,7 +173,8 @@ wsServer.on("request", request => {
 						"method": "join",
 						"boardState": games[gameId].boardState,
 						"chatLog": games[gameId].chatLog,
-						"players": games[gameId].players
+						"players": games[gameId].players,
+						"id": gameId
 					}
 					players[playerId].connection.send(JSON.stringify(joinData));
 
