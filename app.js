@@ -30,13 +30,26 @@ app.listen(27001, () => console.log("Express on: 27001"));
 
 
 app.post('/game', (req, res) => {
-  const game = req.body;
+  const game = req.body.ID;
+  const addOrDelete = req.body.addDelete;
   
   //Output the game to the console for debugging
   console.log(game);
-  games.push(game);
   
-  res.send('Game is added to the database');
+  if(addOrDelete == 99){
+    const index = games.indexOf(game);
+    if (index > -1){
+      games.splice(index, 1);
+    }
+  }
+  else{
+    games.push(game);
+    console.log(games);
+    console.log("Added to database");
+  }
+  console.log(games);
+
+  //res.send('Game is added to the database');
   
 });
 
