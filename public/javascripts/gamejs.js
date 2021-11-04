@@ -3,6 +3,7 @@ let playerId = null;
 let gameId = null;
 let clickcounter = null;
 let deckClickCounter1 = null;
+let startClickCounter1 = null;
 let ws = new WebSocket("ws://localhost:27000")
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
@@ -81,7 +82,7 @@ ws.onmessage = message => {
 	if (response.method === "join") {
 
 		// Call function to create log/chat feed and add join message (Rochele)
-		createLogFeed(response.chatLog);
+		//createLogFeed(response.chatLog);
 
 
 		let count = response.players.length;
@@ -164,11 +165,11 @@ ws.onmessage = message => {
 			}
 
 			function printSelectBox(){
-				var theDiv4 = document.getElementById("scroll-div-4");
+				var theDiv4 = document.getElementById("submitBtn");
 				var selButn = document.createElement("button");
 				selButn.type = "button";
 				selButn.innerHTML = "Submit";
-				selButn.id = "scroll-div-4"
+				selButn.id = "submitBtn"
 				theDiv4.appendChild(selButn);
 			}
 
@@ -201,9 +202,9 @@ ws.onmessage = message => {
 
 			//Select button code
 
-			const selectButton = document.getElementById("scroll-div-4");
+			const selectButton = document.getElementById("submitBtn");
 			selectButton.addEventListener("click", x => {
-
+				
 				deckClickCounter1++;
 				if(deckClickCounter1 == 1){
 
@@ -224,6 +225,8 @@ ws.onmessage = message => {
 						button.ariaLabel = "start game button";
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
+						var sd1 = document.getElementById("scroll-div");
+						sd1.parentNode.removeChild(sd1);
 					}
 					if(optionSelected == options[1]){
 						printCheckBoxes();
@@ -237,9 +240,14 @@ ws.onmessage = message => {
 						theBDiv.appendChild(button);
 
 					}
+					
 					//button events
 					const hostButton = document.getElementById("start-game");
 					hostButton.addEventListener("click", x => {
+
+						startClickCounter1++;
+						if(startClickCounter1 == 1){
+
 						if(optionSelected == options[1]){
 							for (var i = 0; i < cardIds.length; i++) {
 								var idstatus = document.getElementById(cardIds[i]);
@@ -318,6 +326,8 @@ ws.onmessage = message => {
 
 							if(response.method === 'host-join'){
 								gameId = response.game.id;
+								createLogFeed(response.chatLog);
+
 								pixiStart(response.boardState);
 
 							}
@@ -365,6 +375,33 @@ ws.onmessage = message => {
 							}
 
 						}
+					}
+					
+										
+					var hostmsg = document.getElementById("host-message");
+					hostmsg.parentNode.removeChild(hostmsg);
+					
+					var sd3 = document.getElementById("scroll-div-3");
+					sd3.parentNode.removeChild(sd3);
+					
+					var sd4 = document.getElementById("scroll-div-4");
+					sd4.parentNode.removeChild(sd4);
+					
+					var subB = document.getElementById("submitBtn");
+					subB.parentNode.removeChild(subB);
+					
+					var sd2 = document.getElementById("scroll-div-2");
+					sd2.parentNode.removeChild(sd2);
+					
+					var bDiv = document.getElementById("button-div");
+					bDiv.parentNode.removeChild(bDiv);
+					
+					var jB = document.getElementById("join-button");
+					jB.parentNode.removeChild(jB);
+					
+					var sd1 = document.getElementById("scroll-div");
+					sd1.parentNode.removeChild(sd1);
+						
 				})
 
 				}
@@ -372,8 +409,36 @@ ws.onmessage = message => {
 
 		}
 		else{
+			var jB = document.getElementById("join-button");
+			jB.parentNode.removeChild(jB);
+			
+			var hostmsg = document.getElementById("host-message");
+			hostmsg.parentNode.removeChild(hostmsg);
+			
+			var sd3 = document.getElementById("scroll-div-3");
+			sd3.parentNode.removeChild(sd3);
+			
+			var sd4 = document.getElementById("scroll-div-4");
+			sd4.parentNode.removeChild(sd4);
+			
+			var subB = document.getElementById("submitBtn");
+			subB.parentNode.removeChild(subB);
+			
+			var sd2 = document.getElementById("scroll-div-2");
+			sd2.parentNode.removeChild(sd2);
+			
+			var bDiv = document.getElementById("button-div");
+			bDiv.parentNode.removeChild(bDiv);
+			
+			var sd1 = document.getElementById("scroll-div");
+			sd1.parentNode.removeChild(sd1);
+			
+			
+			createLogFeed(response.chatLog);
+
 			pixiStart(response.boardState);
 		}
 
 	}
 }
+

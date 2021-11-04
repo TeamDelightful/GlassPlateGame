@@ -22,22 +22,27 @@
 		<div class="join-box"><h3><u>game id</u><div id="theGame"><%= gameID %></div></h3></div>
 			<div><button class="all-home-buttons" id="join-button" aria-label="join game button">join game</button></div>
 			<div><button class="all-home-buttons" id="leave-button" aria-label="leave game button">leave game</button></div>
-		<div id = 'divChatLog' aria-label="chat window"></div></div>
+		</div>
 	
-	<div id="host-message"><h2>Host Picks the Deck</h2></div>
 	<div class="make-board">
+		<div id="host-message"><h2>Host Picks the Deck</h2></div>
 		<div id="scroll-div-3"></div>
 		<div id="scroll-div-4"></div>
+		<div id="submitBtn"></div>
 		<div id="scroll-div-2"></div>
 		<div id="button-div"></div>
-		<div id="scroll-div"></div>
-	</div>
+		<div id="scroll-div"></div></div>
+	<div class="chatAndBoard">
+		<h3 id="chatDesc">Chat and Move Box</h3>
+		<div id = 'divChatLog' aria-label="chat window"></div>
 		<div id = 'divBoard' aria-label="the glass plate game board">
-			<script type="text/javascript" src="/javascripts/gamejs.js"></script>
-			<script type="text/javascript" src="/javascripts/createLogFeed.js"></script>
-			<script type="text/javascript" src="/javascripts/downloadLog.js"></script>
-			<script type="text/javascript" src="/javascripts/pixi.min.js"></script>
-			<script type="text/javascript" src="/javascripts/IO.js"></script>
-		</div>
+	</div></div>
+	<div id="extra"></div>
+	<script type="text/javascript" src="/javascripts/gamejs.js"></script>
+	<script type="text/javascript" src="/javascripts/createLogFeed.js"></script>
+	<script type="text/javascript" src="/javascripts/downloadLog.js"></script>
+	<script type="text/javascript" src="/javascripts/pixi.min.js"></script>
+	<script type="text/javascript" src="/javascripts/IO.js"></script>
+	
 </body>
 </html>
