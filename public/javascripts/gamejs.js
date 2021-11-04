@@ -4,6 +4,7 @@ let gameId = null;
 let clickcounter = null;
 let deckClickCounter1 = null;
 let startClickCounter1 = null;
+let deletedNode = null;
 let ws = new WebSocket("ws://localhost:27000")
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
@@ -227,6 +228,7 @@ ws.onmessage = message => {
 						theBDiv.appendChild(button);
 						var sd1 = document.getElementById("scroll-div");
 						sd1.parentNode.removeChild(sd1);
+						deletedNode++;
 					}
 					if(optionSelected == options[1]){
 						printCheckBoxes();
@@ -399,8 +401,10 @@ ws.onmessage = message => {
 					var jB = document.getElementById("join-button");
 					jB.parentNode.removeChild(jB);
 					
-					var sd1 = document.getElementById("scroll-div");
-					sd1.parentNode.removeChild(sd1);
+						if(!deletedNode){
+							var sd1 = document.getElementById("scroll-div");
+							sd1.parentNode.removeChild(sd1);
+						}
 						
 				})
 
