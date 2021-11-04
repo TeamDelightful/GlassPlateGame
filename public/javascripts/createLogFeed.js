@@ -40,6 +40,7 @@ function createLogFeed(chatLog) {
     const downloadButton = document.createElement("button");
     downloadButton.id = "download";
     downloadButton.appendChild(document.createTextNode('Download Game Log'));
+    downloadButton.setAttribute("style", "position: relative; left: 20px;");
     downloadButton.addEventListener("click", x => {
         if (confirm("Would you like to download and save a copy of this game?")) {
             // Get game data
