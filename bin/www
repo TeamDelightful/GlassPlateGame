@@ -246,30 +246,6 @@ wsServer.on("request", request => {
 							})
 				}
 
-				if(result.method === "exit") {
-					const gameId = result.gameId;
-					const playerId = result.playerId;
-					// TODO remove player from players object
-					if(games[gameId] !== null) {
-						for(let i = 0; i < games[gameId].players.length; i++){ 
-							if (games[gameId].players[i].playerId === playerId) { 
-								games[gameId].players.splice(i, 1); 
-							}
-						}
-						if(games[gameId].players.length !== 0) {
-							let chatMessage = "Player " + playerId + " has left the game.";
-							games[gameId].chatLog.push(chatMessage);
-							const gameData = {
-								"method": "updateChat",
-								"chatMessage": chatMessage
-							}
-							games[gameId].players.forEach( p => {
-								players[p.playerId].connection.send(JSON.stringify(gameData));
-								})
-						}
-						// TODO if there are no more players, end the game and remove from games object
-					}
-				}
 		})
 
 		// generate player id
