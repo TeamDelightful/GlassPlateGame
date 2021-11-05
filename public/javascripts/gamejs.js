@@ -13,17 +13,8 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
-document.getElementById("leave-button").addEventListener("click", () => {
-	if (confirm("Are you sure you want to leave the game?")) {
-		window.history.back();
-		const gameData = {
-			"method": "exit",
-			"playerId": playerId,
-			"gameId": gameId
-		}
-
 joinButton.addEventListener("click", x => {
-	let leaveButton = document.getElementById('leave-button');
+	let leaveButton = document.getElementById('leave-button');u
 	leaveButton.style.display = "block";
 	clickcounter++;
 	if(clickcounter == 1){
