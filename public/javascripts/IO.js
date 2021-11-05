@@ -177,7 +177,6 @@ function setup() { //sets all cards up with their default states
                                     (layout.cardSize * scale * 1.2) * ((i-(i%rowWidth))/rowWidth) + (layout.cardSize * scale * 0.6));
       });
 
-      connectPalate.scale.set(scale);
 
     }); //card state update from internal, every frame
 
@@ -238,16 +237,16 @@ function minusZoom(){
 
 function setupPalate(){
     connectPalate = new PIXI.Container();
-    connectPalate.height = layout.tileSize * 4;
-    connectPalate.width = layout.tileSize;
+    connectPalate.height = layout.zoomButtonSize * 4;
+    connectPalate.width = layout.zoomButtonSize;
     connectPalate.zIndex = 3;
-    connectPalate.pivot.set(layout.tileSize, layout.tileSize*2);
+    connectPalate.pivot.set(layout.zoomButtonSize, layout.zoomButtonSize*2);
     connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
     connectPalate.addChild(
-        new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
-        new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
-        new PIXI.Graphics().beginFill(0x0000ff).drawRect(0,0,layout.tileSize,layout.tileSize).endFill(),
-        new PIXI.Graphics().beginFill(0xffff00).drawRect(0,0,layout.tileSize,layout.tileSize).endFill()
+        new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0x0000ff).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0xffff00).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill()
     );
 
     connectPalate.getChildAt(0).interactive = true;
@@ -290,15 +289,15 @@ function setupPalate(){
     connectPalate.getChildAt(0).home_x = connectPalate.getChildAt(0).x;
     connectPalate.getChildAt(0).home_y = connectPalate.getChildAt(0).y;
 
-    connectPalate.getChildAt(1).position.set(0,layout.tileSize * 1);
+    connectPalate.getChildAt(1).position.set(0,layout.zoomButtonSize * 1);
     connectPalate.getChildAt(1).home_x = connectPalate.getChildAt(1).x;
     connectPalate.getChildAt(1).home_y = connectPalate.getChildAt(1).y;
 
-    connectPalate.getChildAt(2).position.set(0,layout.tileSize * 2);
+    connectPalate.getChildAt(2).position.set(0,layout.zoomButtonSize * 2);
     connectPalate.getChildAt(2).home_x = connectPalate.getChildAt(2).x;
     connectPalate.getChildAt(2).home_y = connectPalate.getChildAt(2).y;
 
-    connectPalate.getChildAt(3).position.set(0,layout.tileSize * 3);
+    connectPalate.getChildAt(3).position.set(0,layout.zoomButtonSize * 3);
     connectPalate.getChildAt(3).home_x = connectPalate.getChildAt(3).x;
     connectPalate.getChildAt(3).home_y = connectPalate.getChildAt(3).y;
 

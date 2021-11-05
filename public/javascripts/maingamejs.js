@@ -1,10 +1,12 @@
 
 		//Variables (Client ID, Websocket, Button data)
+		let url = "http://localhost:27001/game";
 		let playerId = null;
 		let gameId = null;
 		let clickcount = null;
 		let clickcount2 = null;
 		let clickcount3 = null;
+		let addToGame = 1;
 		let ws = new WebSocket("ws://localhost:27000")
 		const hostButton = document.getElementById("create-button");
 		const joinLink = document.getElementById("divGoToJoin");
@@ -107,19 +109,19 @@
 				gameId = response.game.id;
 
 				const gameID = { gameID: gameId };
-				fetch('http://localhost:27001/game', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json', },
-					body: JSON.stringify(gameID),
-				})
-				.then(response => response.json())
-				.then(gameID => {
-					console.log('Success: ', gameID);
-				})
-				.catch((error) => {
-					console.error('Error:', error);
-				});
 
+					fetch(url, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json',},
+						body: JSON.stringify({gameID, "addDelete":addToGame}),
+					})
+					.then(response => response.json())
+					.then(gameID => {
+						console.log('Success: ', gameID);
+					})
+					.catch((error) => {
+						console.error('Error:', error);
+					});
 
 				const d = document.createElement("div");
 				const p = document.createElement("p");

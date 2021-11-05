@@ -157,16 +157,19 @@ html{
 		margin: 20px 0px 0px 20px;
 	}
 
-	#divChatLog{
+	.chatSurround{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 275px;
-		height: 450px;
-		overflow-y: scroll;
+		height: 460px;
 		background-color: var(--ltblue);
+	}
+	
+
+	#divChatLog{
+		
 	}
 	
 	#chat {
@@ -186,7 +189,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 275px;
 		height: 650px;
@@ -340,20 +342,22 @@ html{
 		margin: 20px 0px 0px 20px;
 	}
 	
-	#divChatLog{
+	.chatSurround{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 310px;
-		height: 450px;
-		overflow-y: scroll;
+		height: 460px;
 		background-color: var(--ltblue);
 	}
 	
+	#divChatLog{
+		
+	}
+	
 	#chat {
-		width: 300px;
+		width: 280px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -369,7 +373,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 310px;
 		height: 650px;
@@ -525,16 +528,18 @@ html{
 		margin: 20px 0px 0px 20px;
 	}
 	
-	#divChatLog{
+	.chatSurround{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 350px;
-		height: 490px;
-		overflow-y: scroll;
+		height: 500px;
 		background-color: var(--ltblue);
+	}
+	
+	#divChatLog{
+		
 	}
 	#chat {
 		width: 320px;
@@ -553,7 +558,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 350px;
 		height: 680px;
@@ -706,6 +710,16 @@ html{
 		
 	}
 	
+	.chatSurround{
+		margin: 0px 0px 10px 0px;
+		border-style: solid;
+		border-width: 2px;
+		border-color: black;
+		width: 550px;
+		height: 230px;
+		background-color: var(--ltblue);
+	}
+	
 	#chatDesc{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
@@ -713,19 +727,11 @@ html{
 	}
 	
 	#divChatLog{
-		margin: 0px 0px 10px 0px;
-		border-style: solid;
-		border-width: 2px;
-		border-radius: 25px;
-		border-color: black;
-		width: 550px;
-		height: 150px;
-		overflow-y: scroll;
-		background-color: var(--ltblue);
+		
 	}
 	
 	#chat {
-		width: 520px;
+		width: 515px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -741,7 +747,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 550px;
 		height: 680px;
@@ -905,7 +910,7 @@ html{
 		width: 250px;
 	}
 	
-	#divChatLog{
+	.chatSurround{
 		align-self: flex-end;
 		position: relative;
 		top: 30px;
@@ -913,16 +918,17 @@ html{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 340px;
 		height: 680px;
-		overflow-y: scroll;
 		background-color: var(--ltblue);
+	}
+		
+	#divChatLog{
 	}
 	
 	#chat {
-		width: 220px;
+		width: 315px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -942,7 +948,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 600px;
 		height: 680px;
@@ -1105,7 +1110,7 @@ html{
 		width: 250px;
 	}
 	
-	#divChatLog{
+	.chatSurround{
 		align-self: flex-end;
 		position: relative;
 		top: 30px;
@@ -1113,16 +1118,19 @@ html{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 340px;
 		height: 680px;
-		overflow-y: scroll;
 		background-color: var(--ltblue);
 	}
 	
+	
+	#divChatLog{
+		
+	}
+	
 	#chat {
-		width: 220px;
+		width: 315px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -1142,7 +1150,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 800px;
 		height: 680px;
@@ -1315,8 +1322,7 @@ html{
 		left: 20px;
 		width: 250px;
 	}
-	
-	#divChatLog{
+	.chatSurround{
 		align-self: flex-end;
 		position: relative;
 		top: 40px;
@@ -1324,16 +1330,17 @@ html{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 300px;
 		height: 680px;
-		overflow-y: scroll;
 		background-color: var(--ltblue);
 	}
 	
+	#divChatLog{
+	}
+	
 	#chat {
-		width: 220px;
+		width: 275px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -1353,7 +1360,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 1150px;
 		height: 680px;
@@ -1523,8 +1529,7 @@ html{
 		left: 20px;
 		width: 250px;
 	}
-	
-	#divChatLog{
+	.chatSurround{
 		align-self: flex-end;
 		position: relative;
 		top: 40px;
@@ -1532,23 +1537,25 @@ html{
 		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 300px;
 		height: 880px;
-		overflow-y: scroll;
 		background-color: var(--ltblue);
 	}
 	
+	#divChatLog{
+		
+	}
+	
 	#chat {
-		width: 220px;
+		width: 275px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		line-height: 120%;
-		height: 830px;
+		height: 800px;
 		word-wrap: break-word;
 		overflow-y: scroll;
 	}
@@ -1561,7 +1568,6 @@ html{
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
-		border-radius: 25px;
 		border-color: black;
 		width: 1450px;
 		height: 880px;
@@ -1725,7 +1731,7 @@ a.button-link:hover{
 	margin: 10px 30px 0px 10px;
 	height: 40px;
 	width: 200px;
-	
+	display: none;
 }
 
 .gotojoin-button{

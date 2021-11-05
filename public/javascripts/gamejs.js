@@ -1,4 +1,5 @@
 //Variables (Client ID, Websocket, Button data)
+let url = "http://localhost:27001/game";
 let playerId = null;
 let gameId = null;
 let clickcounter = null;
@@ -12,9 +13,9 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
-
 joinButton.addEventListener("click", x => {
-
+	let leaveButton = document.getElementById('leave-button');
+	leaveButton.style.display = "block";
 	clickcounter++;
 	if(clickcounter == 1){
 
@@ -31,6 +32,7 @@ joinButton.addEventListener("click", x => {
 
 		ws.send(JSON.stringify(gameData));
 	}
+	
 });
 
 //Websocket communication
@@ -81,7 +83,7 @@ ws.onmessage = message => {
 
 	//join game
 	if (response.method === "join") {
-
+		
 		// Call function to create log/chat feed and add join message (Rochele)
 		//createLogFeed(response.chatLog);
 
@@ -328,6 +330,7 @@ ws.onmessage = message => {
 
 							if(response.method === 'host-join'){
 								gameId = response.game.id;
+								
 								createLogFeed(response.chatLog);
 
 								pixiStart(response.boardState);
@@ -436,7 +439,6 @@ ws.onmessage = message => {
 			
 			var sd1 = document.getElementById("scroll-div");
 			sd1.parentNode.removeChild(sd1);
-			
 			
 			createLogFeed(response.chatLog);
 

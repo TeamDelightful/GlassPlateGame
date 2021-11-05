@@ -8,7 +8,8 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game')
-let games = [];
+let gamesHTML = [];
+//var gameID = {};
 
 var app = express();
 
@@ -30,24 +31,37 @@ app.listen(27001, () => console.log("Express on: 27001"));
 
 
 app.post('/game', (req, res) => {
-  const game = req.body;
+  const game = req.body.gameID;
+  const addOrDelete = req.body.addDelete;
   
   //Output the game to the console for debugging
   console.log(game);
-  games.push(game);
   
-  res.send('Game is added to the database');
+  if(addOrDelete == 99){
+      
+    const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
+    console.log("THIS IS THE INDEX:" + index);
+    if (index > -1){
+      gamesHTML.splice(index, 1);
+    }
+  }
+  else{
+    gamesHTML.push(game);
+    console.log(gamesHTML);
+    console.log("Added to database");
+  }
+  console.log(gamesHTML);
   
 });
 
-app.get('/games', (req, res) => {
-  res.json(games);
+app.get('/gamesHTML', (req, res) => {
+  res.json(gamesHTML);
 });
 
 app.get('/game/:gameID', (req, res) => {
   const gameID = req.params.gameID;
   res.locals.gameID = gameID;
-  for (let game of games) {
+  for (let game of gamesHTML) {
     if (game.gameID === gameID){
       res.render("game")
       return;
