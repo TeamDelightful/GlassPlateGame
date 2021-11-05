@@ -14,7 +14,7 @@ const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
 joinButton.addEventListener("click", x => {
-	let leaveButton = document.getElementById('leave-button');u
+	let leaveButton = document.getElementById('leave-button');
 	leaveButton.style.display = "block";
 	clickcounter++;
 	if(clickcounter == 1){
