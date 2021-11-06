@@ -13,6 +13,61 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+
+document.getElementById("leave-button").addEventListener("click", x => {
+	if (confirm("Are you sure you want to leave the game?")) {
+		
+		const gameData = {
+			"method": "exit",
+			"playerId": playerId,
+			"gameId": gameId
+		}
+		
+		ws.send(JSON.stringify(gameData));
+		
+		var leaveGInfo = document.getElementById("game-info");
+		leaveGInfo.parentNode.removeChild(leaveGInfo);
+		
+		var leaveB = document.getElementById("leave-button");
+		leaveB.parentNode.removeChild(leaveB);
+		
+		var leaveGPG = document.getElementById("chatAndBoard");
+		leaveGPG.parentNode.removeChild(leaveGPG);
+	
+	}
+	else {
+		return;
+	}
+	
+	ws.onmessage = message => {
+		
+		const response = JSON.parse(message.data);
+		
+		if(response.method === "end"){
+			const gameNum = response.id;
+			
+			const gameID = { gameID: gameNum };
+			let addToGame = 99;
+			
+			fetch(url, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json',},
+				body: JSON.stringify({gameID, "addDelete":addToGame}),
+			})
+			.then(response => response.json())
+			.then(gameID => {
+			})
+			.catch((error) => {
+			});
+			
+			
+		}
+	}
+}); 
+
+
+
+
 joinButton.addEventListener("click", x => {
 	let leaveButton = document.getElementById('leave-button');
 	leaveButton.style.display = "block";
@@ -40,6 +95,7 @@ ws.onmessage = message => {
 	//message data JSON
 	const response = JSON.parse(message.data);
 
+		
 	//connect
 	if (response.method === "connect"){
 		playerId = response.playerId;
@@ -334,7 +390,8 @@ ws.onmessage = message => {
 								createLogFeed(response.chatLog);
 
 								pixiStart(response.boardState);
-
+								
+																
 							}
 
 							//connect
@@ -443,8 +500,13 @@ ws.onmessage = message => {
 			createLogFeed(response.chatLog);
 
 			pixiStart(response.boardState);
+			
+			
+			
+				
+				
+				
 		}
 
 	}
 }
-
