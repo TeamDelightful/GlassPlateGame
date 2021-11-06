@@ -13,6 +13,7 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+
 document.getElementById("leave-button").addEventListener("click", x => {
 	if (confirm("Are you sure you want to leave the game?")) {
 		
@@ -63,6 +64,7 @@ document.getElementById("leave-button").addEventListener("click", x => {
 		}
 	}
 }); 
+
 
 
 
