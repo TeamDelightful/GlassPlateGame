@@ -34,7 +34,7 @@ const players = {};
 const games = {};
 
 // Include for function to create random and unique game id 
-var createGameId = require('../public/javascripts/createGameId');
+var createId = require('../public/javascripts/createId');
 
 //var StateMachine = require('javascript-state-machine');
 
@@ -71,7 +71,7 @@ wsServer.on("request", request => {
 				playerId = 0;
 
 				// Generate unique game ID 
-				const gameId = createGameId.createGameId(Object.keys(games));
+				const gameId = createId.createId(Object.keys(games));
 		
 				hostKey = "host";
 
