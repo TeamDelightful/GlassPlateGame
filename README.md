@@ -27,6 +27,8 @@ bin/www Line 9
 ![Board Selection](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/BoardSelection.png)
 ![Inital Board](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/InitalBoard.jpg)
 
+## Acknowledgements
+
 ## Dependcies
 
 ├── bufferutil@4.0.5
