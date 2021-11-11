@@ -28,16 +28,29 @@ bin/www Line 9
 ![Inital Board](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/InitalBoard.jpg)
 
 ## Dependcies
+
 ├── bufferutil@4.0.5
+
 ├── clipboard@2.0.8
+
 ├── cookie-parser@1.4.5
+
 ├── cors@2.8.5
+
 ├── ejs@3.1.6
+
 ├── express-ws-routes@1.1.0
+
 ├── express@4.17.1
+
 ├── http-errors@1.8.0
+
 ├── http@0.0.1-security
+
 ├── morgan@1.10.0
+
 ├── node@16.10.0
+
 ├── nodemon@2.0.13
+
 └── websocket@1.0.34
