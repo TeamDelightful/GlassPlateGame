@@ -9,7 +9,9 @@ This work is made available under the "MIT License". Please see the file LICENSE
 This repository contains a code base that allows a user to host Glass Plate Games (for more information on the Glass Plate Game, visit https://glassplategame.com/ ). 
 
 ## Build and Run
-To run this program, access the folder via your terminal then enter "npm start".
+To run this program, access the folder via your terminal then enter 
+
+    npm start
 
 ## Screenshots
 
