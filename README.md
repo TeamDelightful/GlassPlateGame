@@ -14,6 +14,7 @@ To run this program, access the folder via your terminal then enter
     npm start
 
 In order to change where to host the websocket, there are three places you need to change the code:
+
 public/javascripts/gamejs.js  Line 9
 public/javascripts/maingamejs.js Lines 3 & 10
 bin/www Line 9
