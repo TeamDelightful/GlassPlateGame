@@ -141,7 +141,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -326,7 +326,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -512,7 +512,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -700,7 +700,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -891,7 +891,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		left: 20px;
@@ -1091,7 +1091,7 @@ html{
 		
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		left: 20px;
@@ -1304,7 +1304,7 @@ html{
 		
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		left: 20px;
@@ -1511,7 +1511,7 @@ html{
 		width: 275px;
 	}
 	
-	.chatAndBoard{
+	#chatAndBoard{
 		position: relative;
 		display: flex;
 		left: 20px;
