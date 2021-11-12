@@ -355,6 +355,7 @@ function cardSetup(item){
     item.container.getChildAt(1).on("pointerdown", popup);
     item.container.getChildAt(1).connectionIndex = 0;
     item.container.getChildAt(1).menuExist = false;
+    item.container.getChildAt(1).color = colors.red;
 
     item.container.getChildAt(2).x = layout.tileSize/2 + layout.tileSize;
     item.container.getChildAt(2).y = layout.cardSize - layout.tileSize/2;
@@ -372,6 +373,7 @@ function cardSetup(item){
     item.container.getChildAt(2).on("pointerdown", popup);
     item.container.getChildAt(2).connectionIndex = 1;
     item.container.getChildAt(2).menuExist = false;
+    item.container.getChildAt(2).color = colors.green;
 
     item.container.getChildAt(3).x = layout.tileSize/2 + layout.tileSize * 2;
     item.container.getChildAt(3).y = layout.cardSize - layout.tileSize/2;
@@ -389,6 +391,7 @@ function cardSetup(item){
     item.container.getChildAt(3).on("pointerdown", popup);
     item.container.getChildAt(3).connectionIndex = 2;
     item.container.getChildAt(3).menuExist = false;
+    item.container.getChildAt(3).color = colors.blue;
 
     item.container.getChildAt(4).x = layout.tileSize/2 + layout.tileSize * 3;
     item.container.getChildAt(4).y = layout.cardSize - layout.tileSize/2;
@@ -406,6 +409,7 @@ function cardSetup(item){
     item.container.getChildAt(4).on("pointerdown", popup);
     item.container.getChildAt(4).connectionIndex = 3;
     item.container.getChildAt(4).menuExist = false;
+    item.container.getChildAt(4).color = colors.yellow;
 
     PIXIapp.stage.addChild(item.container);
 }
@@ -577,26 +581,66 @@ function popup(){
 //the following 5 set functions set the die state for each tile
 function setNumber(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to "
-    + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number;
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.red){
+      this.parent.parent.parent.cardParent.moveMade += "red tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to '"
+    + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number + "'";
     sendState()
 }
 
 function setOkay(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'okay';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to okay";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.red){
+      this.parent.parent.parent.cardParent.moveMade += "red tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'okay'";
     sendState()
 }
 
 function setPermit(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'permit'
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to permit";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.red){
+      this.parent.parent.parent.cardParent.moveMade += "red tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'permit'";
     sendState()
 }
 
 function setChallenge(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'challenge';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to challenge";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.red){
+      this.parent.parent.parent.cardParent.moveMade += "red tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'challenge'";
     sendState()
 }
 
@@ -604,7 +648,17 @@ function removeConnection(){
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
-  this.parent.parent.parent.cardParent.moveMade = "removed a tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
+  this.parent.parent.parent.cardParent.moveMade = "removed a "
+  if(this.parent.parent.color === colors.red){
+    this.parent.parent.parent.cardParent.moveMade += "red ";
+  } else if(this.parent.parent.color === colors.green){
+    this.parent.parent.parent.cardParent.moveMade += "green ";
+  }else if(this.parent.parent.color === colors.blue){
+    this.parent.parent.parent.cardParent.moveMade += "blue ";
+  }else if(this.parent.parent.color === colors.yellow){
+    this.parent.parent.parent.cardParent.moveMade += "yellow ";
+  }
+  this.parent.parent.parent.cardParent.moveMade += "tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
 }
 
