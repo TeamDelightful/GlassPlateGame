@@ -9,7 +9,6 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game')
 let gamesHTML = [];
-//var gameID = {};
 
 var app = express();
 
