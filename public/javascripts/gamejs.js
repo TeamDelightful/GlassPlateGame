@@ -93,14 +93,12 @@ document.getElementById("leave-button").addEventListener("click", x => {
 			.catch((error) => {
 			});
 			
-			
 		}
 	}
 }); 
 
 joinButton.addEventListener("click", x => {
-	let leaveButton = document.getElementById('leave-button');
-	leaveButton.style.display = "block";
+	
 	
 	clickcounter++;
 	if(clickcounter == 1){
@@ -143,6 +141,10 @@ ws.onmessage = message => {
 	if (response.method === 'host-join'){
 		gameId = response.game.id;
 		
+		let leaveButton = document.getElementById('leave-button');
+		leaveButton.style.display = "block";
+		
+		
 		createLogFeed(response.chatLog);
 		
 		pixiStart(response.boardState);
@@ -184,6 +186,10 @@ ws.onmessage = message => {
 		
 		var hostmsg = document.getElementById("host-message");
 		hostmsg.parentNode.removeChild(hostmsg);
+		
+		let leaveButton = document.getElementById('leave-button');
+		leaveButton.style.display = "block";
+
 		
 		var update = "Your game is starting now."					
 		var starting = document.getElementById("game-starting");
@@ -454,6 +460,11 @@ ws.onmessage = message => {
 					var hostmsg = document.getElementById("host-message");
 					hostmsg.parentNode.removeChild(hostmsg);
 					
+					if(!deletedNode){
+						var sd1 = document.getElementById("scroll-div");
+						sd1.parentNode.removeChild(sd1);
+					}
+						
 					var sd3 = document.getElementById("scroll-div-3");
 					sd3.parentNode.removeChild(sd3);
 					
@@ -472,11 +483,7 @@ ws.onmessage = message => {
 					var jB = document.getElementById("join-button");
 					jB.parentNode.removeChild(jB);
 					
-						if(!deletedNode){
-							var sd1 = document.getElementById("scroll-div");
-							sd1.parentNode.removeChild(sd1);
-						}
-												
+																		
 				})
 
 				
