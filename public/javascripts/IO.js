@@ -66,10 +66,10 @@ card representated by
 }
 */
 let colors = {
-    red: 0xff0000,
-    green: 0x00ff00,
-    blue: 0x0000ff,
-    yellow: 0xffff00
+    purple: 0xB38BFC,
+    green: 0x53FCA2,
+    blue: 0x7EB2FC,
+    yellow: 0xFFE76E
 }
 
 //to be pulled from gamestate code
@@ -198,8 +198,8 @@ function setupZoom(){
   zoomControl.position.set(PIXIapp.screen.width,0);
 
   zoomControl.addChild(
-    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize),
-    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xd2b48c).drawRect(0,layout.zoomButtonSize,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize)
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize),
+    new PIXI.Graphics().lineStyle(10,0x000000).beginFill(0xdee0e3).drawRect(0,layout.zoomButtonSize,layout.zoomButtonSize,layout.zoomButtonSize).endFill().drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize)
   )
   zoomControl.getChildAt(0).addChild(new PIXI.Text("+", PIXIstyle));
   zoomControl.getChildAt(0).getChildAt(0).height = 0.8 * layout.zoomButtonSize;
@@ -243,16 +243,16 @@ function setupPalate(){
     connectPalate.pivot.set(layout.zoomButtonSize, layout.zoomButtonSize*2);
     connectPalate.position.set(PIXIapp.screen.width, PIXIapp.screen.height / 2);
     connectPalate.addChild(
-        new PIXI.Graphics().beginFill(0xff0000).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
-        new PIXI.Graphics().beginFill(0x00ff00).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
-        new PIXI.Graphics().beginFill(0x0000ff).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
-        new PIXI.Graphics().beginFill(0xffff00).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill()
+        new PIXI.Graphics().beginFill(0xB38BFC).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0x53FCA2).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0x7EB2FC).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill(),
+        new PIXI.Graphics().beginFill(0xFFE76E).drawRect(0,0,layout.zoomButtonSize,layout.zoomButtonSize).endFill()
     );
 
     connectPalate.getChildAt(0).interactive = true;
     connectPalate.getChildAt(0).buttonMode = true;
     connectPalate.getChildAt(0).zIndex = 5;
-    connectPalate.getChildAt(0).color = colors.red;
+    connectPalate.getChildAt(0).color = colors.purple;
     connectPalate.getChildAt(0).on('pointerdown', onDragStart)
         .on('pointerup', onDragEnd)
         .on('pointerupoutside', onDragEnd)
@@ -313,10 +313,10 @@ function cardSetup(item){
     item.container.width = 600;
     item.container.pivot.set(layout.cardSize/2,layout.cardSize/2);
     item.container.addChild(new PIXI.Sprite(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + ".png"].texture),
-                            new PIXI.Graphics().beginFill(0xff0000).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
-                            new PIXI.Graphics().beginFill(0x00ff00).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
-                            new PIXI.Graphics().beginFill(0x0000ff).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
-                            new PIXI.Graphics().beginFill(0xffff00).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill()
+                            new PIXI.Graphics().beginFill(0xB38BFC).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
+                            new PIXI.Graphics().beginFill(0x53FCA2).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
+                            new PIXI.Graphics().beginFill(0x7EB2FC).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
+                            new PIXI.Graphics().beginFill(0xFFE76E).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill()
                            );
 
     //reference to card object in cards array
@@ -355,6 +355,7 @@ function cardSetup(item){
     item.container.getChildAt(1).on("pointerdown", popup);
     item.container.getChildAt(1).connectionIndex = 0;
     item.container.getChildAt(1).menuExist = false;
+    item.container.getChildAt(1).color = colors.purple;
 
     item.container.getChildAt(2).x = layout.tileSize/2 + layout.tileSize;
     item.container.getChildAt(2).y = layout.cardSize - layout.tileSize/2;
@@ -372,6 +373,7 @@ function cardSetup(item){
     item.container.getChildAt(2).on("pointerdown", popup);
     item.container.getChildAt(2).connectionIndex = 1;
     item.container.getChildAt(2).menuExist = false;
+    item.container.getChildAt(2).color = colors.green;
 
     item.container.getChildAt(3).x = layout.tileSize/2 + layout.tileSize * 2;
     item.container.getChildAt(3).y = layout.cardSize - layout.tileSize/2;
@@ -389,6 +391,7 @@ function cardSetup(item){
     item.container.getChildAt(3).on("pointerdown", popup);
     item.container.getChildAt(3).connectionIndex = 2;
     item.container.getChildAt(3).menuExist = false;
+    item.container.getChildAt(3).color = colors.blue;
 
     item.container.getChildAt(4).x = layout.tileSize/2 + layout.tileSize * 3;
     item.container.getChildAt(4).y = layout.cardSize - layout.tileSize/2;
@@ -406,6 +409,7 @@ function cardSetup(item){
     item.container.getChildAt(4).on("pointerdown", popup);
     item.container.getChildAt(4).connectionIndex = 3;
     item.container.getChildAt(4).menuExist = false;
+    item.container.getChildAt(4).color = colors.yellow;
 
     PIXIapp.stage.addChild(item.container);
 }
@@ -427,12 +431,12 @@ function onDragEnd() {
 
     for (let i = 0; i < cards.length; i++) {
         if(cards[i].container.getBounds().contains(this.getBounds().x, this.getBounds().y)){
-            if(this.color == colors.red)
+            if(this.color == colors.purple)
             {
               if(cards[i].connections[0].active === false){
                 cards[i].connections[0].active = true;
                 cards[i].connections[0].number = nextMoveNumber();
-                cards[i].moveMade = "placed a red tile on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a purple tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -501,11 +505,11 @@ function popup(){
         menu.zIndex = 10;
         menu.alpha = 4/3; //4/3 to compensate for starting at 0.75 alpha on tile to result in alpha of 1
         menu.addChild(
-            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
-            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
-            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
-            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
-            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xd2b48c).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill()
+            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
+            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
+            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
+            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill(),
+            new PIXI.Graphics().lineStyle(5,0x000000).beginFill(0xdee0e3).drawRect(0,0,layout.tileSize * 4,layout.tileSize).endFill()
         );
 
         menu.getChildAt(0).position.set(0,0);
@@ -577,26 +581,66 @@ function popup(){
 //the following 5 set functions set the die state for each tile
 function setNumber(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to "
-    + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number;
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.purple){
+      this.parent.parent.parent.cardParent.moveMade += "purple tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to '"
+    + this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number + "'";
     sendState()
 }
 
 function setOkay(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'okay';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to okay";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.purple){
+      this.parent.parent.parent.cardParent.moveMade += "purple tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'okay'";
     sendState()
 }
 
 function setPermit(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'permit'
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to permit";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.purple){
+      this.parent.parent.parent.cardParent.moveMade += "purple tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'permit'";
     sendState()
 }
 
 function setChallenge(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'challenge';
-    this.parent.parent.parent.cardParent.moveMade = "set '" + cleanName(this.parent.parent.parent.cardParent.name) + "' to challenge";
+    this.parent.parent.parent.cardParent.moveMade = "set the ";
+    if(this.parent.parent.color === colors.purple){
+      this.parent.parent.parent.cardParent.moveMade += "purple tile on '";
+    } else if(this.parent.parent.color === colors.green){
+      this.parent.parent.parent.cardParent.moveMade += "green tile on '";
+    }else if(this.parent.parent.color === colors.blue){
+      this.parent.parent.parent.cardParent.moveMade += "blue tile on '";
+    }else if(this.parent.parent.color === colors.yellow){
+      this.parent.parent.parent.cardParent.moveMade += "yellow tile on '";
+    }
+    this.parent.parent.parent.cardParent.moveMade += cleanName(this.parent.parent.parent.cardParent.name) + "' to 'challenge'";
     sendState()
 }
 
@@ -604,7 +648,17 @@ function removeConnection(){
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
-  this.parent.parent.parent.cardParent.moveMade = "removed a tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
+  this.parent.parent.parent.cardParent.moveMade = "removed a "
+  if(this.parent.parent.color === colors.purple){
+    this.parent.parent.parent.cardParent.moveMade += "purple ";
+  } else if(this.parent.parent.color === colors.green){
+    this.parent.parent.parent.cardParent.moveMade += "green ";
+  }else if(this.parent.parent.color === colors.blue){
+    this.parent.parent.parent.cardParent.moveMade += "blue ";
+  }else if(this.parent.parent.color === colors.yellow){
+    this.parent.parent.parent.cardParent.moveMade += "yellow ";
+  }
+  this.parent.parent.parent.cardParent.moveMade += "tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
 }
 
