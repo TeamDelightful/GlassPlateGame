@@ -132,7 +132,7 @@ wsServer.on("request", request => {
 					connection.send(JSON.stringify(gameData));
 
 					//Announce new connections
-					let chatMessage = "Player " + playerId + ": has started the game.";
+					let chatMessage = players[playerId].username + " has started the game.";
 					games[gameId].chatLog.push(chatMessage);
 					const game2Data = {
 						"method": "updateChat",
@@ -150,8 +150,9 @@ wsServer.on("request", request => {
 
 				//Join game server logic
 				if (result.method === "join") {
-
+					var username = result.username;
 					playerId = result.playerId;
+					players[playerId].username = username;
 					hostKey = "not host";
 					pId++;
 					const gameId = result.gameId;
@@ -173,7 +174,7 @@ wsServer.on("request", request => {
 					players[playerId].connection.send(JSON.stringify(joinData));
 
 					//Announce new connections
-					let chatMessage = "Player " + playerId + " has joined.";
+					let chatMessage = players[playerId].username + " has joined.";
 					games[gameId].chatLog.push(chatMessage);
 					const gameData = {
 						"method": "updateChat",
@@ -205,7 +206,7 @@ wsServer.on("request", request => {
 						let oldMove = oldBoardState[i].moveMade;
 						let newMove = newBoardState[i].moveMade;
 						if(oldMove !== newMove) {
-							chatMessage = "Player " + playerId + " " + newMove;
+							chatMessage = players[playerId].username + " " + newMove;
 						}					
 					}
 					games[gameId].boardState = result.boardState;
@@ -236,7 +237,9 @@ wsServer.on("request", request => {
 				// Update logs when someone types a message
 				if(result.method === 'chat') {
 					let gameId = result.gameId;
+					let playerId = result.playerId;
 					let chatMessage = result.chatMessage;
+					chatMessage = players[playerId].username + ": " + chatMessage;
 					games[gameId].chatLog.push(chatMessage);
 					const gameData = {
 						"method": "updateChat",

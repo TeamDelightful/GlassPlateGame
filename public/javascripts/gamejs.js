@@ -13,6 +13,9 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+window.onunload = function() {
+    console.log('Bye.');
+}
 
 document.getElementById("leave-button").addEventListener("click", x => {
 	if (confirm("Are you sure you want to leave the game?")) {
@@ -69,6 +72,7 @@ document.getElementById("leave-button").addEventListener("click", x => {
 
 
 joinButton.addEventListener("click", x => {
+	let username = document.getElementById('username').value;
 	let leaveButton = document.getElementById('leave-button');
 	leaveButton.style.display = "block";
 	clickcounter++;
@@ -82,6 +86,7 @@ joinButton.addEventListener("click", x => {
 		const gameData = {
 			"method": "join",
 			"playerId": playerId,
+			"username": username,
 			"gameId": gameId
 		}
 
