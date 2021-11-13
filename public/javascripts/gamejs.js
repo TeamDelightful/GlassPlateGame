@@ -6,6 +6,9 @@ let clickcounter = null;
 let deckClickCounter1 = null;
 let startClickCounter1 = null;
 let deletedNode = null;
+let makeBoard1 = null;
+let makeBoard2R = null;
+let makeBoard2C = null;
 let ws = new WebSocket("ws://localhost:27000");
 
 const joinButton = document.getElementById("join-button");
@@ -38,6 +41,31 @@ document.getElementById("leave-button").addEventListener("click", x => {
 		
 		var leaveGStarting = document.getElementById("game-starting");
 		leaveGStarting.parentNode.removeChild(leaveGStarting);
+		
+		if (makeBoard1){
+			var leaveMidPick = document.getElementById("host-message");
+			leaveMidPick.parentNode.removeChild(leaveMidPick);
+			
+			var leaveMidPick2 = document.getElementById("scroll-div-3");
+			leaveMidPick2.parentNode.removeChild(leaveMidPick2);
+			
+			var leaveMidPick3 = document.getElementById("submitBtn");
+			leaveMidPick3.parentNode.removeChild(leaveMidPick3);
+		}
+		if (makeBoard2R){
+			var leaveMidPick4 = document.getElementById("scroll-div-2");
+			leaveMidPick4.parentNode.removeChild(leaveMidPick4);
+			
+			var leaveMidPick5 = document.getElementById("button-div");
+			leaveMidPick5.parentNode.removeChild(leaveMidPick5);
+		}
+		if (makeBoard2C){
+			var leaveMidPick6 = document.getElementById("scroll-div");
+			leaveMidPick6.parentNode.removeChild(leaveMidPick6);
+			
+			var leaveMidPick5 = document.getElementById("button-div");
+			leaveMidPick5.parentNode.removeChild(leaveMidPick5);
+		}
 	
 	}
 	else {
@@ -182,6 +210,8 @@ ws.onmessage = message => {
 
 		if(count === 1)
 		{
+			var jB = document.getElementById("join-button");
+			jB.parentNode.removeChild(jB);
 			
 			//card names
 			var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
@@ -292,6 +322,7 @@ ws.onmessage = message => {
 			printOptions();
 			printSelectBox();
 
+			makeBoard1++;
 
 			//Select button code
 
@@ -321,6 +352,7 @@ ws.onmessage = message => {
 						var sd1 = document.getElementById("scroll-div");
 						sd1.parentNode.removeChild(sd1);
 						deletedNode++;
+						makeBoard2R++;
 					}
 					if(optionSelected == options[1]){
 						printCheckBoxes();
@@ -332,6 +364,7 @@ ws.onmessage = message => {
 						button.ariaLabel = "start game button";
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
+						makeBoard2C++;
 
 					}
 					
@@ -443,7 +476,7 @@ ws.onmessage = message => {
 							var sd1 = document.getElementById("scroll-div");
 							sd1.parentNode.removeChild(sd1);
 						}
-						
+												
 				})
 
 				
