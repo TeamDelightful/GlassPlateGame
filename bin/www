@@ -145,7 +145,8 @@ wsServer.on("request", request => {
 						"boardState": games[gameId].boardState,
 						"chatLog": games[gameId].chatLog,
 						"players": games[gameId].players,
-						"startCode": startCode
+						"startCode": startCode,
+						"playerId": playerId
 
 					}
 										
@@ -222,7 +223,7 @@ wsServer.on("request", request => {
 							"chatLog": games[gameId].chatLog,
 							"players": games[gameId].players,
 							"id": gameId,
-							//"playerId": playerId,
+							"playerId": playerId,
 							"startCode": startCode
 						}
 					
@@ -366,13 +367,14 @@ wsServer.on("request", request => {
 					console.log("before: " + Object.keys(players));
 					delete players[playerId];
 					console.log("after: " + Object.keys(players));
-					if(games[gameId] !== null) {
-						for(let i = 0; i < games[gameId].players.length; i++){ 
+					if (games[gameId] !== null) {
+						for (let i = 0; i < games[gameId].players.length; i++){ 
 							if (games[gameId].players[i].playerId === playerId) { 
 								games[gameId].players.splice(i, 1); 
 							}
 						}
-						if(games[gameId].players.length !== 0) {
+
+						if (games[gameId].players.length !== 0) {
 							let chatMessage = "Player " + playerId + " has left the game.";
 							games[gameId].chatLog.push(chatMessage);
 							const gameData = {
@@ -384,7 +386,9 @@ wsServer.on("request", request => {
 							games[gameId].players.forEach( p => {
 								players[p.playerId].connection.send(JSON.stringify(gameData));
 								})
+
 						}
+						
 						// TODO if there are no more players, end the game and remove from games object
 						else {	
 							console.log("IT IS GETTING HERE!")

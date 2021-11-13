@@ -36,12 +36,15 @@ app.post('/game', (req, res) => {
   //Output the game to the console for debugging
   console.log(game);
   
-  if(addOrDelete == 99){
+  if (addOrDelete === 99){
       
     const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
     console.log("THIS IS THE INDEX:" + index);
     if (index > -1){
       gamesHTML.splice(index, 1);
+    }
+    else {
+      console.log("Index was less than -1");
     }
   }
   else{
