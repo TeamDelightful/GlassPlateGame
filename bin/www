@@ -35,8 +35,6 @@ var hostKey = "not host";
 const players = {};
 const games = {};
 var countForIds = [];
-var gameStartCode = 0;
-//var tempGameId = null;
 
 // Include for function to create random and unique game id 
 var createGameId = require('../public/javascripts/createGameId');
@@ -231,9 +229,7 @@ wsServer.on("request", request => {
 						checkForUpdatedGame();
 						
 					function checkForUpdatedGame(){
-						
-					
-							
+													
 							if (games && gameId){						
 								if (games[gameId].boardState[0]){
 									
@@ -246,10 +242,6 @@ wsServer.on("request", request => {
 										console.log("after update" + countForIds[index]);
 									}
 																		
-									//const gameId = result.gameId;
-									gameStartCode = 777;
-									//const playerId = tempPlayerId;
-									
 									// Add player to game
 									games[gameId].players.push({
 										"playerId": playerId
@@ -270,6 +262,7 @@ wsServer.on("request", request => {
 									
 									//Send game id back to webpage
 									connection.send(JSON.stringify(joinData2));
+									
 									
 									//Announce new connections
 									let chatMessage = "Player " + playerId + " has joined.";
@@ -295,7 +288,7 @@ wsServer.on("request", request => {
 						
 													
 					}
-					
+
 					// if 2 players or more join, start game
 					broadcastState();
 					players[playerId].connection.send(JSON.stringify(joinData));
@@ -457,7 +450,7 @@ function broadcastState(){
 				})
 	}
 
-	setTimeout(broadcastState, 500);  //was 500
+	setTimeout(broadcastState, 500);
 
 }
 
