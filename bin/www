@@ -178,11 +178,13 @@ wsServer.on("request", request => {
 				//Join game server logic
 				if (result.method === "join") {
 
-						playerId = result.playerId;
-						hostKey = "not host";
-						pId++;
-						const gameId = result.gameId;
-						const startCode = result.startCode;
+					var username = result.username;
+					playerId = result.playerId;
+					players[playerId].username = username;
+					hostKey = "not host";
+					pId++;
+					const gameId = result.gameId;
+					const startCode = result.startCode;
 						
 							var counter = countForIds.filter(countForId => (countForId.id === gameId));
 							console.log(counter);
@@ -272,7 +274,7 @@ wsServer.on("request", request => {
 									connection.send(JSON.stringify(joinData2));
 									
 									//Announce new connections
-									let chatMessage = "Player " + playerId + " has joined.";
+									let chatMessage = players[playerId].username + " has joined.";
 									games[gameId].chatLog.push(chatMessage);
 									const gameData = {
 										"method": "updateChat",
@@ -370,19 +372,17 @@ wsServer.on("request", request => {
 
 					const gameId = result.gameId;
 					const playerId = result.playerId;
+					if(players[playerId] === undefined)
+						return;
 					
-					// TODO remove player from players object
-					console.log("before: " + Object.keys(players));
-					delete players[playerId];
-					console.log("after: " + Object.keys(players));
-					if(games[gameId] !== null) {
+					if(games[gameId] !== null && games[gameId] !== undefined) {
 						for(let i = 0; i < games[gameId].players.length; i++){ 
 							if (games[gameId].players[i].playerId === playerId) { 
 								games[gameId].players.splice(i, 1); 
 							}
 						}
 						if(games[gameId].players.length !== 0) {
-							let chatMessage = "Player " + playerId + " has left the game.";
+							let chatMessage = players[playerId].username + " has left the game.";
 							games[gameId].chatLog.push(chatMessage);
 							const gameData = {
 								"method": "updateChat",
@@ -411,6 +411,7 @@ wsServer.on("request", request => {
 							delete games[gameId];
 							console.log("IT IS GETTING PAST delete games[gameId]");
 						}
+						delete players[playerId];
 					}
 
 				} 
