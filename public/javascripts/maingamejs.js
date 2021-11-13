@@ -62,15 +62,9 @@
 				if(clickcount3 == 1){
 					
 					var linkId = document.getElementById("theGameId").value;
-					const d = document.createElement("div");
-					const a = document.createElement("a");
-					const l = document.createTextNode("Join Game");
-					
-					document.getElementById("submit-btn").appendChild(d);
-					a.appendChild(l);
-					a.title = "Link to Game";
-					a.href = "game/" + linkId.toUpperCase();
-					codeJoin.appendChild(a);
+					if(linkId !== ""){
+						window.location.href = "game/" + linkId.toUpperCase();
+					}
 				}
 			})
 
