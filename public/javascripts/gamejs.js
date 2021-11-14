@@ -86,7 +86,7 @@ document.getElementById("leave-button").addEventListener("click", x => {
 		
 		if(response.method === "end"){
 			const gameNum = response.id;
-			
+						
 			const gameID = { gameID: gameNum };
 			let addToGame = 99;
 			
@@ -120,7 +120,10 @@ joinButton.addEventListener("click", x => {
 	clickcounter++;
 	if(clickcounter == 1){
 		
-		gameId = document.getElementById('theGame').textContent;
+		if (gameId === null) {
+			gameId = document.getElementById('theGame').textContent;
+		}	
+		
 		gameId = gameId.toUpperCase();
 
 		const gameData = {
@@ -167,6 +170,32 @@ ws.onmessage = message => {
 		
 		pixiStart(response.boardState);
 		
+		
+		
+		ws.onmessage = message => {
+			
+			const response = JSON.parse(message.data);
+			
+			if(response.method === "end"){
+				const gameNum = response.id;
+				
+				const gameID = { gameID: gameNum };
+				let addToGame = 99;
+				
+				fetch(url, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json',},
+					body: JSON.stringify({gameID, "addDelete":addToGame}),
+				})
+				.then(response => response.json())
+				.then(gameID => {
+				})
+				.catch((error) => {
+				});
+				
+			}
+		}
+
 		
 	}
 	
@@ -232,7 +261,7 @@ ws.onmessage = message => {
 		
 		let count = response.players.length;
 
-		if(count === 1)
+		if(count == 1)
 		{
 			var jB = document.getElementById("join-button");
 			jB.parentNode.removeChild(jB);
