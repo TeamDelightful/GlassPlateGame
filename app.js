@@ -36,7 +36,7 @@ app.post('/game', (req, res) => {
   //Output the game to the console for debugging
   console.log(game);
   
-  if (addOrDelete === 99){
+  if (addOrDelete == 99){
       
     const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
     console.log("THIS IS THE INDEX:" + index);
