@@ -11,6 +11,7 @@ let makeBoard2R = null;
 let makeBoard2C = null;
 let ws = new WebSocket("ws://localhost:27000");
 
+
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
 // Live log feed lives here (Rochele)
@@ -97,11 +98,13 @@ document.getElementById("leave-button").addEventListener("click", x => {
 	}
 }); 
 
+
 joinButton.addEventListener("click", x => {
 	
 	
-	clickcounter++;
-	if(clickcounter == 1){
+	//clickcounter++;
+	
+	//if(clickcounter == 1){
 		
 		if (gameId === null) {
 			gameId = document.getElementById('theGame').textContent;
@@ -118,8 +121,8 @@ joinButton.addEventListener("click", x => {
 
 		ws.send(JSON.stringify(gameData));
 		
-	}
-	
+	//}
+		
 });
 
 //Websocket communication
@@ -158,7 +161,70 @@ ws.onmessage = message => {
 			
 			const response = JSON.parse(message.data);
 			
-			if(response.method === "end"){
+			//connect
+			if (response.method === "connect"){
+				playerId = response.playerId;
+				console.log("Player ID: " + playerId + " connected.");
+			}
+			
+			//host game
+			if (response.method === "host") {
+				gameId = response.game.id;
+				console.log("Game ID: " + response.game.id + " with " + response.game.cards + " cards was created");
+			}
+			
+			//update gamestate
+			if (response.method === "update") {
+				//no state no game
+				if (!response.game.boardState) return;
+				
+				response.game.boardState.forEach((card, i) => {
+					cards[i].name = card.name
+					cards[i].connections = card.connections;
+					cards[i].cardFlipped = card.cardFlipped;
+					cards[i].moveMade = card.moveMade;
+				});
+				
+			}
+			
+			
+			// Update live log/chat (Rochele)
+			if (response.method === 'updateChat') {
+				let chatMessage = document.createElement('p');
+				chatMessage.textContent = response.chatMessage;
+				document.getElementById('chat-messages').appendChild(chatMessage);
+				const messageDiv = document.getElementById('chat-messages');
+				let xH = messageDiv.scrollHeight;
+				messageDiv.scrollTo(0, xH);
+			}
+			
+			// Create file with game data and download to local machine (Rochele)
+			if (response.method === 'download') {
+				downloadLog(response.chatLog);
+			}
+			
+			if (response.method === "startGame"){
+				
+				var hostmsg = document.getElementById("host-message");
+				hostmsg.parentNode.removeChild(hostmsg);
+				
+				let leaveButton = document.getElementById('leave-button');
+				leaveButton.style.display = "block";
+				
+				
+				var update = "Your game is starting now."					
+				var starting = document.getElementById("game-starting");
+				var p = document.createElement('p');
+				p.appendChild(document.createTextNode(update));
+				starting.appendChild(p);
+				
+				createLogFeed(response.chatLog);
+				
+				pixiStart(response.boardState);
+			}
+			
+			
+			if (response.method === "end"){
 				const gameNum = response.id;
 				
 				const gameID = { gameID: gameNum };
@@ -240,11 +306,15 @@ ws.onmessage = message => {
 		// Call function to create log/chat feed and add join message (Rochele)
 		//createLogFeed(response.chatLog);
 		
-		
+		//let count = 0;
 		let count = response.players.length;
 
 		if(count == 1)
 		{
+			count++;
+			//window.addEventListener('focus', function (event) {
+								
+
 			var jB = document.getElementById("join-button");
 			jB.parentNode.removeChild(jB);
 			
@@ -518,7 +588,7 @@ ws.onmessage = message => {
 				
 				}
 			})
-
+			//});
 		}
 		else{
 			var jB = document.getElementById("join-button");
@@ -555,6 +625,6 @@ ws.onmessage = message => {
 			
 				
 		}
-
+		
 	}
 }
