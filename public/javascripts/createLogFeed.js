@@ -23,10 +23,10 @@ function createLogFeed(chatLog) {
         let chatMessage = document.getElementById('chatInput').value;
         if(chatMessage === '')
             return;
-        chatMessage = "Player " + playerId + " : " + chatMessage;
         const gameData = {
             "method": "chat",
             "gameId": gameId,
+            "playerId": playerId,
             "chatMessage": chatMessage
         }
         document.getElementById('chatInput').value = null;

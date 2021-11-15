@@ -18,6 +18,14 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+window.onunload = function() {
+	const gameData = {
+		"method": "exit",
+		"playerId": playerId,
+		"gameId": gameId
+	}
+	ws.send(JSON.stringify(gameData));
+}
 
 
 document.getElementById("leave-button").addEventListener("click", x => {
@@ -100,7 +108,16 @@ document.getElementById("leave-button").addEventListener("click", x => {
 
 
 joinButton.addEventListener("click", x => {
-	
+	let username = document.getElementById('username').value;
+	if(username === "") {
+		alert("Please enter username!");
+		return;
+	}
+		
+	//let leaveButton = document.getElementById('leave-button');
+	//leaveButton.style.display = "block";
+	let usernameDiv = document.getElementById('divEnterUsername');
+	usernameDiv.style.display = "none";
 	
 	//clickcounter++;
 	
@@ -115,6 +132,7 @@ joinButton.addEventListener("click", x => {
 		const gameData = {
 			"method": "join",
 			"playerId": playerId,
+			"username": username,
 			"gameId": gameId,
 			"startCode": 0
 		}
