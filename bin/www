@@ -115,7 +115,7 @@ wsServer.on("request", request => {
 					if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 						var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
 						console.log("before update" + countForIds[index]);
-						countForIds[index].i = countForIds[index].i - 2;
+						countForIds[index].i = countForIds[index].i - 2; // was -2
 						console.log("after update" + countForIds[index]);
 					}
 					else {
@@ -169,13 +169,13 @@ wsServer.on("request", request => {
 					
 					// if 2 players or more join, start game
 					broadcastState();
-				
 										
 					
 				}
 				
 				//Join game server logic
 				if (result.method === "join") {
+
 
 					var username = result.username;
 					playerId = result.playerId;
@@ -184,6 +184,7 @@ wsServer.on("request", request => {
 					pId++;
 					const gameId = result.gameId;
 					const startCode = result.startCode;
+
 						
 							var counter = countForIds.filter(countForId => (countForId.id === gameId));
 							console.log(counter);
@@ -208,11 +209,11 @@ wsServer.on("request", request => {
 					
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
 						console.log(counter);						
-						if (counter.map(x => x.i) >= 1){
+						if (counter.map(x => x.i) >= 1){ //was >= 1
 								games[gameId].players.push({
 									"playerId": playerId
 								});
-								console.log("pushed player id" + counter);
+								console.log("pushed player id" + counter + "playerID: " + playerId);
 						}
 						else{
 							console.log("check for error");
@@ -229,6 +230,7 @@ wsServer.on("request", request => {
 							"startCode": startCode
 						}
 					
+					
 						checkForUpdatedGame();
 						
 					function checkForUpdatedGame(){
@@ -241,7 +243,7 @@ wsServer.on("request", request => {
 									if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 										var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
 										console.log("before update" + countForIds[index]);
-										countForIds[index].i--;
+										countForIds[index].i--; // was i--
 										console.log("after update" + countForIds[index]);
 									}
 																		
@@ -249,6 +251,7 @@ wsServer.on("request", request => {
 									games[gameId].players.push({
 										"playerId": playerId
 									});
+									console.log("player ID: " + playerId);
 									
 									const joinData2 = {
 										"method": "startGame",
@@ -265,7 +268,7 @@ wsServer.on("request", request => {
 									
 									//Send game id back to webpage
 									connection.send(JSON.stringify(joinData2));
-									
+
 									
 									//Announce new connections
 									let chatMessage = players[playerId].username + " has joined.";
@@ -277,26 +280,32 @@ wsServer.on("request", request => {
 									games[gameId].players.forEach( p => {
 										players[p.playerId].connection.send(JSON.stringify(gameData));
 									}) 
-																		
+									
 								}}
 							
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
 						console.log(counter);
 						if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 							console.log(counter);
-							if (counter.map(x => x.i) > 1){
+							if (counter.map(x => x.i) > 1){  //was > 1
 									setTimeout(checkForUpdatedGame, 1500); 
+								//broadcastState();
+
 							}
 						}
 						
-													
+						
 					}
-
+					//connection.send(JSON.stringify(joinData));
+					
 					// if 2 players or more join, start game
-					broadcastState();
+						broadcastState();
+					
 					players[playerId].connection.send(JSON.stringify(joinData));
-
-				}		
+						
+		}	
+					
+			
 				
 			
 				//Play game server logic
