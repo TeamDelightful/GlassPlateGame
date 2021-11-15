@@ -178,6 +178,11 @@ function setup() { //sets all cards up with their default states
       });
 
 
+      document.getElementById("divBoard").style.height = String(layout.cardSize * scale * (Math.ceil(cards.length/rowWidth) * 1.25)) + "px";
+      PIXIapp.resizeTo = document.getElementById("divBoard");
+      clampZoom();
+
+
     }); //card state update from internal, every frame
 
 
@@ -232,6 +237,17 @@ function plusZoom(){
 
 function minusZoom(){
   scale -= zoomIncrement;
+}
+
+function clampZoom(){
+  let maxZoom = (PIXIapp.screen.width) / (2.5 * layout.cardSize);
+  let minZoom = (PIXIapp.screen.width - 2*layout.tileSize) / ( (Math.ceil(Math.sqrt(cards.length))) * layout.cardSize * 1.5 );
+
+  if(scale > maxZoom){
+    scale = maxZoom;
+  }else if (scale < minZoom) {
+    scale = minZoom;
+  }
 }
 
 
