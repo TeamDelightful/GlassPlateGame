@@ -44,6 +44,41 @@ Thanks to PixiJS (https://github.com/pixijs/pixijs) for visuals and user interfa
 ## Attributions
 Special thanks to W3Schools (https://www.w3schools.com/) for the helpful tutorials.
 
+Thanks to the following websites for lots of help and valuable info.:
+
+https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form
+
+https://stackabuse.com/building-a-rest-api-with-node-and-express/
+
+https://stackoverflow.com/questions/56307850/how-to-create-individual-html-links-with-unique-url-for-every-song-by-using-expr/56308281
+
+https://stackoverflow.com/questions/52244909/ejs-node-express-having-a-header-partial-how-to-change-title-for-each-page
+
+https://stackoverflow.com/questions/48269662/include-of-header-and-footer-in-ejs-file-not-working
+
+https://stackoverflow.com/questions/16715075/preventing-multiple-clicks-on-button
+
+https://www.geeksforgeeks.org/how-to-create-a-link-in-javascript/
+
+https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside
+
+https://www.oreilly.com/library/view/javascript-cookbook/9781449390211/ch12.html#adding_rows_to_an_existing_table
+
+https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+
+https://medium.com/@gohitvaranasi/how-to-use-body-parser-in-express-to-handle-different-post-requests-c58c29d45b46
+
+https://stackoverflow.com/questions/15997879/get-the-index-of-the-object-inside-an-array-matching-a-condition
+
+https://githubmemory.com/repo/socketio/socket.io/issues/4020
+
+https://careerkarma.com/blog/javascript-array-contains/
+
+https://stackoverflow.com/questions/4689856/how-to-change-value-of-object-which-is-inside-an-array-using-javascript-or-jquer/45341595
+
+https://www.geeksforgeeks.org/how-to-check-if-an-array-includes-an-object-in-javascript/
+
+
 ## Dependencies
 
 ├── bufferutil@4.0.5
