@@ -19,7 +19,7 @@ In order to change where to host the websocket, there are three places you need 
 public/javascripts/gamejs.js 
 
 
-![gamejs screenshot](https://github.com/TeamDelightful/GlassPlateGame/blob/main/public/images/gamejs%20screenshot.png)
+![gamejs screenshot](https://github.com/TeamDelightful/GlassPlateGame/blob/main/public/images/gamejsScreenshot.png)
 
 public/javascripts/maingamejs.js 
 
