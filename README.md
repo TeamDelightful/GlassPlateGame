@@ -44,7 +44,7 @@ Thanks to PixiJS (https://github.com/pixijs/pixijs) for visuals and user interfa
 ## Attributions
 Special thanks to W3Schools (https://www.w3schools.com/) for the helpful tutorial.
 
-## Dependcies
+## Dependencies
 
 ├── bufferutil@4.0.5
 
