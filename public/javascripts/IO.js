@@ -675,7 +675,7 @@ function removeConnection(){
   sendState()
 }
 
-//removes the tile menu menu
+//removes the tile menu
 function closeTileMenu(){
     this.parent.menuExist = false;
     this.destroy();
