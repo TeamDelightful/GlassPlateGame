@@ -296,8 +296,8 @@ wsServer.on("request", request => {
 
 					//Itterates over the cards on the board, sends them to the statemachine to see
 					//if action is permittable, if not it revertse change to old state.
-					stateMac.dieCheck(result.boardState, games[result.gameId].boardState)
-
+					if (stateMac.dieCheck(result.boardState, games[result.gameId].boardState))
+						return;
 					playerId = result.playerId;
 					const gameId = result.gameId;
 					let chatMessage = null;

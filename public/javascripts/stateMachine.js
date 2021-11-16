@@ -27,6 +27,7 @@ function dieCheck ( boardState,  oldBoardState ) {
 				card.connections = oldBoardState[i].connections;
 			});
 		}
+		return (challengeOnOldBoard && challengeOnNewBoard);
 }
 
 module.exports = { dieCheck }
