@@ -14,6 +14,7 @@
 		
 		<title>The Glass Plate Game: Welcome!</title>
 	</head>
+		
 	<body>
 		<div class="centered">
 			<div aria-label="the glass plate game graphic" class="title-image"><a href="/" aria-label="link back to main page"><img src="/images/theGPG.png" alt="glass plate game graphic"></a></div>
@@ -28,10 +29,14 @@
 				
 				<div class="dropdown"><button aria-label="join game button" class="all-home-buttons" id="join-button">join game</button>
 					<div id="join-game-dropdown" class="dropdown-content d-c-join">
-						<div id="divEnterId"><p>Enter Game ID:</p>
-						<input type="text" id="theGameId" placeholder=" ID Number" aria-label="enter game code here"></div>
-						<button id="submit-btn">Submit</button>
-						<div id="codeJoin" aria-label="go to join game"></div>
+						<form aria-label="join game dropdown form" onsubmit="return false">
+							<div id="divEnterId">
+								<p>Enter Game ID:</p>
+								<input type="text" id="theGameId" placeholder=" ID Number" aria-label="enter game code here" required>
+							</div>
+							<button id="submit-btn">Submit</button>
+							<div id="codeJoin" aria-label="go to join game"></div>
+						</form>
 					</div>
 				</div>
 				
