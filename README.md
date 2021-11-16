@@ -38,6 +38,11 @@ bin/www
 ![Inital Board](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/InitalBoard.jpg)
 
 ## Acknowledgements
+Thanks to PixiJS (https://github.com/pixijs/pixijs) for visuals and user interface.
+
+
+## Attributions
+Special thanks to W3Schools (https://www.w3schools.com/) for the helpful tutorial.
 
 ## Dependcies
 
