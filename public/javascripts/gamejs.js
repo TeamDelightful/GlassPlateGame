@@ -450,6 +450,7 @@ ws.onmessage = message => {
 			//Select button code
 
 			const selectButton = document.getElementById("submitBtn");
+			const selectDiv = document.getElementById("scroll-div-3");
 			selectButton.addEventListener("click", x => {
 				
 				deckClickCounter1++;
@@ -463,6 +464,8 @@ ws.onmessage = message => {
 						}
 					}
 					if(optionSelected == options[0]){
+						selectButton.style.display = "none";
+						selectDiv.style.display = "none";
 						printRadio();
 						var theBDiv = document.getElementById("button-div");
 						var button = document.createElement('button');
@@ -488,6 +491,7 @@ ws.onmessage = message => {
 						button.innerHTML = "start game";
 						theBDiv.appendChild(button);
 						makeBoard2C++;
+
 
 					}
 					
