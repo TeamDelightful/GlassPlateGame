@@ -30,7 +30,6 @@ httpServer.on('listening', onListening);
 //Variables
 // player id placeholder
 var pId = 1;
-var hostKey = "not host";
 //Objects for games and players used with their IDs as index
 const players = {};
 const games = {};
@@ -52,17 +51,14 @@ const wsServer = new websocketServer({
 wsServer.on("request", request => {
 
 		var playerId = pId;
-	
+		pId++;
 
 		//Binding TCP to connection
 		const connection = request.accept(null, request.origin);
 
 		connection.on("close", () => {
-				if(hostKey === "not host"){
 				console.log("PlayerID: " + playerId + " disconnected.")}
-				else {
-				console.log("Created Game and Disconnected " + playerId)}
-				});
+				);
     
 		// receive message from the client here
 		connection.on("message", message => {
@@ -78,8 +74,6 @@ wsServer.on("request", request => {
 				// Generate unique game ID 
 				const gameId = createId.createId(Object.keys(games));
 		
-				hostKey = "host";
-
 				games[gameId] = {
 				"id": gameId,
 				//Card amount in game hardcoded as of now
@@ -105,7 +99,6 @@ wsServer.on("request", request => {
 
 				if (result.method === "host-join"){
 								
-					hostKey = "host";
 					const gameId = result.gameId;
 					const playerId = result.playerId;
 					const startCode = result.startCode;
@@ -114,12 +107,10 @@ wsServer.on("request", request => {
 					console.log(counter);
 					if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 						var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-						console.log("before update" + countForIds[index]);
 						countForIds[index].i = countForIds[index].i - 2; // was -2
-						console.log("after update" + countForIds[index]);
 					}
 					else {
-						console.log("did not get gameId and update counter in host-join");
+						console.log("Error: did not get gameId and update counter in host-join");
 					}
 
 					games[gameId] = {
@@ -180,8 +171,6 @@ wsServer.on("request", request => {
 					var username = result.username;
 					playerId = result.playerId;
 					players[playerId].username = username;
-					hostKey = "not host";
-					pId++;
 					const gameId = result.gameId;
 					const startCode = result.startCode;
 
@@ -191,9 +180,7 @@ wsServer.on("request", request => {
 							console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
 							if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 								var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-								console.log("before update" + countForIds[index]);
 								countForIds[index].i++;
-								console.log("after update" + countForIds[index]);
 							}
 							else{
 								countForIds.push({id: gameId, i: 1});
@@ -263,12 +250,8 @@ wsServer.on("request", request => {
 										"startCode": startCode
 									}
 									
-									
-									console.log("players in join1: " + Object.values(games[gameId].players));
-									
 									//Send game id back to webpage
 									connection.send(JSON.stringify(joinData2));
-
 									
 									//Announce new connections
 									let chatMessage = players[playerId].username + " has joined.";
@@ -378,9 +361,6 @@ wsServer.on("request", request => {
 					if(players[playerId] === undefined)
 						return;
 					
-					// TODO remove player from players object
-					//console.log("before: " + Object.keys(players));
-					//console.log("after: " + Object.keys(players));
 					if (games[gameId] !== null) {
 						for (let i = 0; i < games[gameId].players.length; i++){ 
 							if (games[gameId].players[i].playerId === playerId) { 
@@ -402,7 +382,6 @@ wsServer.on("request", request => {
 
 						}
 						
-						// TODO if there are no more players, end the game and remove from games object
 						else {	
 							console.log("IT IS GETTING HERE!")
 			
@@ -428,11 +407,6 @@ wsServer.on("request", request => {
 
 
 		})
-
-		// generate player id
-		if(playerId != 0 || hostKey === "not host"){
-			playerId++;
-		}
 
 		players[playerId] = {
 			"connection": connection
