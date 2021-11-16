@@ -12,7 +12,6 @@ This repository contains a code base that allows a user to host Glass Plate Game
 To run this program, access the folder via your terminal then enter 
 
     npm install
-    npm install cookie-parser
     npm start
 
 In order to change where to host the websocket, there are three places you need to change the code:
