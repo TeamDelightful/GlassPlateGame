@@ -14,7 +14,7 @@ let ws = new WebSocket("ws://localhost:27000");
 
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
-// Live log feed lives here (Rochele)
+// Live log feed lives here 
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
@@ -206,7 +206,7 @@ ws.onmessage = message => {
 			}
 			
 			
-			// Update live log/chat (Rochele)
+			// Update live log/chat 
 			if (response.method === 'updateChat') {
 				let chatMessage = document.createElement('p');
 				chatMessage.textContent = response.chatMessage;
@@ -216,7 +216,7 @@ ws.onmessage = message => {
 				messageDiv.scrollTo(0, xH);
 			}
 			
-			// Create file with game data and download to local machine (Rochele)
+			// Create file with game data and download to local machine 
 			if (response.method === 'download') {
 				downloadLog(response.chatLog);
 			}
@@ -280,7 +280,7 @@ ws.onmessage = message => {
 	}
 	
 
-	// Update live log/chat (Rochele)
+	// Update live log/chat 
 	if (response.method === 'updateChat') {
 		let chatMessage = document.createElement('p');
 		chatMessage.textContent = response.chatMessage;
@@ -290,7 +290,7 @@ ws.onmessage = message => {
 		messageDiv.scrollTo(0, xH);
 	}
 
-	// Create file with game data and download to local machine (Rochele)
+	// Create file with game data and download to local machine 
 	if (response.method === 'download') {
 		downloadLog(response.chatLog);
 	}
@@ -320,9 +320,6 @@ ws.onmessage = message => {
 
 	//join game
 	if (response.method === "join") {
-		
-		// Call function to create log/chat feed and add join message (Rochele)
-		//createLogFeed(response.chatLog);
 		
 		//let count = 0;
 		let count = response.players.length;
