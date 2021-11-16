@@ -18,9 +18,6 @@
 		//button events
 			hostButton.addEventListener("click", x => {
 
-				clickcount++;
-				if(clickcount == 1){
-
 				const gameData = {
 					"method": "host",
 					"playerId": playerId,
@@ -28,24 +25,12 @@
 					"boardState": []
 				}
 
-				document.getElementById("create-game-dropdown").classList.toggle("show");
-
-				window.onclick = function(event){
-					if(!event.target.matches('#create-button')){
-						var dropdowns = document.getElementsByClassName("dropdown-content");
-						var i;
-						for (i=0; i < dropdowns.length; i++){
-							var openDropdown = dropdowns[i];
-							if (openDropdown.classList.contains('show')) {
-								openDropdown.classList.remove('show');
-							}
-						}
-					}
-
+				if(!document.getElementById("create-game-dropdown").classList.toggle("show")){
+					document.getElementById("create-game-dropdown").classList.toggle("show");
 				}
-
+				
 				ws.send(JSON.stringify(gameData));
-				}
+				
 			})
 
 
@@ -54,39 +39,19 @@
 			clickcount2++;
 			if(clickcount2 == 1){
 
-			document.getElementById("join-game-dropdown").classList.toggle("show");
+				document.getElementById("join-game-dropdown").classList.toggle("show");
 
-			document.getElementById("submit-btn").addEventListener("click", c => {
+				document.getElementById("submit-btn").addEventListener("click", c => {
 
-				clickcount3++
-				if(clickcount3 == 1){
-					
-					var linkId = document.getElementById("theGameId").value;
-					if(linkId !== ""){
-						window.location.href = "game/" + linkId.toUpperCase();
-					}
-				}
-			})
-
-			document.getElementById("join-game-dropdown").addEventListener("click", e => {
-				e.stopPropagation();
-			})
-
-			window.onclick = function(event){
-				if(!event.target.matches('#join-button')){
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i=0; i < dropdowns.length; i++){
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
+					clickcount3++
+					if(clickcount3 == 1){
+						
+						var linkId = document.getElementById("theGameId").value;
+						if(linkId !== ""){
+							window.location.href = "game/" + linkId.toUpperCase();
 						}
 					}
-				}
-
-			}
-
-
+				})
 			}
 		})
 
@@ -118,21 +83,30 @@
 					});
 
 				const d = document.createElement("div");
+				d.id = "CreatedGameID";
 				const p = document.createElement("p");
-				const b = document.createElement("button");
-				const t = document.createTextNode(response.game.id);
 				const a = document.createElement("a");
+				a.id = "CreatedGameJoinBtn";
 				const l = document.createTextNode("Join Game");
+				console.log(response.game.id);
 
-				d.textContent = "Your Game ID is: " + response.game.id + ".";
+				if(document.getElementById("CreatedGameID") === null){
+					d.textContent = "Your Game ID is: " + response.game.id + ".";
 
-				divGameId.appendChild(d);
-				divGameId.appendChild(p);
+					divGameId.appendChild(d);
+					divGameId.appendChild(p);
 
-				a.appendChild(l);
-				a.title = "Link to Game";
-				a.href = "game/" + response.game.id;
-				joinLink.appendChild(a);
+					a.appendChild(l);
+					a.title = "Link to Game";
+					a.href = "game/" + response.game.id;
+					joinLink.appendChild(a);
+				} else{
+					let createdGameID = document.getElementById("CreatedGameID");
+					let createdGameJoinBtn = document.getElementById("CreatedGameJoinBtn");
+
+					createdGameID.textContent = "Your Game ID is: " + response.game.id + ".";
+					createdGameJoinBtn.href = "game/" + response.game.id;
+				}
 
 			}
 
