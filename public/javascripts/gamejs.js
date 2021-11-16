@@ -27,7 +27,6 @@ window.onunload = function() {
 	ws.send(JSON.stringify(gameData));
 }
 
-
 document.getElementById("leave-button").addEventListener("click", x => {
 	if (confirm("Are you sure you want to leave the game?")) {
 		
@@ -80,30 +79,6 @@ document.getElementById("leave-button").addEventListener("click", x => {
 	else {
 		return;
 	}
-	
-	ws.onmessage = message => {
-		
-		const response = JSON.parse(message.data);
-		
-		if(response.method === "end"){
-			const gameNum = response.id;
-						
-			const gameID = { gameID: gameNum };
-			let addToGame = 99;
-			
-			fetch(url, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json',},
-				body: JSON.stringify({gameID, "addDelete":addToGame}),
-			})
-			.then(response => response.json())
-			.then(gameID => {
-			})
-			.catch((error) => {
-			});
-			
-		}
-	}
 }); 
 
 
@@ -114,14 +89,10 @@ joinButton.addEventListener("click", x => {
 		return;
 	}
 		
-	//let leaveButton = document.getElementById('leave-button');
-	//leaveButton.style.display = "block";
 	let usernameDiv = document.getElementById('divEnterUsername');
 	usernameDiv.style.display = "none";
 	
-	//clickcounter++;
 	
-	//if(clickcounter == 1){
 		
 		if (gameId === null) {
 			gameId = document.getElementById('theGame').textContent;
@@ -148,6 +119,24 @@ ws.onmessage = message => {
 	//message data JSON
 	const response = JSON.parse(message.data);
 
+	if(response.method === "end"){
+		const gameNum = response.id;
+					
+		const gameID = { gameID: gameNum };
+		let addToGame = 99;
+		
+		fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json',},
+			body: JSON.stringify({gameID, "addDelete":addToGame}),
+		})
+		.then(response => response.json())
+		.then(gameID => {
+		})
+		.catch((error) => {
+		});
+		
+	}
 		
 	//connect
 	if (response.method === "connect"){
