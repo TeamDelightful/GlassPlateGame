@@ -18,13 +18,16 @@ In order to change where to host the websocket, there are three places you need 
 
 public/javascripts/gamejs.js 
 
+
 ![gamejs screenshot](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/gamejs%20screenshot.png)
 
-public/javascripts/maingamejs.js Lines 3 & 10
+public/javascripts/maingamejs.js 
+
 
 ![maingamejs screenshot](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/maingamejs%20screenshot.png)
 
-bin/www Line 9
+bin/www
+
 
 ![www screenshot](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/www%20screenshot.png)
 
