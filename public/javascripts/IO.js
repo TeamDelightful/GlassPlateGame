@@ -368,7 +368,7 @@ function cardSetup(item){
     item.container.getChildAt(1).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(1).getChildAt(0).x = 0;
     item.container.getChildAt(1).getChildAt(0).y = 0;
-    item.container.getChildAt(1).on("pointerdown", popup);
+    item.container.getChildAt(1).on("pointerdown", openTileMenu);
     item.container.getChildAt(1).connectionIndex = 0;
     item.container.getChildAt(1).menuExist = false;
     item.container.getChildAt(1).color = colors.purple;
@@ -386,7 +386,7 @@ function cardSetup(item){
     item.container.getChildAt(2).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(2).getChildAt(0).x = 0;
     item.container.getChildAt(2).getChildAt(0).y = 0;
-    item.container.getChildAt(2).on("pointerdown", popup);
+    item.container.getChildAt(2).on("pointerdown", openTileMenu);
     item.container.getChildAt(2).connectionIndex = 1;
     item.container.getChildAt(2).menuExist = false;
     item.container.getChildAt(2).color = colors.green;
@@ -404,7 +404,7 @@ function cardSetup(item){
     item.container.getChildAt(3).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(3).getChildAt(0).x = 0;
     item.container.getChildAt(3).getChildAt(0).y = 0;
-    item.container.getChildAt(3).on("pointerdown", popup);
+    item.container.getChildAt(3).on("pointerdown", openTileMenu);
     item.container.getChildAt(3).connectionIndex = 2;
     item.container.getChildAt(3).menuExist = false;
     item.container.getChildAt(3).color = colors.blue;
@@ -422,7 +422,7 @@ function cardSetup(item){
     item.container.getChildAt(4).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(4).getChildAt(0).x = 0;
     item.container.getChildAt(4).getChildAt(0).y = 0;
-    item.container.getChildAt(4).on("pointerdown", popup);
+    item.container.getChildAt(4).on("pointerdown", openTileMenu);
     item.container.getChildAt(4).connectionIndex = 3;
     item.container.getChildAt(4).menuExist = false;
     item.container.getChildAt(4).color = colors.yellow;
@@ -431,13 +431,20 @@ function cardSetup(item){
 }
 
 
-
-//onDragStart, onDragEnd, and onDragMove inspired from https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/interaction/dragging.js
+//onDragStart, onDragEnd, and onDragMove inspired by https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/interaction/dragging.js
 //allows for drag and drop functionality
 function onDragStart(event) {
     this.data = event.data;
     this.alpha = 0.5;
     this.dragging = true;
+}
+
+function onDragMove() {
+  if (this.dragging) {
+      const newPosition = this.data.getLocalPosition(this.parent);
+      this.x = newPosition.x;
+      this.y = newPosition.y;
+  }
 }
 
 function onDragEnd() {
@@ -483,7 +490,6 @@ function onDragEnd() {
                 sendState()
               }
             }
-            //break;
         }
 
     }
@@ -504,15 +510,7 @@ function nextMoveNumber(){
   return largest + 1;
 }
 
-function onDragMove() {
-    if (this.dragging) {
-        const newPosition = this.data.getLocalPosition(this.parent);
-        this.x = newPosition.x;
-        this.y = newPosition.y;
-    }
-}
-
-function popup(){
+function openTileMenu(){
     if(this.menuExist === false){
         menu = new PIXI.Container();
         menu.interactive = true;
@@ -583,15 +581,14 @@ function popup(){
         remove.y = 0;
         remove.scale.x = remove.scale.y;
 
-        menu.on("pointerdown", removePopup);
+        menu.on("pointerdown", closeTileMenu);
 
         this.addChild(menu);
 
         menu.x = -(layout.tileSize * 4) + (layout.tileSize / 2)
         menu.y = -(layout.tileSize * 5) - (layout.tileSize / 2)
+        this.menuExist = true;
     }
-    this.menuExist = true;
-
 }
 
 //the following 5 set functions set the die state for each tile
@@ -678,23 +675,25 @@ function removeConnection(){
   sendState()
 }
 
-//removes the popup menu
-function removePopup(){
+//removes the tile menu
+function closeTileMenu(){
     this.parent.menuExist = false;
-    this.destroy()
+    this.destroy();
 }
 
-
+//shows the card text
 function showText(){
     this.parent.cardParent.cardFlipped = true;
     sendState();
 }
 
+//hides the card text
 function hideText(){
     this.parent.cardParent.cardFlipped = false;
     sendState();
 }
 
+//replaces "_" with " " and capitalizes the first letter of each word for better readability
 function cleanName(name){
   let toShow = name.replaceAll('_', ' ');
   let words = toShow.split(' ');
