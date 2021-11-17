@@ -34,25 +34,25 @@ app.post('/game', (req, res) => {
   const addOrDelete = req.body.addDelete;
   
   //Output the game to the console for debugging
-  console.log(game);
+  //console.log(game);
   
   if (addOrDelete == 99){
       
     const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
-    console.log("THIS IS THE INDEX:" + index);
+    //console.log("THIS IS THE INDEX:" + index);
     if (index > -1){
       gamesHTML.splice(index, 1);
     }
     else {
-      console.log("Index was less than -1");
+      //console.log("Index was less than -1");
     }
   }
   else{
     gamesHTML.push(game);
-    console.log(gamesHTML);
-    console.log("Added to database");
+    //console.log(gamesHTML);
+    //console.log("Added to database");
   }
-  console.log(gamesHTML);
+  //console.log(gamesHTML);
   
 });
 

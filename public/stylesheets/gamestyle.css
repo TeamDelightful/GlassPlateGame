@@ -911,11 +911,11 @@ html{
 		position: relative;
 		top: 30px;
 		left: -180px;
-		margin: 0px 0px 10px 0px;
+		margin: 16px 0px 10px 80px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		width: 340px;
+		width: 280px;
 		height: 680px;
 		background-color: var(--ltblue);
 	}
@@ -1110,7 +1110,7 @@ html{
 		position: relative;
 		top: 30px;
 		left: -200px;
-		margin: 0px 0px 10px 0px;
+		margin: 16px 0px 10px 120px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
@@ -1311,7 +1311,7 @@ html{
 		position: relative;
 		top: 30px;
 		left: -200px;
-		margin: 0px 0px 10px 0px;
+		margin: 16px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
@@ -1522,7 +1522,7 @@ html{
 		position: relative;
 		top: 40px;
 		left: -250px;
-		margin: 0px 0px 10px 0px;
+		margin: 16px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
@@ -1728,7 +1728,7 @@ html{
 		position: relative;
 		top: 40px;
 		left: -250px;
-		margin: 0px 0px 10px 0px;
+		margin: 16px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
