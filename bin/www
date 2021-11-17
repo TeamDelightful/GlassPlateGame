@@ -104,7 +104,6 @@ wsServer.on("request", request => {
 					const startCode = result.startCode;
 					
 					var counter = countForIds.filter(countForId => (countForId.id === gameId));
-					console.log(counter);
 					if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 						var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
 						countForIds[index].i = countForIds[index].i - 2; // was -2
@@ -141,9 +140,6 @@ wsServer.on("request", request => {
 
 					}
 										
-					console.log("got number" + startCode);
-
-										
 					//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));
 
@@ -176,31 +172,29 @@ wsServer.on("request", request => {
 
 						
 							var counter = countForIds.filter(countForId => (countForId.id === gameId));
-							console.log(counter);
-							console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
+							//console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
 							if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 								var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
 								countForIds[index].i++;
 							}
 							else{
 								countForIds.push({id: gameId, i: 1});
-								console.log(countForIds);
+								//console.log(countForIds);
 							}
 
 						
-						console.log("got start: " + startCode);
+						//console.log("got start: " + startCode);
 						
 						//if there is no game, return
 						if(!games[gameId]) return;
 					
 					
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						console.log(counter);						
 						if (counter.map(x => x.i) >= 1){ //was >= 1
 								games[gameId].players.push({
 									"playerId": playerId
 								});
-								console.log("pushed player id" + counter + "playerID: " + playerId);
+								//console.log("pushed player id" + counter + "playerID: " + playerId);
 						}
 						else{
 							console.log("check for error");
@@ -226,19 +220,15 @@ wsServer.on("request", request => {
 								if (games[gameId].boardState[0]){
 									
 									var counter = countForIds.filter(countForId => (countForId.id === gameId));
-									console.log(counter);
 									if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 										var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-										console.log("before update" + countForIds[index]);
 										countForIds[index].i--; // was i--
-										console.log("after update" + countForIds[index]);
 									}
 																		
 									// Add player to game
 									games[gameId].players.push({
 										"playerId": playerId
 									});
-									console.log("player ID: " + playerId);
 									
 									const joinData2 = {
 										"method": "startGame",
@@ -267,19 +257,15 @@ wsServer.on("request", request => {
 								}}
 							
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						console.log(counter);
 						if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-							console.log(counter);
-							if (counter.map(x => x.i) > 1){  //was > 1
+							if (counter.map(x => x.i) > 1){  
 									setTimeout(checkForUpdatedGame, 1500); 
-								//broadcastState();
 
 							}
 						}
 						
 						
 					}
-					//connection.send(JSON.stringify(joinData));
 					
 					// if 2 players or more join, start game
 						broadcastState();
@@ -383,20 +369,20 @@ wsServer.on("request", request => {
 						}
 						
 						else {	
-							console.log("IT IS GETTING HERE!")
+							//console.log("IT IS GETTING HERE!")
 			
 							const gameData = {
 								"method": "end",
 								"id": gameId
 							}
 							
-							console.log(gameData);
+							//console.log(gameData);
 							//Send game id back to webpage
 							connection.send(JSON.stringify(gameData));
-							console.log("IT IS GETTING PAST THE CONNECTION SEND");
+							//console.log("IT IS GETTING PAST THE CONNECTION SEND");
 							
 							delete games[gameId];
-							console.log("IT IS GETTING PAST delete games[gameId]");
+							//console.log("IT IS GETTING PAST delete games[gameId]");
 						}
 						delete players[playerId];
 					}
