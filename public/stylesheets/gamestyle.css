@@ -21,7 +21,7 @@ html{
 	body{
 		width: 305px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -39,8 +39,9 @@ html{
 
 	.button-group{
 		position: relative;
+		text-align: center;
 		top: -30px;
-		left: 40px;
+		left: 10px;
 	}
 
 	.top-left {
@@ -71,9 +72,9 @@ html{
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		width: 305px;
+		width: 290px;
 		top: 15px;
-		left: 40px;
+		left: 10px;
 	}
 
 	#host-message{
@@ -81,6 +82,7 @@ html{
 		top: 0px;
 		left: 10px;
 		font-size: .75rem;
+		max-width: 260px;
 	}
 
 	#scroll-div-3 {
@@ -89,8 +91,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -105,16 +107,10 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
 
 	.start1{
 		position: relative;
@@ -124,20 +120,21 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 760px;
-		left: -10px;
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
 
 	}
 
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#chatAndBoard{
@@ -145,9 +142,9 @@ html{
 		display: flex;
 		flex-direction: column;
 		align-content: flex-start;
-		left: 20px;
+		left: 10px;
 		top: 35px;
-		width: 305px;
+		width: 290px;
 
 	}
 
@@ -205,7 +202,7 @@ html{
 	body{
 		width: 320px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -223,8 +220,9 @@ html{
 
 	.button-group{
 		position: relative;
+		text-align: center;
 		top: -30px;
-		left: 65px;
+		left: 20px;
 	}
 
 	.top-left {
@@ -273,8 +271,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -289,15 +287,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
-	}
-
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	.start1{
@@ -308,20 +299,21 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 760px;
-		left: -10px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
-
+	
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#chatAndBoard{
@@ -347,7 +339,7 @@ html{
 		border-width: 2px;
 		border-color: black;
 		width: 310px;
-		height: 460px;
+		height: 530px;
 		background-color: var(--ltblue);
 	}
 
@@ -390,7 +382,7 @@ html{
 	body{
 		width: 370px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -408,8 +400,9 @@ html{
 
 	.button-group{
 		position: relative;
+		text-align: center;
 		top: 10px;
-		left: 85px;
+		left: 25px;
 	}
 
 	.top-left {
@@ -458,8 +451,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -474,17 +467,11 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
 		top: 10px;
@@ -493,20 +480,21 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 790px;
-		left: -10px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
 
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#chatAndBoard{
@@ -574,7 +562,7 @@ html{
 	body{
 		width: 595px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -594,8 +582,9 @@ html{
 		position: inherit;
 		width: 305px;
 		transform: scale(1.15);
+		text-align: center;
 		top: 70px;
-		left: 175px;
+		left: 145px;
 	}
 
 
@@ -645,8 +634,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -661,17 +650,11 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
 		top: 10px;
@@ -680,20 +663,21 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 790px;
-		left: -10px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
 
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#chatAndBoard{
@@ -703,7 +687,7 @@ html{
 		align-content: flex-start;
 		left: 20px;
 		top: 65px;
-		width: 320px;
+		width: 600px;
 
 	}
 
@@ -735,7 +719,7 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		line-height: 120%;
-		height: 145px;
+		height: 135px;
 		word-wrap: break-word;
 		overflow-y: scroll;
 	}
@@ -764,7 +748,7 @@ html{
 	body{
 		width: 765px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -777,15 +761,16 @@ html{
 		position: relative;
 		transform: scale(0.55);
 		top: 200px;
-		left: -160px;
+		left: -140px;
 	}
 
 	.button-group{
 		position: inherit;
 		width: 765px;
 		transform: scale(1);
+		text-align: center;
 		top: 70px;
-		left: 15px;
+		left: 25px;
 	}
 
 
@@ -835,8 +820,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -851,17 +836,11 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
 		top: 10px;
@@ -870,30 +849,32 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 790px;
-		left: 20px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
 
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#chatAndBoard{
 		position: relative;
 		display: flex;
+		flex-direction: column;
 		align-content: flex-start;
 		left: 20px;
 		top: 65px;
-		width: 900px;
-
+		width: 740px;
+		
 	}
 
 	#chatDesc{
@@ -907,49 +888,48 @@ html{
 	}
 
 	.chatSurround{
-		align-self: flex-start;
-		position: relative;
-		top: 30px;
-		left: -180px;
-		margin: 16px 0px 10px 80px;
+		margin: 0px 0px 10px 0px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		width: 280px;
-		height: 680px;
+		width: 700px;
+		height: 330px;
 		background-color: var(--ltblue);
 	}
-
+	
+	#chatDesc{
+		font-family: 'IBM Plex Sans Condensed', sans-serif;
+		font-weight: 400;
+		margin: 20px 0px 0px 20px;
+	}
+	
 	#divChatLog{
 	}
-
+	
 	#chat {
-		width: 315px;
+		width: 680px;
+		min-height: 230px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		line-height: 120%;
-		height: 600px;
+		height: 225px;
 		word-wrap: break-word;
 		overflow-y: scroll;
 	}
-
+	
 	#divBoard{
-		align-self: flex-start;
-		position: relative;
-		top: 40px;
-		left: -150px;
 		margin: 5px 0px 20px 0px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		width: 600px;
+		width: 700px;
 		height: 680px;
 		transform: scale(1);
 	}
-
+	
 	#extra{
 		width: 765px;
 		height: 150px;
@@ -962,7 +942,7 @@ html{
 	body{
 		width: 1020px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -982,8 +962,9 @@ html{
 		position: inherit;
 		width: 1020px;
 		transform: scale(1.15);
+		text-align: center;
 		top: 140px;
-		left: 170px;
+		left: 20px;
 	}
 
 
@@ -1015,7 +996,7 @@ html{
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		width: 1020px;
+		width: 1015px;
 		top: 15px;
 		left: 40px;
 	}
@@ -1033,8 +1014,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -1049,17 +1030,11 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
 		top: 10px;
@@ -1068,21 +1043,22 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 790px;
-		left: 20px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
 
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
-
+		overflow-y: auto;
+		min-width: 280px;
+		
 	}
 
 	#chatAndBoard{
@@ -1091,9 +1067,10 @@ html{
 		align-content: flex-start;
 		left: 20px;
 		top: 65px;
-		width: 1120px;
+		width: 1000px;
 
 	}
+		
 
 	#chatDesc{
 		position: relative;
@@ -1105,27 +1082,29 @@ html{
 		width: 250px;
 	}
 
+
+
 	.chatSurround{
 		align-self: flex-start;
 		position: relative;
 		top: 30px;
-		left: -200px;
+		left: -180px;
 		margin: 16px 0px 10px 120px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		width: 340px;
-		height: 680px;
+		width: 280px;
+		height: 760px;
 		background-color: var(--ltblue);
 	}
-
+	
 
 	#divChatLog{
 
 	}
 
 	#chat {
-		width: 315px;
+		width: 260px;
 		margin: 10px 0px 15px 20px;
 	}
 	#chat-messages {
@@ -1146,7 +1125,7 @@ html{
 		border-style: solid;
 		border-width: 2px;
 		border-color: black;
-		width: 800px;
+		width: 680px;
 		height: 680px;
 		transform: scale(1);
 	}
@@ -1155,7 +1134,7 @@ html{
 		width: 1024px;
 		height: 200px;
 	}
-
+	
 
 }
 @media (min-width: 1280px) and (max-width: 1559px){
@@ -1163,7 +1142,7 @@ html{
 	body{
 		width: 1280px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -1176,15 +1155,16 @@ html{
 		position: relative;
 		transform: scale(0.75);
 		top: 220px;
-		left: -100px;
+		left: -50px;
 	}
 
 	.button-group{
 		position: inherit;
 		width: 1280px;
 		transform: scale(1.15);
+		text-align: center;
 		top: 140px;
-		left: 170px;
+		left: -40px;
 	}
 
 
@@ -1234,8 +1214,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	#submitBtn{
@@ -1250,15 +1230,8 @@ html{
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
-	}
-
-	#start-game{
-		height: 40px;
-		width: 200px;
-		cursor: pointer;
-		background-color: var(--ltpink);
+		overflow-y: auto;
+		min-width: 280px;
 	}
 
 	.start1{
@@ -1269,21 +1242,22 @@ html{
 	}
 
 	.start2{
-		position: relative;
-		top: 790px;
-		left: 20px;
-
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
-
+	
 	#scroll-div {
-		margin: -30px 15px 20px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
-
+		overflow-y: auto;
+		min-width: 280px;
+		
 	}
 
 	#chatAndBoard{
@@ -1316,7 +1290,7 @@ html{
 		border-width: 2px;
 		border-color: black;
 		width: 340px;
-		height: 680px;
+		height: 750px;
 		background-color: var(--ltblue);
 	}
 
@@ -1364,7 +1338,7 @@ html{
 	body{
 		width: 1345px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -1384,8 +1358,9 @@ html{
 		position: inherit;
 		width: 1345px;
 		transform: scale(1.25);
+		text-align: center;
 		top: 280px;
-		left: 440px;
+		left: 50px;
 	}
 
 
@@ -1415,89 +1390,72 @@ html{
 	.make-board{
 		position: relative;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
-		width: 1345px;
+		width: 1020px;
 		top: 15px;
 		left: 40px;
 	}
-
+	
 	#host-message{
 		position: relative;
 		top: 0px;
-		left: 50px;
+		left: 10px;
 		font-size: .75rem;
 	}
 
 	#scroll-div-3 {
 		position: relative;
-		left: 100px;
 		margin: 5px 5px 5px 5px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
-		height: 50px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
-
+	
 	#submitBtn{
 		position: relative;
-		top: 10px;
-		left: 50px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
-		width: 70px;
-		height: 20px;
-
 	}
-
+	
 	#scroll-div-2 {
 		position: relative;
-		left: 135px;
 		margin: 5px 5px 5px 5px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
-
-	#start-game{
-		height: 43px;
-		width: 211px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
-		top: 0px;
-		left: 70px;
-
+		top: 10px;
+		left: 10px;
+		
 	}
-
+	
 	.start2{
-		position: relative;
-		top: 5px;
-		left: -247px;
-		z-index: 2;
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
-
+	
 	#scroll-div {
-		position: relative;
-		top: 90px;
-		left: -430px;
-		margin: -30px 15px 120px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
-
+		overflow-y: auto;
+		min-width: 280px;
+		
 	}
-
+	
 	#chatAndBoard{
 		position: relative;
 		display: flex;
@@ -1527,7 +1485,7 @@ html{
 		border-width: 2px;
 		border-color: black;
 		width: 300px;
-		height: 680px;
+		height: 740px;
 		background-color: var(--ltblue);
 	}
 
@@ -1572,7 +1530,7 @@ html{
 	body{
 		width: 1915px;
 		height: auto;
-		overflow: scroll;
+		overflow: auto;
 
 	}
 	.centered {
@@ -1592,8 +1550,9 @@ html{
 		position: inherit;
 		width: 1915px;
 		transform: scale(1.75);
+		text-align: center;
 		top: 380px;
-		left: 1155px;
+		left: 85px;
 	}
 
 
@@ -1623,87 +1582,72 @@ html{
 	.make-board{
 		position: relative;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
-		width: 1915px;
+		width: 1020px;
 		top: 15px;
 		left: 40px;
 	}
-
+	
 	#host-message{
 		position: relative;
 		top: 0px;
-		left: 50px;
+		left: 10px;
 		font-size: .75rem;
 	}
-
+	
 	#scroll-div-3 {
 		position: relative;
-		left: 100px;
 		margin: 5px 5px 5px 5px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
-		height: 50px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
-
+	
 	#submitBtn{
 		position: relative;
-		top: 10px;
-		left: 50px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 500;
-		width: 70px;
-		height: 20px;
 	}
-
+	
 	#scroll-div-2 {
 		position: relative;
-		left: 135px;
 		margin: 5px 5px 5px 5px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 130px;
+		overflow-y: auto;
+		min-width: 280px;
 	}
-
-	#start-game{
-		height: 43px;
-		width: 211px;
-		cursor: pointer;
-		background-color: var(--ltpink);
-	}
-
+	
 	.start1{
 		position: relative;
-		top: 0px;
-		left: 70px;
-
+		top: 10px;
+		left: 10px;
+		
 	}
-
+	
 	.start2{
-		position: relative;
-		top: 5px;
-		left: -247px;
-		z-index: 2;
+		position: inherit;
+		top: 10px;
+		left: 10px;
+		margin: 5px;
+		
 	}
-
+	
 	#scroll-div {
-		position: relative;
-		top: 90px;
-		left: -430px;
-		margin: -30px 15px 120px 0px;
+		margin: 10px 15px 20px 0px;
 		font-family: 'IBM Plex Sans Condensed', sans-serif;
 		font-weight: 400;
 		font-size: .9rem;
 		word-wrap: break-word;
-		overflow-y: scroll;
-		width: 275px;
+		overflow-y: auto;
+		min-width: 280px;
+		
 	}
-
+	
 	#chatAndBoard{
 		position: relative;
 		display: flex;
@@ -1733,7 +1677,7 @@ html{
 		border-width: 2px;
 		border-color: black;
 		width: 300px;
-		height: 880px;
+		height: 940px;
 		background-color: var(--ltblue);
 	}
 
@@ -1807,11 +1751,15 @@ a.button-link:hover{
 	box-shadow: inset 0 8px 16px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
+
+
 #create-button{
 	background-color: var(--ltgreen);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
+	min-width: 200px;
+	display: inline-block;
 	cursor: pointer;
 
 }
@@ -1878,10 +1826,12 @@ a.button-link:hover{
 #join-button{
 	background-color: var(--ltpurple);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
+	min-width: 200px;
+	display: inline-block;
 	cursor: pointer;
-
+	
 }
 
 #join-button:hover, #join-button:focus{
@@ -1922,24 +1872,33 @@ a.button-link:hover{
 #leave-button{
 	background-color: var(--ltyellow);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
-	display: none;
+	min-width: 200px;
+	display: inline-block;
+	cursor: pointer;
 }
 
 .gotojoin-button{
 	background-color: var(--ltpurple);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
-
+	min-width: 200px;
+	display: inline-block;
+	cursor: pointer;
+	
 }
 
 #other-button{
 	background-color: var(--ltpink);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
+	min-width: 200px;
+	display: inline-block;
+	cursor: pointer;
+	
 }
 
 #other-button:hover, #other-button:focus{
@@ -1977,9 +1936,23 @@ a.button-link:hover{
 #select-button{
 	background-color: var(--ltgreen);
 	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
 	height: 40px;
-	width: 200px;
+	min-width: 200px;
+	display: inline-block;
+	cursor: pointer;
+	
+	
+}
 
+#start-game{
+	background-color: var(--ltpink);
+	margin: 10px 30px 0px 10px;
+	padding: 0px 10px 10px 10px;
+	height: 40px;
+	min-width: 200px;
+	display: inline-block;
+	cursor: pointer;
 }
 
 #download{
