@@ -37,44 +37,8 @@ document.getElementById("leave-button").addEventListener("click", x => {
 		}
 		
 		ws.send(JSON.stringify(gameData));
-		
-		var leaveGInfo = document.getElementById("game-info");
-		leaveGInfo.parentNode.removeChild(leaveGInfo);
-		
-		var leaveB = document.getElementById("leave-button");
-		leaveB.parentNode.removeChild(leaveB);
-		
-		var leaveGPG = document.getElementById("chatAndBoard");
-		leaveGPG.parentNode.removeChild(leaveGPG);
-		
-		var leaveGStarting = document.getElementById("game-starting");
-		leaveGStarting.parentNode.removeChild(leaveGStarting);
-		
-		if (makeBoard1){
-			var leaveMidPick = document.getElementById("host-message");
-			leaveMidPick.parentNode.removeChild(leaveMidPick);
-			
-			var leaveMidPick2 = document.getElementById("scroll-div-3");
-			leaveMidPick2.parentNode.removeChild(leaveMidPick2);
-			
-			var leaveMidPick3 = document.getElementById("submitBtn");
-			leaveMidPick3.parentNode.removeChild(leaveMidPick3);
-		}
-		if (makeBoard2R){
-			var leaveMidPick4 = document.getElementById("scroll-div-2");
-			leaveMidPick4.parentNode.removeChild(leaveMidPick4);
-			
-			var leaveMidPick5 = document.getElementById("button-div");
-			leaveMidPick5.parentNode.removeChild(leaveMidPick5);
-		}
-		if (makeBoard2C){
-			var leaveMidPick6 = document.getElementById("scroll-div");
-			leaveMidPick6.parentNode.removeChild(leaveMidPick6);
-			
-			var leaveMidPick5 = document.getElementById("button-div");
-			leaveMidPick5.parentNode.removeChild(leaveMidPick5);
-		}
-	
+		//back to main page
+		window.location.href = '/';
 	}
 	else {
 		return;
