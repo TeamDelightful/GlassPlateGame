@@ -339,6 +339,7 @@ function cardSetup(item){
 
     //reference to card object in cards array
     item.container.cardParent = item;
+    item.container.sortableChildren = true;
 
     item.container.getChildAt(0).x = 0;
     item.container.getChildAt(0).y = 0;
@@ -431,11 +432,12 @@ function cardSetup(item){
 
     item.container.interactive = true;
     item.container.getChildAt(5).visible = false;
+    item.container.getChildAt(5).zIndex = 1;
     let toolTipName = item.name;
     if(definedCards.includes(toolTipName)){
       toolTipName += "*"
     }
-    let cardName = new PIXI.Text(cleanName(toolTipName), {fontFamily: "IBM Plex Sans Condensed", fontSize: 35, align : 'center'});
+    let cardName = new PIXI.Text(cleanName(toolTipName), {fontFamily: "IBM Plex Sans Condensed", fontSize: 35, align : 'center', fontWeight: 750,});
     cardName.x = item.container.getChildAt(5).width / 2;
 
     item.container.getChildAt(5).addChild(cardName);
@@ -485,7 +487,7 @@ function onDragEnd() {
               if(cards[i].connections[0].active === false){
                 cards[i].connections[0].active = true;
                 cards[i].connections[0].number = nextMoveNumber();
-                cards[i].moveMade = "placed a purple tile on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a purple tile numbered '" + cards[i].connections[0].number +  "' on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -494,7 +496,7 @@ function onDragEnd() {
               if(cards[i].connections[1].active === false){
                 cards[i].connections[1].active = true;
                 cards[i].connections[1].number = nextMoveNumber();
-                cards[i].moveMade = "placed a green tile on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a green tile numbered '" + cards[i].connections[1].number +  "' on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -503,7 +505,7 @@ function onDragEnd() {
               if(cards[i].connections[2].active === false){
                 cards[i].connections[2].active = true;
                 cards[i].connections[2].number = nextMoveNumber();
-                cards[i].moveMade = "placed a blue tile on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a blue tile numbered '" + cards[i].connections[2].number +  "' on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -512,7 +514,7 @@ function onDragEnd() {
               if(cards[i].connections[3].active === false){
                 cards[i].connections[3].active = true;
                 cards[i].connections[3].number = nextMoveNumber();
-                cards[i].moveMade = "placed a yellow tile on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a yellow tile numbered '" + cards[i].connections[3].number +  "' on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -684,6 +686,7 @@ function setChallenge(){
 }
 
 function removeConnection(){
+  let tileNumber = this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
@@ -697,7 +700,7 @@ function removeConnection(){
   }else if(this.parent.parent.color === colors.yellow){
     this.parent.parent.parent.cardParent.moveMade += "yellow ";
   }
-  this.parent.parent.parent.cardParent.moveMade += "tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
+  this.parent.parent.parent.cardParent.moveMade += "tile numbered '" + tileNumber + "' from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
 }
 
