@@ -14,7 +14,7 @@ let ws = new WebSocket("ws://localhost:27000");
 
 const joinButton = document.getElementById("join-button");
 const theGameId = document.getElementById("theGameId");
-// Live log feed lives here 
+// Live log feed lives here
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
@@ -29,13 +29,13 @@ window.onunload = function() {
 
 document.getElementById("leave-button").addEventListener("click", x => {
 	if (confirm("Are you sure you want to leave the game?")) {
-		
+
 		const gameData = {
 			"method": "exit",
 			"playerId": playerId,
 			"gameId": gameId
 		}
-		
+
 		ws.send(JSON.stringify(gameData));
 		//back to main page
 		window.location.href = '/';
@@ -43,7 +43,7 @@ document.getElementById("leave-button").addEventListener("click", x => {
 	else {
 		return;
 	}
-}); 
+});
 
 
 joinButton.addEventListener("click", x => {
@@ -52,16 +52,16 @@ joinButton.addEventListener("click", x => {
 		alert("Please enter username!");
 		return;
 	}
-		
+
 	let usernameDiv = document.getElementById('divEnterUsername');
 	usernameDiv.style.display = "none";
-	
-	
-		
+
+
+
 		if (gameId === null) {
 			gameId = document.getElementById('theGame').textContent;
-		}	
-		
+		}
+
 		gameId = gameId.toUpperCase();
 
 		const gameData = {
@@ -73,9 +73,9 @@ joinButton.addEventListener("click", x => {
 		}
 
 		ws.send(JSON.stringify(gameData));
-		
+
 	//}
-		
+
 });
 
 //Websocket communication
@@ -85,10 +85,10 @@ ws.onmessage = message => {
 
 	if(response.method === "end"){
 		const gameNum = response.id;
-					
+
 		const gameID = { gameID: gameNum };
 		let addToGame = 99;
-		
+
 		fetch(url, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json',},
@@ -99,9 +99,9 @@ ws.onmessage = message => {
 		})
 		.catch((error) => {
 		});
-		
+
 	}
-		
+
 	//connect
 	if (response.method === "connect"){
 		playerId = response.playerId;
@@ -117,49 +117,49 @@ ws.onmessage = message => {
 
 	if (response.method === 'host-join'){
 		gameId = response.game.id;
-		
+
 		let leaveButton = document.getElementById('leave-button');
 		leaveButton.style.display = "block";
-		
-		
+
+
 		createLogFeed(response.chatLog);
-		
+
 		pixiStart(response.boardState);
-		
-		
-		
+
+
+
 		ws.onmessage = message => {
-			
+
 			const response = JSON.parse(message.data);
-			
+
 			//connect
 			if (response.method === "connect"){
 				playerId = response.playerId;
 				console.log("Player ID: " + playerId + " connected.");
 			}
-			
+
 			//host game
 			if (response.method === "host") {
 				gameId = response.game.id;
 				console.log("Game ID: " + response.game.id + " with " + response.game.cards + " cards was created");
 			}
-			
+
 			//update gamestate
 			if (response.method === "update") {
 				//no state no game
 				if (!response.game.boardState) return;
-				
+
 				response.game.boardState.forEach((card, i) => {
 					cards[i].name = card.name
 					cards[i].connections = card.connections;
 					cards[i].cardFlipped = card.cardFlipped;
 					cards[i].moveMade = card.moveMade;
 				});
-				
+
 			}
-			
-			
-			// Update live log/chat 
+
+
+			// Update live log/chat
 			if (response.method === 'updateChat') {
 				let chatMessage = document.createElement('p');
 				chatMessage.textContent = response.chatMessage;
@@ -168,39 +168,39 @@ ws.onmessage = message => {
 				let xH = messageDiv.scrollHeight;
 				messageDiv.scrollTo(0, xH);
 			}
-			
-			// Create file with game data and download to local machine 
+
+			// Create file with game data and download to local machine
 			if (response.method === 'download') {
 				downloadLog(response.chatLog);
 			}
-			
+
 			if (response.method === "startGame"){
-				
+
 				var hostmsg = document.getElementById("host-message");
 				hostmsg.parentNode.removeChild(hostmsg);
-				
+
 				let leaveButton = document.getElementById('leave-button');
 				leaveButton.style.display = "block";
-				
-				
-				var update = "Your game is starting now."					
+
+
+				var update = "Your game is starting now."
 				var starting = document.getElementById("game-starting");
 				var p = document.createElement('p');
 				p.appendChild(document.createTextNode(update));
 				starting.appendChild(p);
-				
+
 				createLogFeed(response.chatLog);
-				
+
 				pixiStart(response.boardState);
 			}
-			
-			
+
+
 			if (response.method === "end"){
 				const gameNum = response.id;
-				
+
 				const gameID = { gameID: gameNum };
 				let addToGame = 99;
-				
+
 				fetch(url, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json',},
@@ -211,13 +211,13 @@ ws.onmessage = message => {
 				})
 				.catch((error) => {
 				});
-				
+
 			}
 		}
 
-		
+
 	}
-	
+
 	//update gamestate
 	if (response.method === "update") {
 		//no state no game
@@ -231,9 +231,9 @@ ws.onmessage = message => {
 		});
 
 	}
-	
 
-	// Update live log/chat 
+
+	// Update live log/chat
 	if (response.method === 'updateChat') {
 		let chatMessage = document.createElement('p');
 		chatMessage.textContent = response.chatMessage;
@@ -243,37 +243,37 @@ ws.onmessage = message => {
 		messageDiv.scrollTo(0, xH);
 	}
 
-	// Create file with game data and download to local machine 
+	// Create file with game data and download to local machine
 	if (response.method === 'download') {
 		downloadLog(response.chatLog);
 	}
 
 	if (response.method === "startGame"){
-		
+
 		var hostmsg = document.getElementById("host-message");
 		hostmsg.parentNode.removeChild(hostmsg);
-		
+
 		let leaveButton = document.getElementById('leave-button');
 		leaveButton.style.display = "block";
 
-		
-		var update = "Your game is starting now."					
+
+		var update = "Your game is starting now."
 		var starting = document.getElementById("game-starting");
 		var p = document.createElement('p');
 		p.appendChild(document.createTextNode(update));
 		starting.appendChild(p);
-		
+
 		createLogFeed(response.chatLog);
-		
+
 		pixiStart(response.boardState);
 	}
 
-		
+
 
 
 	//join game
 	if (response.method === "join") {
-		
+
 		//let count = 0;
 		let count = response.players.length;
 
@@ -281,11 +281,11 @@ ws.onmessage = message => {
 		{
 			count++;
 			//window.addEventListener('focus', function (event) {
-								
+
 
 			var jB = document.getElementById("join-button");
 			jB.parentNode.removeChild(jB);
-			
+
 			//card names
 			var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
 				"city_as_artifact", "coding", "contemplation", "creation", "death",
@@ -402,7 +402,7 @@ ws.onmessage = message => {
 			const selectButton = document.getElementById("submitBtn");
 			const selectDiv = document.getElementById("scroll-div-3");
 			selectButton.addEventListener("click", x => {
-				
+
 				deckClickCounter1++;
 				if(deckClickCounter1 == 1){
 
@@ -444,15 +444,13 @@ ws.onmessage = message => {
 
 
 					}
-					
+
 					//button events
 					const hostButton = document.getElementById("start-game");
 					hostButton.addEventListener("click", x => {
 
-						startClickCounter1++;
-						if(startClickCounter1 == 1){
-						
-							
+
+
 						if(optionSelected == options[1]){
 							for (var i = 0; i < cardIds.length; i++) {
 								var idstatus = document.getElementById(cardIds[i]);
@@ -462,6 +460,9 @@ ws.onmessage = message => {
 							}
 						} else {
 							cardSelected = cardIds;
+						}
+						if(cardSelected.length <= 0){
+							return;
 						}
 						var total = 4;
 						if(optionSelected == options[0]){
@@ -495,8 +496,8 @@ ws.onmessage = message => {
 							"boardState": [],
 							"startCode": 777
 						}
-						
-						
+
+
 						for(let i = 0; i < total; i++){
 							gameData.boardState[i] = {
 								name: deck[i],
@@ -525,39 +526,39 @@ ws.onmessage = message => {
 						}
 						ws.send(JSON.stringify(gameData));
 
-						}
-					
-										
+
+
+
 					var hostmsg = document.getElementById("host-message");
 					hostmsg.parentNode.removeChild(hostmsg);
-					
+
 					if(!deletedNode){
 						var sd1 = document.getElementById("scroll-div");
 						sd1.parentNode.removeChild(sd1);
 					}
-						
+
 					var sd3 = document.getElementById("scroll-div-3");
 					sd3.parentNode.removeChild(sd3);
-					
+
 					var sd4 = document.getElementById("scroll-div-4");
 					sd4.parentNode.removeChild(sd4);
-					
+
 					var subB = document.getElementById("submitBtn");
 					subB.parentNode.removeChild(subB);
-					
+
 					var sd2 = document.getElementById("scroll-div-2");
 					sd2.parentNode.removeChild(sd2);
-					
+
 					var bDiv = document.getElementById("button-div");
 					bDiv.parentNode.removeChild(bDiv);
-					
+
 					var jB = document.getElementById("join-button");
 					jB.parentNode.removeChild(jB);
-					
-																		
+
+
 				})
 
-				
+
 				}
 			})
 			//});
@@ -565,38 +566,38 @@ ws.onmessage = message => {
 		else{
 			var jB = document.getElementById("join-button");
 			jB.parentNode.removeChild(jB);
-			
+
 			var sd3 = document.getElementById("scroll-div-3");
 			sd3.parentNode.removeChild(sd3);
-			
+
 			var sd4 = document.getElementById("scroll-div-4");
 			sd4.parentNode.removeChild(sd4);
-			
+
 			var subB = document.getElementById("submitBtn");
 			subB.parentNode.removeChild(subB);
-			
+
 			var sd2 = document.getElementById("scroll-div-2");
 			sd2.parentNode.removeChild(sd2);
-			
+
 			var bDiv = document.getElementById("button-div");
 			bDiv.parentNode.removeChild(bDiv);
-			
+
 			var sd1 = document.getElementById("scroll-div");
 			sd1.parentNode.removeChild(sd1);
-			
-		
-		
+
+
+
 			var update = "Please wait for the host to pick cards."
 			var delay = document.getElementById("host-message-output");
 			var p = document.createElement('p');
 			p.appendChild(document.createTextNode(update));
 			delay.appendChild(p);
-			
-						
-			
-			
-				
+
+
+
+
+
 		}
-		
+
 	}
 }
