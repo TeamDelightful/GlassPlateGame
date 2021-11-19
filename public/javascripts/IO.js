@@ -437,7 +437,7 @@ function cardSetup(item){
     if(definedCards.includes(toolTipName)){
       toolTipName += "*"
     }
-    let cardName = new PIXI.Text(cleanName(toolTipName), {fontFamily: "IBM Plex Sans Condensed", fontSize: 35, align : 'center', fontWeight: 750,});
+    let cardName = new PIXI.Text(cleanName(toolTipName), {fontFamily: "IBM Plex Sans Condensed", fontSize: 33, align : 'center', fontWeight: 750,});
     cardName.x = item.container.getChildAt(5).width / 2;
 
     item.container.getChildAt(5).addChild(cardName);
