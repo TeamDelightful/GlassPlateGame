@@ -3,9 +3,8 @@ if (!PIXI.utils.isWebGLSupported()) {
     type = "canvas";
 }
 
-let definedCards = ["contemplation", "fundamental_theorem_of_calculus", "gestalt", "hidden_potential", "magic", "multiplication_of_mechanical_advantage", "nature_tending_towards_perfection", "ontogeny_recapitulates_philogeny", "species_specific_norms", "structured_improvisation", "synergy", "wavicle"]
-
 PIXI.utils.sayHello(type);
+
 
 //layout variables
 let layout = {
@@ -35,7 +34,7 @@ const PIXIapp = new PIXI.Application({
 
 
 
-let ticker = new PIXI.Ticker();
+let ticker = PIXI.Ticker.shared;
 ticker.autoStart = false;
 ticker.stop();
 /*
@@ -126,11 +125,10 @@ let connectPalate = null;
 //interface for zooming in and out
 let zoomControl = null;
 
-var initialWidth = window.innerWidth;
-var resizeRatio = 1;
-
 function setup() { //sets all cards up with their default states
     cards.forEach(cardSetup);
+
+
 
     ticker.add(function (time) {
       //Update tiles and die state
@@ -182,21 +180,12 @@ function setup() { //sets all cards up with their default states
 
       document.getElementById("divBoard").style.height = String(layout.cardSize * scale * (Math.ceil(cards.length/rowWidth) * 1.25)) + "px";
       PIXIapp.resizeTo = document.getElementById("divBoard");
-
-
-        let endWidth = window.innerWidth;
-        resizeRatio = endWidth / initialWidth;
-        initialWidth = endWidth;
-
-        scale = scale * resizeRatio;
-      
       clampZoom();
 
 
-    
     }); //card state update from internal, every frame
 
-    
+
     setupPalate();
     setupZoom();
 
@@ -256,10 +245,8 @@ function clampZoom(){
 
   if(scale > maxZoom){
     scale = maxZoom;
-    console.log("set to max")
   }else if (scale < minZoom) {
     scale = minZoom;
-    console.log("set to min")
   }
 }
 
@@ -472,7 +459,7 @@ function onDragEnd() {
               if(cards[i].connections[0].active === false){
                 cards[i].connections[0].active = true;
                 cards[i].connections[0].number = nextMoveNumber();
-                cards[i].moveMade = "placed a purple tile numbered '" + cards[i].connections[0].number +  "' on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a purple tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -481,7 +468,7 @@ function onDragEnd() {
               if(cards[i].connections[1].active === false){
                 cards[i].connections[1].active = true;
                 cards[i].connections[1].number = nextMoveNumber();
-                cards[i].moveMade = "placed a green tile numbered '" + cards[i].connections[1].number +  "' on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a green tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -490,7 +477,7 @@ function onDragEnd() {
               if(cards[i].connections[2].active === false){
                 cards[i].connections[2].active = true;
                 cards[i].connections[2].number = nextMoveNumber();
-                cards[i].moveMade = "placed a blue tile numbered '" + cards[i].connections[2].number +  "' on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a blue tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -499,7 +486,7 @@ function onDragEnd() {
               if(cards[i].connections[3].active === false){
                 cards[i].connections[3].active = true;
                 cards[i].connections[3].number = nextMoveNumber();
-                cards[i].moveMade = "placed a yellow tile numbered '" + cards[i].connections[3].number +  "' on '" + cleanName(cards[i].name) + "'";
+                cards[i].moveMade = "placed a yellow tile on '" + cleanName(cards[i].name) + "'";
                 sendState()
               }
             }
@@ -671,7 +658,6 @@ function setChallenge(){
 }
 
 function removeConnection(){
-  let tileNumber = this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].number = 0;
   this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].active = false;
@@ -685,7 +671,7 @@ function removeConnection(){
   }else if(this.parent.parent.color === colors.yellow){
     this.parent.parent.parent.cardParent.moveMade += "yellow ";
   }
-  this.parent.parent.parent.cardParent.moveMade += "tile numbered '" + tileNumber + "' from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
+  this.parent.parent.parent.cardParent.moveMade += "tile from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
 }
 
