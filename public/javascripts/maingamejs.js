@@ -24,13 +24,7 @@
 					"gameId": gameId,
 					"boardState": []
 				}
-
-				if(!document.getElementById("create-game-dropdown").classList.toggle("show")){
-					document.getElementById("create-game-dropdown").classList.toggle("show");
-				}
-				
-				ws.send(JSON.stringify(gameData));
-				
+				ws.send(JSON.stringify(gameData));			
 			})
 
 
@@ -81,32 +75,7 @@
 					.catch((error) => {
 						console.error('Error:', error);
 					});
-
-				const d = document.createElement("div");
-				d.id = "CreatedGameID";
-				const p = document.createElement("p");
-				const a = document.createElement("a");
-				a.id = "CreatedGameJoinBtn";
-				const l = document.createTextNode("Join Game");
-				console.log(response.game.id);
-
-				if(document.getElementById("CreatedGameID") === null){
-					d.textContent = "Your Game ID is: " + response.game.id + ".";
-
-					divGameId.appendChild(d);
-					divGameId.appendChild(p);
-
-					a.appendChild(l);
-					a.title = "Link to Game";
-					a.href = "game/" + response.game.id;
-					joinLink.appendChild(a);
-				} else{
-					let createdGameID = document.getElementById("CreatedGameID");
-					let createdGameJoinBtn = document.getElementById("CreatedGameJoinBtn");
-
-					createdGameID.textContent = "Your Game ID is: " + response.game.id + ".";
-					createdGameJoinBtn.href = "game/" + response.game.id;
-				}
+				window.location.href = "game/" + gameId;
 
 			}
 
