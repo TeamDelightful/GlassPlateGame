@@ -30,7 +30,6 @@ httpServer.on('listening', onListening);
 //Variables
 // player id placeholder
 var pId = 1;
-var hostKey = "not host";
 //Objects for games and players used with their IDs as index
 const players = {};
 const games = {};
@@ -52,17 +51,14 @@ const wsServer = new websocketServer({
 wsServer.on("request", request => {
 
 		var playerId = pId;
-	
+		pId++;
 
 		//Binding TCP to connection
 		const connection = request.accept(null, request.origin);
 
 		connection.on("close", () => {
-				if(hostKey === "not host"){
 				console.log("PlayerID: " + playerId + " disconnected.")}
-				else {
-				console.log("Created Game and Disconnected " + playerId)}
-				});
+				);
     
 		// receive message from the client here
 		connection.on("message", message => {
@@ -78,8 +74,6 @@ wsServer.on("request", request => {
 				// Generate unique game ID 
 				const gameId = createId.createId(Object.keys(games));
 		
-				hostKey = "host";
-
 				games[gameId] = {
 				"id": gameId,
 				//Card amount in game hardcoded as of now
@@ -105,21 +99,17 @@ wsServer.on("request", request => {
 
 				if (result.method === "host-join"){
 								
-					hostKey = "host";
 					const gameId = result.gameId;
 					const playerId = result.playerId;
 					const startCode = result.startCode;
 					
 					var counter = countForIds.filter(countForId => (countForId.id === gameId));
-					console.log(counter);
 					if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 						var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-						console.log("before update" + countForIds[index]);
 						countForIds[index].i = countForIds[index].i - 2; // was -2
-						console.log("after update" + countForIds[index]);
 					}
 					else {
-						console.log("did not get gameId and update counter in host-join");
+						console.log("Error: did not get gameId and update counter in host-join");
 					}
 
 					games[gameId] = {
@@ -150,9 +140,6 @@ wsServer.on("request", request => {
 
 					}
 										
-					console.log("got number" + startCode);
-
-										
 					//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));
 
@@ -180,40 +167,34 @@ wsServer.on("request", request => {
 					var username = result.username;
 					playerId = result.playerId;
 					players[playerId].username = username;
-					hostKey = "not host";
-					pId++;
 					const gameId = result.gameId;
 					const startCode = result.startCode;
 
 						
 							var counter = countForIds.filter(countForId => (countForId.id === gameId));
-							console.log(counter);
-							console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
+							//console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
 							if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 								var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-								console.log("before update" + countForIds[index]);
 								countForIds[index].i++;
-								console.log("after update" + countForIds[index]);
 							}
 							else{
 								countForIds.push({id: gameId, i: 1});
-								console.log(countForIds);
+								//console.log(countForIds);
 							}
 
 						
-						console.log("got start: " + startCode);
+						//console.log("got start: " + startCode);
 						
 						//if there is no game, return
 						if(!games[gameId]) return;
 					
 					
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						console.log(counter);						
 						if (counter.map(x => x.i) >= 1){ //was >= 1
 								games[gameId].players.push({
 									"playerId": playerId
 								});
-								console.log("pushed player id" + counter + "playerID: " + playerId);
+								//console.log("pushed player id" + counter + "playerID: " + playerId);
 						}
 						else{
 							console.log("check for error");
@@ -239,19 +220,15 @@ wsServer.on("request", request => {
 								if (games[gameId].boardState[0]){
 									
 									var counter = countForIds.filter(countForId => (countForId.id === gameId));
-									console.log(counter);
 									if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
 										var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-										console.log("before update" + countForIds[index]);
 										countForIds[index].i--; // was i--
-										console.log("after update" + countForIds[index]);
 									}
 																		
 									// Add player to game
 									games[gameId].players.push({
 										"playerId": playerId
 									});
-									console.log("player ID: " + playerId);
 									
 									const joinData2 = {
 										"method": "startGame",
@@ -263,12 +240,8 @@ wsServer.on("request", request => {
 										"startCode": startCode
 									}
 									
-									
-									console.log("players in join1: " + Object.values(games[gameId].players));
-									
 									//Send game id back to webpage
 									connection.send(JSON.stringify(joinData2));
-
 									
 									//Announce new connections
 									let chatMessage = players[playerId].username + " has joined.";
@@ -284,19 +257,15 @@ wsServer.on("request", request => {
 								}}
 							
 						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						console.log(counter);
 						if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-							console.log(counter);
-							if (counter.map(x => x.i) > 1){  //was > 1
+							if (counter.map(x => x.i) > 1){  
 									setTimeout(checkForUpdatedGame, 1500); 
-								//broadcastState();
 
 							}
 						}
 						
 						
 					}
-					//connection.send(JSON.stringify(joinData));
 					
 					// if 2 players or more join, start game
 						broadcastState();
@@ -313,8 +282,8 @@ wsServer.on("request", request => {
 
 					//Itterates over the cards on the board, sends them to the statemachine to see
 					//if action is permittable, if not it revertse change to old state.
-					stateMac.dieCheck(result.boardState, games[result.gameId].boardState)
-
+					if (stateMac.dieCheck(result.boardState, games[result.gameId].boardState))
+						return;
 					playerId = result.playerId;
 					const gameId = result.gameId;
 					let chatMessage = null;
@@ -378,10 +347,7 @@ wsServer.on("request", request => {
 					if(players[playerId] === undefined)
 						return;
 					
-					// TODO remove player from players object
-					//console.log("before: " + Object.keys(players));
-					//console.log("after: " + Object.keys(players));
-					if (games[gameId] !== null) {
+					if (games[gameId] !== null && games[gameId] !== undefined) {
 						for (let i = 0; i < games[gameId].players.length; i++){ 
 							if (games[gameId].players[i].playerId === playerId) { 
 								games[gameId].players.splice(i, 1); 
@@ -402,22 +368,21 @@ wsServer.on("request", request => {
 
 						}
 						
-						// TODO if there are no more players, end the game and remove from games object
 						else {	
-							console.log("IT IS GETTING HERE!")
+							//console.log("IT IS GETTING HERE!")
 			
 							const gameData = {
 								"method": "end",
 								"id": gameId
 							}
 							
-							console.log(gameData);
+							//console.log(gameData);
 							//Send game id back to webpage
 							connection.send(JSON.stringify(gameData));
-							console.log("IT IS GETTING PAST THE CONNECTION SEND");
+							//console.log("IT IS GETTING PAST THE CONNECTION SEND");
 							
 							delete games[gameId];
-							console.log("IT IS GETTING PAST delete games[gameId]");
+							//console.log("IT IS GETTING PAST delete games[gameId]");
 						}
 						delete players[playerId];
 					}
@@ -428,11 +393,6 @@ wsServer.on("request", request => {
 
 
 		})
-
-		// generate player id
-		if(playerId != 0 || hostKey === "not host"){
-			playerId++;
-		}
 
 		players[playerId] = {
 			"connection": connection
