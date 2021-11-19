@@ -178,7 +178,7 @@ function setup() { //sets all cards up with their default states
       });
 
 
-      document.getElementById("divBoard").style.height = String(layout.cardSize * scale * (Math.ceil(cards.length/rowWidth) * 1.25)) + "px";
+      document.getElementById("divBoard").style.height = String( (layout.cardSize * scale * (Math.ceil(cards.length/rowWidth) * 1.25)) < (8*layout.zoomButtonSize) ? (8*layout.zoomButtonSize):(layout.cardSize * scale * (Math.ceil(cards.length/rowWidth) * 1.25))) + "px";
       PIXIapp.resizeTo = document.getElementById("divBoard");
       clampZoom();
 
