@@ -8,26 +8,13 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
 	<link href="/stylesheets/gamestyle.css" type="text/css" rel="stylesheet">
-
 <head>
 	<link rel="shortcut icon" href="#">
-
-
-	<title>Play the Glass Plate Game</title> </head>
-
-
+	<title>Play the Glass Plate Game</title> 
+</head>
 <body>
-	<div class="top-left"><div class="top-logo"><a href="/" aria-label="link back to main page"><img src="/images/theGPGSM.png" alt="glass plate game graphic"></a></div>
-
-		<div id="game-info">
-		<div class="join-box"><h3><u>game id</u><div id="theGame"><%= gameID %></div></h3></div></div>
-			<div id="divEnterUsername"><p>Enter Username:</p>
-			<input type="text" id="username" placeholder=" Username" aria-label="enter username here" maxlength="40" /></div>
-			<div><button class="all-home-buttons" id="join-button" aria-label="join game button">join game</button></div>
-			<div><button class="all-home-buttons" id="leave-button" aria-label="leave game button">leave game</button></div>
-		</div>
+	<div class="top-left"><div class="top-logo"><img src="/images/theGPGSM.png" alt="glass plate game graphic"></div>
 
 	<div class="make-board">
 		<div id="host-message"><h2>Host Picks the Deck</h2>
@@ -40,18 +27,9 @@
 		<div id="scroll-div-2"></div>
 		<div id="button-div"></div>
 		<div id="scroll-div"></div></div>
-	<div id="chatAndBoard">
-		<h3 id="chatDesc"></h3>
-		<div class="chatSurround">
-		<div id = 'divChatLog' aria-label="chat window"></div></div>
-		<div id = 'divBoard' aria-label="the glass plate game board">
-	</div></div>
+	
 	<div id="extra"></div>
-	<script type="text/javascript" src="/javascripts/gamejs.js"></script>
-	<script type="text/javascript" src="/javascripts/createLogFeed.js"></script>
-	<script type="text/javascript" src="/javascripts/downloadLog.js"></script>
-	<script type="text/javascript" src="/javascripts/pixi.min.js"></script>
-	<script type="text/javascript" src="/javascripts/IO.js"></script>
+	<script type="text/javascript" src="/javascripts/header.js"></script>
 
 </body>
 </html>
