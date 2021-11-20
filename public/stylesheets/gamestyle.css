@@ -16,7 +16,9 @@ html{
 	z-index: -2;
 	font-family: 'Playfair Display', serif;
 }
-
+#displayId {
+	display:none;
+}
 @media (max-width: 320px) {
 	body{
 		width: 305px;

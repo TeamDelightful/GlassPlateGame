@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET game page. */
 router.get('/', function(req, res, next) {
-  res.render('game');
+  res.render('host');
 });
 
 module.exports = router;

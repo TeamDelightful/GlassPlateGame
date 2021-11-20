@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 //Module dependencies.
 var app = require('../app');
 var debug = require('debug')('textexpress:server');
@@ -28,384 +27,202 @@ httpServer.on('error', onError);
 httpServer.on('listening', onListening);
 
 //Variables
-// player id placeholder
 var pId = 1;
 //Objects for games and players used with their IDs as index
 const players = {};
 const games = {};
-var countForIds = [];
 
 // Include for function to create random and unique game id 
 var createId = require('../public/javascripts/createId');
 
-//var StateMachine = require('javascript-state-machine');
-
-
-
 // Turn Http into WebSocket
 const wsServer = new websocketServer({
-		"httpServer": httpServer,
-		});
+	"httpServer": httpServer,
+});
 
 //Run Websocket
 wsServer.on("request", request => {
+	var playerId = pId;
+	pId++;
 
-		var playerId = pId;
-		pId++;
+	//Binding TCP to connection
+	const connection = request.accept(null, request.origin);
 
-		//Binding TCP to connection
-		const connection = request.accept(null, request.origin);
-
-		connection.on("close", () => {
-				console.log("PlayerID: " + playerId + " disconnected.")}
-				);
+	connection.on("close", () => {
+		console.log("PlayerID: " + playerId + " disconnected.")}
+	);
     
-		// receive message from the client here
-		connection.on("message", message => {
-
-				//Converts JSON message from the browser into javascript object using parse() method
-				const result = JSON.parse(message.utf8Data)
-
-				//Host game server logic
-				if (result.method === "host") {
-				//gets player id
-				playerId = 0;
-
-				// Generate unique game ID 
-				const gameId = createId.createId(Object.keys(games));
-		
-				games[gameId] = {
-				"id": gameId,
-				//Card amount in game hardcoded as of now
-				"cards": 4,
-				//the players connected to game stored in an array
-				"players": [],
-				// board state 2x2 array [name, die, colors]
-				"boardState":  result.boardState,
-				"chatLog": []
-				}
-
-					//Data sent to player
-					const gameData = {
-						"method": "host",
-						"game": games[gameId],
-						"id": gameId,
-						"boardState": games[gameId].boardState
-					}
-				//Send game id back to webpage
-					connection.send(JSON.stringify(gameData));
-				}
-
-
-				if (result.method === "host-join"){
-								
-					const gameId = result.gameId;
-					const playerId = result.playerId;
-					const startCode = result.startCode;
-					
-					var counter = countForIds.filter(countForId => (countForId.id === gameId));
-					if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-						var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-						countForIds[index].i = countForIds[index].i - 2; // was -2
-					}
-					else {
-						console.log("Error: did not get gameId and update counter in host-join");
-					}
-
-					games[gameId] = {
-						"id": gameId,
-						"players": [],
-						"boardState": result.boardState,
-						"chatLog": [],
-						"startCode": startCode
-					}
-
-					games[gameId].players.push({
-						"playerId": playerId,
-					})
-
-					//if there is no game, return
-					if(!games[gameId]) return;
-
-					//Data sent to player
-					const gameData = {
-						"method": "host-join",
-						"game": games[gameId],
-						"id": gameId,
-						"boardState": games[gameId].boardState,
-						"chatLog": games[gameId].chatLog,
-						"players": games[gameId].players,
-						"startCode": startCode,
-						"playerId": playerId
-
-					}
-										
-					//Send game id back to webpage
-					connection.send(JSON.stringify(gameData));
-
-					//Announce new connections
-					let chatMessage = players[playerId].username + " has started the game.";
-					games[gameId].chatLog.push(chatMessage);
-					const game2Data = {
-						"method": "updateChat",
-						"chatMessage": chatMessage
-					}
-					games[gameId].players.forEach( p => {
-						players[p.playerId].connection.send(JSON.stringify(game2Data));
-					})
-					
-					// if 2 players or more join, start game
-					broadcastState();
-										
-					
-				}
-				
-				//Join game server logic
-				if (result.method === "join") {
-
-
-					var username = result.username;
-					playerId = result.playerId;
-					players[playerId].username = username;
-					const gameId = result.gameId;
-					const startCode = result.startCode;
-
-						
-							var counter = countForIds.filter(countForId => (countForId.id === gameId));
-							//console.log("checkexist: " + counter.findIndex(entry => {return typeof counter === 'object'}));
-							if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-								var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-								countForIds[index].i++;
-							}
-							else{
-								countForIds.push({id: gameId, i: 1});
-								//console.log(countForIds);
-							}
-
-						
-						//console.log("got start: " + startCode);
-						
-						//if there is no game, return
-						if(!games[gameId]) return;
-					
-					
-						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						if (counter.map(x => x.i) >= 1){ //was >= 1
-								games[gameId].players.push({
-									"playerId": playerId
-								});
-								//console.log("pushed player id" + counter + "playerID: " + playerId);
-						}
-						else{
-							console.log("check for error");
-						}
-					
-						//Data sent to player to set up game
-						const joinData = {
-							"method": "join",
-							"boardState": games[gameId].boardState,
-							"chatLog": games[gameId].chatLog,
-							"players": games[gameId].players,
-							"id": gameId,
-							"playerId": playerId,
-							"startCode": startCode
-						}
-					
-					
-						checkForUpdatedGame();
-						
-					function checkForUpdatedGame(){
-													
-							if (games && gameId){						
-								if (games[gameId].boardState[0]){
-									
-									var counter = countForIds.filter(countForId => (countForId.id === gameId));
-									if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-										var index = countForIds.findIndex((countForId => (countForId.id === gameId)));
-										countForIds[index].i--; // was i--
-									}
-																		
-									// Add player to game
-									games[gameId].players.push({
-										"playerId": playerId
-									});
-									
-									const joinData2 = {
-										"method": "startGame",
-										"boardState": games[gameId].boardState,
-										"chatLog": games[gameId].chatLog,
-										"players": games[gameId].players,
-										"id": gameId,
-										"playerId": playerId,
-										"startCode": startCode
-									}
-									
-									//Send game id back to webpage
-									connection.send(JSON.stringify(joinData2));
-									
-									//Announce new connections
-									let chatMessage = players[playerId].username + " has joined.";
-									games[gameId].chatLog.push(chatMessage);
-									const gameData = {
-										"method": "updateChat",
-										"chatMessage": chatMessage
-									}
-									games[gameId].players.forEach( p => {
-										players[p.playerId].connection.send(JSON.stringify(gameData));
-									}) 
-									
-								}}
-							
-						var counter = countForIds.filter(countForId => (countForId.id === gameId));
-						if ((counter.findIndex(entry => {return typeof counter === 'object'})) !== -1){
-							if (counter.map(x => x.i) > 1){  
-									setTimeout(checkForUpdatedGame, 1500); 
-
-							}
-						}
-						
-						
-					}
-					
-					// if 2 players or more join, start game
-						broadcastState();
-					
-					players[playerId].connection.send(JSON.stringify(joinData));
-						
-		}	
-					
-			
-				
-			
-				//Play game server logic
-				if (result.method === "play") {
-
-					//Itterates over the cards on the board, sends them to the statemachine to see
-					//if action is permittable, if not it revertse change to old state.
-					if (stateMac.dieCheck(result.boardState, games[result.gameId].boardState))
-						return;
-					playerId = result.playerId;
-					const gameId = result.gameId;
-					let chatMessage = null;
-					let oldBoardState = games[gameId].boardState;
-					let newBoardState = result.boardState;
-					// Update log when a player makes a move
-					// These for loops iterate over previous boardstate and compare it
-					// to new boardstate to log specific changes.
-					for(let i = 0; i < oldBoardState.length; ++i) {
-						let oldMove = oldBoardState[i].moveMade;
-						let newMove = newBoardState[i].moveMade;
-						if(oldMove !== newMove) {
-							chatMessage = players[playerId].username + " " + newMove;
-						}					
-					}
-					games[gameId].boardState = result.boardState;
-					if(chatMessage !== null) {
-						games[gameId].chatLog.push(chatMessage);
-						const gameData = {
-							"method": "updateChat",
-							"chatMessage": chatMessage
-						}
-						games[gameId].players.forEach( p => {
-								players[p.playerId].connection.send(JSON.stringify(gameData));
-								})
-					}
-				}
-
-				// Send game information to player for download
-				if(result.method == "download") {
-					const gameId = result.gameId;
-					playerId = result.playerId;
-					const gameData = {
-						"method": "download",
-						"chatLog": games[gameId].chatLog
-					}
-					const con = players[playerId].connection;
-					con.send(JSON.stringify(gameData));
-				}
-
-				// Update logs when someone types a message
-				if(result.method === 'chat') {
-					let gameId = result.gameId;
-					let playerId = result.playerId;
-					let chatMessage = result.chatMessage;
-					chatMessage = players[playerId].username + ": " + chatMessage;
-					games[gameId].chatLog.push(chatMessage);
-					const gameData = {
-						"method": "updateChat",
-						"chatMessage": chatMessage
-					}
-					games[gameId].players.forEach( p => {
-							players[p.playerId].connection.send(JSON.stringify(gameData));
-							})
-				}
-
-				if(result.method === "exit") {
-
-					const gameId = result.gameId;
-					const playerId = result.playerId;
-					if(players[playerId] === undefined)
-						return;
-					
-					if (games[gameId] !== null && games[gameId] !== undefined) {
-						for (let i = 0; i < games[gameId].players.length; i++){ 
-							if (games[gameId].players[i].playerId === playerId) { 
-								games[gameId].players.splice(i, 1); 
-							}
-						}
-						if(games[gameId].players.length !== 0) {
-							let chatMessage = players[playerId].username + " has left the game.";
-							games[gameId].chatLog.push(chatMessage);
-							const gameData = {
-								"method": "updateChat",
-								"chatMessage": chatMessage,
-								"id": gameId
-							}
-														
-							games[gameId].players.forEach( p => {
-								players[p.playerId].connection.send(JSON.stringify(gameData));
-								})
-
-						}
-						
-						else {	
-							//console.log("IT IS GETTING HERE!")
-			
-							const gameData = {
-								"method": "end",
-								"id": gameId
-							}
-							
-							//console.log(gameData);
-							//Send game id back to webpage
-							connection.send(JSON.stringify(gameData));
-							//console.log("IT IS GETTING PAST THE CONNECTION SEND");
-							
-							delete games[gameId];
-							//console.log("IT IS GETTING PAST delete games[gameId]");
-						}
-						delete players[playerId];
-					}
-
-				} 
-
-
-
-
-		})
-
-		players[playerId] = {
-			"connection": connection
+	// receive message from the client here
+	connection.on("message", message => {
+	//Converts JSON message from the browser into javascript object using parse() method
+	const result = JSON.parse(message.utf8Data)
+	if (result.method === "host"){
+		// Generate unique game ID 
+		const gameId = createId.createId(Object.keys(games));
+		games[gameId] = {
+			"id": gameId,
+			"players": [],
+			"boardState": result.boardState,
+			"chatLog": [],
 		}
-
-		// data pack sent to player
 		const gameData = {
-			"method": "connect",
+			"method": "startGame",
+			"id": gameId
+		}
+		players[playerId].connection.send(JSON.stringify(gameData));
+	}
+	if (result.method === "join") {
+		var username = result.username;
+		playerId = result.playerId;
+		players[playerId].username = username;
+		const gameId = result.gameId;
+		if(!games[gameId]) return;
+
+		//Data sent to player to set up game
+		const joinData = {
+			"method": "join",
+			"boardState": games[gameId].boardState,
+			"chatLog": games[gameId].chatLog,
+			"id": gameId,
+		}
+		//start game
+		broadcastState();
+		players[playerId].connection.send(JSON.stringify(joinData));		
+		//Announce new connections
+		let chatMessage = players[playerId].username + " has joined.";
+		games[gameId].chatLog.push(chatMessage);
+		const gameData = {
+			"method": "updateChat",
+			"chatMessage": chatMessage
+		}
+		games[gameId].players.push({
 			"playerId": playerId
+		});
+		games[gameId].players.forEach( p => {
+			players[p.playerId].connection.send(JSON.stringify(gameData));
+		}) 
+	}	
+				
+	//Play game server logic
+	if (result.method === "play") {
+		//Itterates over the cards on the board, sends them to the statemachine to see
+		//if action is permittable, if not it revertse change to old state.
+		if(games[result.gameId] === undefined)
+			return;
+		if (stateMac.dieCheck(result.boardState, games[result.gameId].boardState))
+			return;
+		playerId = result.playerId;
+		const gameId = result.gameId;
+		let chatMessage = null;
+		let oldBoardState = games[gameId].boardState;
+		let newBoardState = result.boardState;
+		// Update log when a player makes a move
+		// These for loops iterate over previous boardstate and compare it
+		// to new boardstate to log specific changes.
+		for(let i = 0; i < oldBoardState.length; ++i) {
+			let oldMove = oldBoardState[i].moveMade;
+			let newMove = newBoardState[i].moveMade;
+			if(oldMove !== newMove) {
+				chatMessage = players[playerId].username + " " + newMove;
+			}					
+		}
+		games[gameId].boardState = result.boardState;
+		if(chatMessage !== null) {
+			games[gameId].chatLog.push(chatMessage);
+			const gameData = {
+				"method": "updateChat",
+				"chatMessage": chatMessage
+			}
+			games[gameId].players.forEach( p => {
+				players[p.playerId].connection.send(JSON.stringify(gameData));
+			})
+		}
+	}
+
+	// Send game information to player for download
+	if(result.method == "download") {
+		const gameId = result.gameId;
+		playerId = result.playerId;
+		const gameData = {
+			"method": "download",
+			"chatLog": games[gameId].chatLog
+		}
+		const con = players[playerId].connection;
+		con.send(JSON.stringify(gameData));
+	}
+
+	// Update logs when someone types a message
+	if(result.method === 'chat') {
+		let gameId = result.gameId;
+		let playerId = result.playerId;
+		let chatMessage = result.chatMessage;
+		chatMessage = players[playerId].username + ": " + chatMessage;
+		games[gameId].chatLog.push(chatMessage);
+		const gameData = {
+			"method": "updateChat",
+			"chatMessage": chatMessage
+		}
+		games[gameId].players.forEach( p => {
+			players[p.playerId].connection.send(JSON.stringify(gameData));
+		})
+	}
+
+	if(result.method === "exit") {
+		const gameId = result.gameId;
+		const playerId = result.playerId;
+		if(players[playerId] === undefined)
+			return;
+					
+		if (games[gameId] !== null && games[gameId] !== undefined) {
+			for (let i = 0; i < games[gameId].players.length; i++){ 
+				if (games[gameId].players[i].playerId === playerId) { 
+					games[gameId].players.splice(i, 1); 
+				}
+			}
+			if(games[gameId].players.length !== 0) {
+				let chatMessage = players[playerId].username + " has left the game.";
+				games[gameId].chatLog.push(chatMessage);
+				const gameData = {
+					"method": "updateChat",
+					"chatMessage": chatMessage,
+					"id": gameId
+				}
+				games[gameId].players.forEach( p => {
+					players[p.playerId].connection.send(JSON.stringify(gameData));
+				})
+			}
+			else {	
+				const gameData = {
+						"method": "end",
+						"id": gameId
+					}
+							
+					//console.log(gameData);
+					//Send game id back to webpage
+					connection.send(JSON.stringify(gameData));		
+					//console.log("IT IS GETTING PAST THE CONNECTION SEND");
+							
+					delete games[gameId];
+					//console.log("IT IS GETTING PAST delete games[gameId]");
+			}
+			//delete players[playerId];
 		}
 
-		//pack up gameData to JSON string
-		connection.send(JSON.stringify(gameData))
+	} 
+});
+
+players[playerId] = {
+	"connection": connection
+}
+
+// data pack sent to player
+const gameData = {
+	"method": "connect",
+	"playerId": playerId
+}
+
+//pack up gameData to JSON string
+connection.send(JSON.stringify(gameData))
 
 })
 
