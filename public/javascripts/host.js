@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
 			radiobox.type = "radio";
 			radiobox.id = sizes[i];
 			radiobox.name = "size";
-			radiobox.value = (i+1) * (i+1);
+			radiobox.value = (i+2) * (i+2);
 			if(i == 1){
 				radiobox.checked = true;
 			}
