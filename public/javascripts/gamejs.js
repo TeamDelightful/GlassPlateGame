@@ -79,10 +79,9 @@ ws.onmessage = message => {
 		.then(gameID => {
 		})
 		.catch((error) => {
-		});
-		
+		});		
 	}
-		
+
 	//connect
 	if (response.method === "connect"){
 		playerId = response.playerId;
