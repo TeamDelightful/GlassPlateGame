@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
 
 	var cardSelected = [];
 
-	var sizes = ["2x2", "3x3", "4x4", "5x5", "6x6"];
+	var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
 
 	var cardNames = ["ambivalence", "anthropomorphism", "art versus nature",
 		"city as artifact", "coding", "contemplation", "creation", "death",
@@ -53,6 +53,8 @@ window.addEventListener("load", () => {
 			theDiv.appendChild(linebreak);
 		}
 	}
+
+//	var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
 
 	function printRadio(){
 		var theDiv2 = document.getElementById("scroll-div-2");
@@ -162,6 +164,7 @@ window.addEventListener("load", () => {
 				cardSelected = cardIds;
 			}
 			if(cardSelected.length <= 1){
+				cardSelected = [];
 				return;
 			}
 			var total = 4;
