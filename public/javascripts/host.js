@@ -163,6 +163,9 @@ window.addEventListener("load", () => {
 			else {
 				cardSelected = cardIds;
 			}
+			if(cardSelected.length <= 0){
+				return;
+			}
 			var total = 4;
 			if(optionSelected == options[0]){
 				for (var i = 0; i < sizes.length; i++) {
@@ -248,6 +251,6 @@ ws.onmessage = message => {
 			console.error('Error:', error);
 		});
 
-		window.location.href = '/game/' + gameId;
+		setTimeout(() => {window.location.href = '/game/' + gameId}, 1);
 	}	
 }
