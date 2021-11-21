@@ -78,6 +78,18 @@ https://stackoverflow.com/questions/4689856/how-to-change-value-of-object-which-
 
 https://www.geeksforgeeks.org/how-to-check-if-an-array-includes-an-object-in-javascript/
 
+https://stackoverflow.com/questions/27722872/make-button-width-fit-to-the-text
+
+https://ipdata.co/blog/how-to-get-the-ip-address-in-javascript/
+
+https://stackabuse.com/making-http-requests-in-node-js-with-node-fetch/
+
+https://www.npmjs.com/package/py-logging
+
+https://www.kite.com/python/answers/how-to-customize-the-time-format-for-logging-in-python
+
+
+
 
 ## Dependencies
 

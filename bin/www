@@ -8,6 +8,24 @@ var debug = require('debug')('textexpress:server');
 var port = normalizePort(process.env.PORT || '27000');
 app.set('port', port);
 
+//for time stuff
+var strftime = require('strftime');
+
+//For logging
+var logging = require('py-logging');
+require('py-logging/nodekit').install(logging);
+
+var strftimePST = strftime.timezone(-480);
+date_strftime_format = '%d-%b-%y %I:%M:%S %p';
+message_format = "%(asctime) - %(levelname) - %(message)";
+
+logging.basicConfig({ filename: 'gpgLog.log', 
+	format: message_format,
+	timeFormat: strftimePST(date_strftime_format),
+	level: 'DEBUG'});
+
+//For node fetch (server-side)
+const fetch = require('node-fetch');
 
 //Create HTTP server.
 //Library imports(http, express, websocket)
@@ -45,6 +63,7 @@ wsServer.on("request", request => {
 	var playerId = pId;
 	pId++;
 
+
 	//Binding TCP to connection
 	const connection = request.accept(null, request.origin);
 
@@ -57,6 +76,10 @@ wsServer.on("request", request => {
 	//Converts JSON message from the browser into javascript object using parse() method
 	const result = JSON.parse(message.utf8Data)
 	if (result.method === "host"){
+		
+		logging.info('Host IP address: ');
+		getIPFromAmazon();
+		
 		// Generate unique game ID 
 		const gameId = createId.createId(Object.keys(games));
 		games[gameId] = {
@@ -76,6 +99,10 @@ wsServer.on("request", request => {
 		playerId = result.playerId;
 		players[playerId].username = username;
 		const gameId = result.gameId;
+		
+		logging.info('Player ' + playerId + ' named ' + username + ' in game ' + gameId + ' joining with IP address: ');
+		getIPFromAmazon();
+
 		if(!games[gameId]) return;
 
 		//Data sent to player to set up game
@@ -170,6 +197,10 @@ wsServer.on("request", request => {
 	if(result.method === "exit") {
 		const gameId = result.gameId;
 		const playerId = result.playerId;
+		
+		logging.info('Player ' + playerId + ' in game ' + gameId + ' exiting with IP address: ');
+		getIPFromAmazon();
+		
 		if(players[playerId] === undefined)
 			return;
 					
@@ -197,15 +228,12 @@ wsServer.on("request", request => {
 						"id": gameId
 					}
 							
-					//console.log(gameData);
+					
 					//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));		
-					//console.log("IT IS GETTING PAST THE CONNECTION SEND");
-							
+					
 					delete games[gameId];
-					//console.log("IT IS GETTING PAST delete games[gameId]");
 			}
-			//delete players[playerId];
 		}
 
 	} 
@@ -307,4 +335,10 @@ function onListening() {
 		? 'pipe ' + addr
 		: 'port ' + addr.port;
 	debug('Listening on ' + bind);
+}
+
+//Get IP address from AWS
+function getIPFromAmazon(){
+	fetch("https://checkip.amazonaws.com/").then(res =>
+		res.text()).then(data => logging.info(data))
 }
