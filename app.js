@@ -12,6 +12,10 @@ let gamesHTML = [];
 
 var app = express();
 
+//For logging
+var logging = require('py-logging');
+require('py-logging/nodekit').install(logging);
+
 app.use(express.static(path.join(__dirname, './public')));
 app.use(cors());
 
@@ -33,27 +37,23 @@ app.post('/game', (req, res) => {
   const game = req.body.gameID;
   const addOrDelete = req.body.addDelete;
   
-  //Output the game to the console for debugging
-  //console.log(game);
-  
   if (addOrDelete == 99){
-      
+
     const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
-    //console.log("THIS IS THE INDEX:" + index);
+    logging.info('Got index of game from array: ' + index + ". Can delete page.");
+
     if (index > -1){
       gamesHTML.splice(index, 1);
     }
     else {
-      //console.log("Index was less than -1");
+      logging.info('Index was less than -1. Could not delete game from page.');
     }
   }
   else{
     gamesHTML.push(game);
-    //console.log(gamesHTML);
-    //console.log("Added to database");
+    logging.info('Added game: ' + Object.values(game) + ' to game pages.');
   }
-  //console.log(gamesHTML);
-  
+    
 });
 
 app.get('/gamesHTML', (req, res) => {
