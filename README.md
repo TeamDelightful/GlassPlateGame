@@ -76,6 +76,8 @@ https://www.npmjs.com/package/py-logging
 
 https://www.kite.com/python/answers/how-to-customize-the-time-format-for-logging-in-python
 
+https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/interaction/dragging.js
+
 
 
 
