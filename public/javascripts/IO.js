@@ -381,7 +381,7 @@ function cardSetup(item){
     item.container.getChildAt(3).zIndex = 1;
     item.container.getChildAt(3).alpha = 0.75;
     item.container.getChildAt(3).interactive = true;
-    item.container.getChildAt(3).buttonMode = item.container.getChildAt(3).visible
+    item.container.getChildAt(3).buttonMode = item.container.getChildAt(3).visible;
     item.container.getChildAt(3).addChild(new PIXI.Text('0', PIXIstyle));
     item.container.getChildAt(3).getChildAt(0).height = layout.tileSize;
     item.container.getChildAt(3).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
@@ -399,7 +399,7 @@ function cardSetup(item){
     item.container.getChildAt(4).zIndex = 1;
     item.container.getChildAt(4).alpha = 0.75;
     item.container.getChildAt(4).interactive = true;
-    item.container.getChildAt(4).buttonMode = item.container.getChildAt(4).visible
+    item.container.getChildAt(4).buttonMode = item.container.getChildAt(4).visible;
     item.container.getChildAt(4).addChild(new PIXI.Text('0', PIXIstyle));
     item.container.getChildAt(4).getChildAt(0).height = layout.tileSize;
     item.container.getChildAt(4).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
