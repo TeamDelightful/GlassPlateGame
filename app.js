@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req,res) => res.sendFile(__dirname, + 'index'));
-app.get("/host", (req, res) => res.sendFile(__dirname, + 'host'));
+app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
 app.listen(27001, () => console.log("Express on: 27001"));
 
 
