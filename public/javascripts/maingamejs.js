@@ -1,9 +1,9 @@
 //Variables (Client ID, Websocket, Button data)
-let url = "http://localhost:27001/game";
+let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
 let playerId = null;
 let gameId = null;
 let addToGame = 1;
-let ws = new WebSocket("ws://localhost:27000")
+let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
 const hostButton = document.getElementById("create-button");
 const joinLink = document.getElementById("divGoToJoin");
 const divGameId = document.getElementById("divGameId");
