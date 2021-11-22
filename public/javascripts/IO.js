@@ -135,20 +135,20 @@ function setup() { //sets all cards up with their default states
       //Update tiles and die state
       for (let i = 0; i < cards.length; i++){
         cards[i].connections.forEach((item, j) => {
-          cards[i].container.getChildAt(j+1).visible = item.active;
+          cards[i].container.getChildAt(j+2).visible = item.active;
           if(item.active){
             switch (item.state){
               case "number":
-                cards[i].container.getChildAt(j+1).getChildAt(0).text = item.number.toString();
+                cards[i].container.getChildAt(j+2).getChildAt(0).text = item.number.toString();
                 break;
               case "okay":
-                cards[i].container.getChildAt(j+1).getChildAt(0).text = 'O';
+                cards[i].container.getChildAt(j+2).getChildAt(0).text = 'O';
                 break;
               case "permit":
-                cards[i].container.getChildAt(j+1).getChildAt(0).text = 'P';
+                cards[i].container.getChildAt(j+2).getChildAt(0).text = 'P';
                 break;
               case "challenge":
-                cards[i].container.getChildAt(j+1).getChildAt(0).text = 'C';
+                cards[i].container.getChildAt(j+2).getChildAt(0).text = 'C';
                 break;
               default:
                 console.log("Tile state on " + cards[i].name + " not recognied");
@@ -158,10 +158,10 @@ function setup() { //sets all cards up with their default states
         });
 
 
-        cards[i].container.getChildAt(1).visible = cards[i].connections[0].active;
-        cards[i].container.getChildAt(2).visible = cards[i].connections[1].active;
-        cards[i].container.getChildAt(3).visible = cards[i].connections[2].active;
-        cards[i].container.getChildAt(4).visible = cards[i].connections[3].active;
+        cards[i].container.getChildAt(2).visible = cards[i].connections[0].active;
+        cards[i].container.getChildAt(3).visible = cards[i].connections[1].active;
+        cards[i].container.getChildAt(4).visible = cards[i].connections[2].active;
+        cards[i].container.getChildAt(5).visible = cards[i].connections[3].active;
         cards[i].container.getChildAt(0).getChildAt(0).visible = cards[i].cardFlipped;
       }
 
@@ -330,16 +330,16 @@ function cardSetup(item){
     item.container.width = 600;
     item.container.pivot.set(layout.cardSize/2,layout.cardSize/2);
     item.container.addChild(new PIXI.Sprite(PIXI.Loader.shared.resources["../images/4x4x150cards/" + item.name + ".png"].texture),
+                            new PIXI.Graphics().beginFill(0xF0F0F0).drawRect(0, 0, layout.cardSize, layout.cardSize / 10).endFill(),
                             new PIXI.Graphics().beginFill(0xB38BFC).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
                             new PIXI.Graphics().beginFill(0x53FCA2).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
                             new PIXI.Graphics().beginFill(0x7EB2FC).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
                             new PIXI.Graphics().beginFill(0xFFE76E).drawRect(layout.tileSize/-2,layout.tileSize/-2,layout.tileSize,layout.tileSize).endFill(),
-                            new PIXI.Graphics().beginFill(0xF0F0F0).drawRect(0, 0, layout.cardSize, layout.cardSize / 10).endFill(),
+
                            );
 
     //reference to card object in cards array
     item.container.cardParent = item;
-    item.container.sortableChildren = true;
 
     item.container.getChildAt(0).x = 0;
     item.container.getChildAt(0).y = 0;
@@ -358,43 +358,25 @@ function cardSetup(item){
     cardText.visible = false;
     item.container.getChildAt(0).addChild(cardText);
 
-    item.container.getChildAt(1).x = layout.tileSize/2;
-    item.container.getChildAt(1).y = layout.cardSize - layout.tileSize/2;
-    item.container.getChildAt(1).zIndex = 1;
-    item.container.getChildAt(1).alpha = 0.75;
-    item.container.getChildAt(1).interactive = true;
-    item.container.getChildAt(1).buttonMode = item.container.getChildAt(1).visible;
-    item.container.getChildAt(1).addChild(new PIXI.Text('0', PIXIstyle));
-    item.container.getChildAt(1).getChildAt(0).height = layout.tileSize;
-    item.container.getChildAt(1).getChildAt(0).scale.x = item.container.getChildAt(1).getChildAt(0).scale.y;
-    item.container.getChildAt(1).getChildAt(0).zIndex = 2;
-    item.container.getChildAt(1).getChildAt(0).anchor.set(0.5);
-    item.container.getChildAt(1).getChildAt(0).x = 0;
-    item.container.getChildAt(1).getChildAt(0).y = 0;
-    item.container.getChildAt(1).on("pointerdown", openTileMenu);
-    item.container.getChildAt(1).connectionIndex = 0;
-    item.container.getChildAt(1).menuExist = false;
-    item.container.getChildAt(1).color = colors.purple;
-
-    item.container.getChildAt(2).x = layout.tileSize/2 + layout.tileSize;
+    item.container.getChildAt(2).x = layout.tileSize/2;
     item.container.getChildAt(2).y = layout.cardSize - layout.tileSize/2;
     item.container.getChildAt(2).zIndex = 1;
     item.container.getChildAt(2).alpha = 0.75;
     item.container.getChildAt(2).interactive = true;
-    item.container.getChildAt(2).buttonMode = item.container.getChildAt(2).visible
+    item.container.getChildAt(2).buttonMode = item.container.getChildAt(2).visible;
     item.container.getChildAt(2).addChild(new PIXI.Text('0', PIXIstyle));
     item.container.getChildAt(2).getChildAt(0).height = layout.tileSize;
-    item.container.getChildAt(2).getChildAt(0).scale.x = item.container.getChildAt(1).getChildAt(0).scale.y;
+    item.container.getChildAt(2).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
     item.container.getChildAt(2).getChildAt(0).zIndex = 2;
     item.container.getChildAt(2).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(2).getChildAt(0).x = 0;
     item.container.getChildAt(2).getChildAt(0).y = 0;
     item.container.getChildAt(2).on("pointerdown", openTileMenu);
-    item.container.getChildAt(2).connectionIndex = 1;
+    item.container.getChildAt(2).connectionIndex = 0;
     item.container.getChildAt(2).menuExist = false;
-    item.container.getChildAt(2).color = colors.green;
+    item.container.getChildAt(2).color = colors.purple;
 
-    item.container.getChildAt(3).x = layout.tileSize/2 + layout.tileSize * 2;
+    item.container.getChildAt(3).x = layout.tileSize/2 + layout.tileSize;
     item.container.getChildAt(3).y = layout.cardSize - layout.tileSize/2;
     item.container.getChildAt(3).zIndex = 1;
     item.container.getChildAt(3).alpha = 0.75;
@@ -402,17 +384,17 @@ function cardSetup(item){
     item.container.getChildAt(3).buttonMode = item.container.getChildAt(3).visible
     item.container.getChildAt(3).addChild(new PIXI.Text('0', PIXIstyle));
     item.container.getChildAt(3).getChildAt(0).height = layout.tileSize;
-    item.container.getChildAt(3).getChildAt(0).scale.x = item.container.getChildAt(1).getChildAt(0).scale.y;
+    item.container.getChildAt(3).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
     item.container.getChildAt(3).getChildAt(0).zIndex = 2;
     item.container.getChildAt(3).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(3).getChildAt(0).x = 0;
     item.container.getChildAt(3).getChildAt(0).y = 0;
     item.container.getChildAt(3).on("pointerdown", openTileMenu);
-    item.container.getChildAt(3).connectionIndex = 2;
+    item.container.getChildAt(3).connectionIndex = 1;
     item.container.getChildAt(3).menuExist = false;
-    item.container.getChildAt(3).color = colors.blue;
+    item.container.getChildAt(3).color = colors.green;
 
-    item.container.getChildAt(4).x = layout.tileSize/2 + layout.tileSize * 3;
+    item.container.getChildAt(4).x = layout.tileSize/2 + layout.tileSize * 2;
     item.container.getChildAt(4).y = layout.cardSize - layout.tileSize/2;
     item.container.getChildAt(4).zIndex = 1;
     item.container.getChildAt(4).alpha = 0.75;
@@ -420,30 +402,48 @@ function cardSetup(item){
     item.container.getChildAt(4).buttonMode = item.container.getChildAt(4).visible
     item.container.getChildAt(4).addChild(new PIXI.Text('0', PIXIstyle));
     item.container.getChildAt(4).getChildAt(0).height = layout.tileSize;
-    item.container.getChildAt(4).getChildAt(0).scale.x = item.container.getChildAt(1).getChildAt(0).scale.y;
+    item.container.getChildAt(4).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
     item.container.getChildAt(4).getChildAt(0).zIndex = 2;
     item.container.getChildAt(4).getChildAt(0).anchor.set(0.5);
     item.container.getChildAt(4).getChildAt(0).x = 0;
     item.container.getChildAt(4).getChildAt(0).y = 0;
     item.container.getChildAt(4).on("pointerdown", openTileMenu);
-    item.container.getChildAt(4).connectionIndex = 3;
+    item.container.getChildAt(4).connectionIndex = 2;
     item.container.getChildAt(4).menuExist = false;
-    item.container.getChildAt(4).color = colors.yellow;
+    item.container.getChildAt(4).color = colors.blue;
+
+    item.container.getChildAt(5).x = layout.tileSize/2 + layout.tileSize * 3;
+    item.container.getChildAt(5).y = layout.cardSize - layout.tileSize/2;
+    item.container.getChildAt(5).zIndex = 1;
+    item.container.getChildAt(5).alpha = 0.75;
+    item.container.getChildAt(5).interactive = true;
+    item.container.getChildAt(5).buttonMode = item.container.getChildAt(5).visible;
+    item.container.getChildAt(5).addChild(new PIXI.Text('0', PIXIstyle));
+    item.container.getChildAt(5).getChildAt(0).height = layout.tileSize;
+    item.container.getChildAt(5).getChildAt(0).scale.x = item.container.getChildAt(2).getChildAt(0).scale.y;
+    item.container.getChildAt(5).getChildAt(0).zIndex = 2;
+    item.container.getChildAt(5).getChildAt(0).anchor.set(0.5);
+    item.container.getChildAt(5).getChildAt(0).x = 0;
+    item.container.getChildAt(5).getChildAt(0).y = 0;
+    item.container.getChildAt(5).on("pointerdown", openTileMenu);
+    item.container.getChildAt(5).connectionIndex = 3;
+    item.container.getChildAt(5).menuExist = false;
+    item.container.getChildAt(5).color = colors.yellow;
 
     item.container.interactive = true;
-    item.container.getChildAt(5).visible = false;
-    item.container.getChildAt(5).zIndex = 1;
+    item.container.getChildAt(1).visible = false;
+    item.container.getChildAt(1).zIndex = 1;
     let toolTipName = item.name;
     if(definedCards.includes(toolTipName)){
       toolTipName += "*"
     }
     let cardName = new PIXI.Text(cleanName(toolTipName), {fontFamily: "IBM Plex Sans Condensed", fontSize: 33, align : 'center', fontWeight: 750,});
-    cardName.x = item.container.getChildAt(5).width / 2;
+    cardName.x = item.container.getChildAt(1).width / 2;
 
-    item.container.getChildAt(5).addChild(cardName);
-    item.container.getChildAt(5).getChildAt(0).anchor.set(0.5, 0.5);
-    item.container.getChildAt(5).getChildAt(0).x = item.container.getChildAt(5).width / 2;
-    item.container.getChildAt(5).getChildAt(0).y = item.container.getChildAt(5).height / 4;
+    item.container.getChildAt(1).addChild(cardName);
+    item.container.getChildAt(1).getChildAt(0).anchor.set(0.5, 0.5);
+    item.container.getChildAt(1).getChildAt(0).x = item.container.getChildAt(1).width / 2;
+    item.container.getChildAt(1).getChildAt(0).y = item.container.getChildAt(1).height / 4;
     item.container.on("mouseover", showCardName)
       .on("mouseout", hideCardName);
 
@@ -452,15 +452,14 @@ function cardSetup(item){
 }
 
 function showCardName() {
-  this.getChildAt(5).visible = true;
+  this.getChildAt(1).visible = true;
 }
 
 function hideCardName() {
-  this.getChildAt(5).visible = false;
+  this.getChildAt(1).visible = false;
 }
 
-//onDragStart, onDragEnd, and onDragMove inspired by https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/interaction/dragging.js
-//allows for drag and drop functionality
+//onDragStart, onDragEnd, and onDragMove allows for drag and drop functionality
 function onDragStart(event) {
     this.data = event.data;
     this.alpha = 0.5;
@@ -619,6 +618,12 @@ function openTileMenu(){
     }
 }
 
+//removes the tile menu
+function closeTileMenu(){
+  this.parent.menuExist = false;
+  this.destroy();
+}
+
 //the following 5 set functions set the die state for each tile
 function setNumber(){
     this.parent.parent.parent.cardParent.connections[this.parent.parent.connectionIndex].state = 'number';
@@ -702,12 +707,6 @@ function removeConnection(){
   }
   this.parent.parent.parent.cardParent.moveMade += "tile numbered '" + tileNumber + "' from '" + cleanName(this.parent.parent.parent.cardParent.name) + "'";
   sendState()
-}
-
-//removes the tile menu
-function closeTileMenu(){
-    this.parent.menuExist = false;
-    this.destroy();
 }
 
 //shows the card text
