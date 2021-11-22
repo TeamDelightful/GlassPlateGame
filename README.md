@@ -17,7 +17,7 @@ To run this program, access the folder via your terminal then enter
 ## Host IP & Port settings
 In order to change host IP and Port settings, you can edit that in:
 
-public/javascripts/config.js
+    public/javascripts/config.js
 
 ## Screenshots
 
