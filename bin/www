@@ -1,11 +1,13 @@
 #!/usr/bin/env node
+//IP config import
+const config = require('../public/javascripts/config');
 
 //Module dependencies.
 var app = require('../app');
 var debug = require('debug')('textexpress:server');
 
 //Get port from environment and store in Express.
-var port = normalizePort(process.env.PORT || '27000');
+var port = normalizePort(process.env.PORT || config.ipSettings.httpPort);
 app.set('port', port);
 
 //for time stuff
@@ -40,7 +42,7 @@ const stateMac = require('../public/javascripts/stateMachine');
 
 //HTTP server start
 const httpServer = http.createServer(app);
-httpServer.listen(27000, () => console.log("Http on: 27000"));
+httpServer.listen(config.ipSettings.httpPort, () => console.log("Http on: "+ config.ipSettings.httpPort));
 httpServer.on('error', onError);
 httpServer.on('listening', onListening);
 

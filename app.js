@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const config = require('./public/javascripts/config');
 
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game')
@@ -30,7 +31,7 @@ app.use(bodyParser.json());
 
 app.get("/", (req,res) => res.sendFile(__dirname, + 'index'));
 app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
-app.listen(27001, () => console.log("Express on: 27001"));
+app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
 
 app.post('/game', (req, res) => {

@@ -1,8 +1,8 @@
 //Variables (Client ID, Websocket, Button data)
-let url = "http://localhost:27001/game";
+let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
 let playerId = null;
 let gameId = document.getElementById('theGame').textContent;
-let ws = new WebSocket("ws://localhost:27000");
+let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
 
 
 const joinButton = document.getElementById("join-button");
