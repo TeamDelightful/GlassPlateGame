@@ -14,22 +14,10 @@ To run this program, access the folder via your terminal then enter
     npm install
     npm start
 
-In order to change where to host the websocket, there are three places you need to change the code:
+## Host IP & Port settings
+In order to change host IP and Port settings, you can edit that in:
 
-public/javascripts/gamejs.js 
-
-
-![gamejs screenshot](https://github.com/TeamDelightful/GlassPlateGame/blob/main/public/images/gamejsScreenshot.png)
-
-public/javascripts/maingamejs.js 
-
-
-![maingamejs screenshot](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/maingamejs%20screenshot.png)
-
-bin/www
-
-
-![www screenshot](https://github.com/jakira-bot/GlassPlateGame-1/blob/main/public/images/www%20screenshot.png)
+public/javascripts/config.js
 
 ## Screenshots
 
