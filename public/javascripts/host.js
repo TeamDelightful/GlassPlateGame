@@ -252,6 +252,6 @@ ws.onmessage = message => {
 			console.error('Error:', error);
 		});
 
-		setTimeout(() => {window.location.href = '/game/' + gameId}, 1);
+		setTimeout(() => {window.location.href = '/game/' + gameId}, 5);
 	}	
 }
