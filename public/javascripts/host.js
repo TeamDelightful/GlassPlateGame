@@ -1,7 +1,7 @@
-let url = "http://localhost:27001/game";
+let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
 let addToGame = 1;
 const joinLink = document.getElementById("divGoToJoin");
-let ws = new WebSocket("ws://localhost:27000");
+let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
 window.addEventListener("load", () => {
 	//card names
 	var cardIds = ["ambivalence", "anthropomorphism", "art_versus_nature",
@@ -336,6 +336,6 @@ ws.onmessage = message => {
 			console.error('Error:', error);
 		});
 
-		setTimeout(() => {window.location.href = '/game/' + gameId}, 1);
+		setTimeout(() => {window.location.href = '/game/' + gameId}, 5);
 	}	
 }
