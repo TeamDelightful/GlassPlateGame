@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET game page. */
+/* GET host page. */
 router.get('/', function(req, res, next) {
-  res.render('game');
+  res.render('host');
 });
 
 module.exports = router;
