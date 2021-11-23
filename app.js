@@ -9,6 +9,7 @@ const config = require('./public/javascripts/config');
 
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game')
+var hostRouter = require('./routes/host');
 let gamesHTML = [];
 
 var app = express();
@@ -30,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req,res) => res.sendFile(__dirname, + 'index'));
-app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
+//app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
 app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
 
@@ -83,6 +84,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/game', gameRouter);
+app.use('/host', hostRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

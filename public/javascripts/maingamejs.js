@@ -12,7 +12,7 @@ const codeJoin = document.getElementById("codeJoin");
 
 //button events
 hostButton.addEventListener("click", x => {
-	window.location.href = '/game';
+	window.location.href = '/host';
 })
 
 joinButton.addEventListener("click", x => {
