@@ -1,4 +1,4 @@
-let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
+let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
 let addToGame = 1;
 const joinLink = document.getElementById("divGoToJoin");
 let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
