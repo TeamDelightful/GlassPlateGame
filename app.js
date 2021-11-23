@@ -65,14 +65,7 @@ app.get('/gamesHTML', (req, res) => {
 app.get('/game/:gameID', (req, res) => {
   const gameID = req.params.gameID;
   res.locals.gameID = gameID;
-  for (let game of gamesHTML) {
-    if (game.gameID === gameID){
-      res.render("game")
-      return;
-    }
-  }
-  res.status(404).send('Game not found');
-  
+  res.render('game');
 });
 
 

@@ -1,7 +1,7 @@
 const ipSettings = {
-	IP: "127.0.0.1",
-	httpPort: 9080,
-	expressPort: 9081
+	IP: "linux.cs.pdx.edu",
+	httpPort: 27000,
+	expressPort: 27001
 };
 
 try{

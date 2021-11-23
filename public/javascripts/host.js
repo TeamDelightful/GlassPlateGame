@@ -238,20 +238,6 @@ ws.onmessage = message => {
 	if(response.method === "startGame"){
 		const gameId = response.id;
 		const gameID = { gameID: gameId };
-
-		fetch(url, { 
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json',},
-			body: JSON.stringify({gameID, "addDelete":addToGame}),
-		})
-		.then(response => response.json())
-		.then(gameID => {
-			console.log('Success: ', gameID);
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-		});
-
-		setTimeout(() => {window.location.href = '/game/' + gameId}, 5);
+		window.location.href = '/game/' + gameId;
 	}	
 }
