@@ -1,5 +1,4 @@
 //Variables (Client ID, Websocket, Button data)
-let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
 let playerId = null;
 let gameId = document.getElementById('theGame').textContent;
 let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
@@ -63,24 +62,6 @@ joinButton.addEventListener("click", x => {
 ws.onmessage = message => {
 	//message data JSON
 	const response = JSON.parse(message.data);
-	
-	if(response.method === "end"){
-		const gameNum = response.id;
-					
-		const gameID = { gameID: gameNum };
-		let addToGame = 99;
-		
-		fetch(url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json',},
-			body: JSON.stringify({gameID, "addDelete":addToGame}),
-		})
-		.then(response => response.json())
-		.then(gameID => {
-		})
-		.catch((error) => {
-		});		
-	}
 
 	//connect
 	if (response.method === "connect"){

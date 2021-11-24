@@ -1,5 +1,3 @@
-let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
-let addToGame = 1;
 let gameId = null;
 const joinLink = document.getElementById("divGoToJoin");
 let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
@@ -237,11 +235,7 @@ ws.onmessage = message => {
 	const response = JSON.parse(message.data);
 	
 	if(response.method === "startGame"){
-		const game = response.game;
-		gameId = response.game.id;
-		
-		const gameID = { gameID: gameId };
-		window.location.href = '/game/' + gameId;
+			window.location.href = "game/" + response.game.id;
 
 	}	
 }

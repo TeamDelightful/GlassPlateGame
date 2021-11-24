@@ -28,6 +28,7 @@ logging.basicConfig({ filename: 'gpgLog.log',
 
 //For node fetch (server-side)
 const fetch = require('node-fetch');
+let url = "http://"+ config.ipSettings.IP + ":"+ config.ipSettings.expressPort + "/game";
 
 //Create HTTP server.
 //Library imports(http, express, websocket)
@@ -96,6 +97,26 @@ wsServer.on("request", request => {
 			"id": gameId,
 			"game": games[gameId]
 		}
+		
+		
+		let addToGame = 1;
+		
+		const game = games[gameId];
+		
+		const gameID = { gameID: gameId };
+		
+		fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json',},
+			body: JSON.stringify({gameID, "addDelete":addToGame}),
+		})
+		.then(response => response.json())
+		.then(gameID => {
+		})
+		.catch((error) => {
+		});
+
+
 		connection.send(JSON.stringify(gameData));
 		//players[playerId].connection.send(JSON.stringify(gameData));
 	}
@@ -230,8 +251,24 @@ wsServer.on("request", request => {
 						"method": "end",
 						"id": gameId
 					}
-							
 					
+					
+				const gameNum = gameId;
+				
+				const gameID = { gameID: gameNum };
+				let addToGame = 99;
+				
+				fetch(url, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json',},
+					body: JSON.stringify({gameID, "addDelete":addToGame}),
+				})
+				.then(response => response.json())
+				.then(gameID => {
+				})
+				.catch((error) => {
+				});		
+				
 					//Send game id back to webpage
 					connection.send(JSON.stringify(gameData));		
 					

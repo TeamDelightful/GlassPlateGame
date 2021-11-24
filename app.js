@@ -1,3 +1,4 @@
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -31,9 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req,res) => res.sendFile(__dirname, + 'index'));
-//app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
-app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
+app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
 app.post('/game', (req, res) => {
   const game = req.body.gameID;
@@ -66,7 +66,13 @@ app.get('/gamesHTML', (req, res) => {
 app.get('/game/:gameID', (req, res) => {
   const gameID = req.params.gameID;
   res.locals.gameID = gameID;
-  res.render('game');
+  for (let game of gamesHTML) {
+    if (game.gameID === gameID){
+      res.render("game")
+      return;
+    }
+  }
+  res.status(404).send('Game not found');
 });
 
 
