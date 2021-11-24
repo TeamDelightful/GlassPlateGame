@@ -78,7 +78,7 @@ https://www.kite.com/python/answers/how-to-customize-the-time-format-for-logging
 
 https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/interaction/dragging.js
 
-
+https://www.textfixer.com/tutorials/javascript-line-breaks.php
 
 
 ## Dependencies

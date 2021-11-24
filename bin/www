@@ -79,9 +79,6 @@ wsServer.on("request", request => {
 	const result = JSON.parse(message.utf8Data)
 	if (result.method === "host"){
 		
-		getIPFromAmazonHost();
-	
-		
 		// Generate unique game ID 
 		const gameId = createId.createId(Object.keys(games));
 		games[gameId] = {
@@ -90,6 +87,10 @@ wsServer.on("request", request => {
 			"boardState": result.boardState,
 			"chatLog": [],
 		}
+		
+		getIPFromAmazonHost(gameId);
+
+		
 		const gameData = {
 			"method": "startGame",
 			"id": gameId,
@@ -342,20 +343,20 @@ function onListening() {
 //Get IP address from AWS when player starts
 function getIPFromAmazonPlayer(playerId, username, gameId){
 	fetch("https://checkip.amazonaws.com/")
-	.then(res => res.text()).then(data => {logging.info('Player ' + playerId + ' named ' + username + ' in game ' + gameId + ' joining with IP address: ' + data);});
+	.then(res => res.text()).then(data => {logging.info('Player ' + playerId + ' named ' + username + ' in game ' + gameId + ' joining with IP address: ' + (data = data.replace(/(\r\n|\n|\r)/gm,"")))});
 }
 
 //Get IP address from AWS when player starts
 function getIPFromAmazonPlayerExit(playerId, gameId){
 	fetch("https://checkip.amazonaws.com/")
-	.then(res => res.text()).then(data => {logging.info('Player ' + playerId + ' in game ' + gameId + ' exiting with IP address: ' + data);});
+	.then(res => res.text()).then(data => {logging.info('Player ' + playerId + ' in game ' + gameId + ' exiting with IP address: ' + (data = data.replace(/(\r\n|\n|\r)/gm,"")))});
 }
 
 
 //Get IP address from AWS when host joins
-function getIPFromAmazonHost(){
+function getIPFromAmazonHost(gameId){
 	fetch("https://checkip.amazonaws.com/")
-	.then(res => res.text()).then(data => {logging.info('Host IP address: ' + data);});
+	.then(res => res.text()).then(data => {logging.info('Host with game ' + gameId + ' has IP address: ' + (data = data.replace(/(\r\n|\n|\r)/gm,"")))});
 }
 
 
