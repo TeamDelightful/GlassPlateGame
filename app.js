@@ -45,7 +45,7 @@ app.post('/game', (req, res) => {
 
     if (index > -1){
       gamesHTML.splice(index, 1);
-      logging.info('Got index of game from array: ' + index + ". Can delete page.");
+      logging.info('Got index of game ' + game.gameID + ' from array: ' + index + ". Can delete page.");
 
     }
     else {
