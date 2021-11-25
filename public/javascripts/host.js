@@ -128,6 +128,7 @@ window.addEventListener("load", () => {
 			//button events
 			const hostButton = document.getElementById("start-game");
 			hostButton.addEventListener("click", x => {
+				
 				if(optionSelected == options[1]){
 					for (var i = 0; i < cardIds.length; i++) {
 						var idstatus = document.getElementById(cardIds[i]);
@@ -169,7 +170,7 @@ window.addEventListener("load", () => {
 						deck[i] = cardSelected[temp];
 					}
 				}
-
+				console.log(deck);
 				const gameData = {
 					"method": "host",
 					"boardState": [],
