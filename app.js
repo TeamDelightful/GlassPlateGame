@@ -1,3 +1,4 @@
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -31,9 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req,res) => res.sendFile(__dirname, + 'index'));
-//app.get("/game", (req, res) => res.sendFile(__dirname, + 'host'));
-app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
+app.listen(config.ipSettings.expressPort, () => console.log("Express on: "+ config.ipSettings.expressPort));
 
 app.post('/game', (req, res) => {
   const game = req.body.gameID;
@@ -42,10 +42,11 @@ app.post('/game', (req, res) => {
   if (addOrDelete == 99){
 
     const index = gamesHTML.findIndex(x => x.gameID === game.gameID);
-    logging.info('Got index of game from array: ' + index + ". Can delete page.");
 
     if (index > -1){
       gamesHTML.splice(index, 1);
+      logging.info('Got index of game ' + game.gameID + ' from array: ' + index + ". Can delete page.");
+
     }
     else {
       logging.info('Index was less than -1. Could not delete game from page.');
@@ -72,7 +73,6 @@ app.get('/game/:gameID', (req, res) => {
     }
   }
   res.status(404).send('Game not found');
-  
 });
 
 

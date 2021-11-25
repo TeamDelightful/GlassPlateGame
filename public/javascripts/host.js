@@ -1,5 +1,4 @@
-let url = "http://"+ ipSettings.IP + ":"+ ipSettings.expressPort + "/game";
-let addToGame = 1;
+let gameId = null;
 const joinLink = document.getElementById("divGoToJoin");
 let ws = new WebSocket("ws://"+ ipSettings.IP +":"+ ipSettings.httpPort);
 window.addEventListener("load", () => {
@@ -320,22 +319,7 @@ ws.onmessage = message => {
 	const response = JSON.parse(message.data);
 	
 	if(response.method === "startGame"){
-		const gameId = response.id;
-		const gameID = { gameID: gameId };
+			window.location.href = "game/" + response.game.id;
 
-		fetch(url, { 
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json',},
-			body: JSON.stringify({gameID, "addDelete":addToGame}),
-		})
-		.then(response => response.json())
-		.then(gameID => {
-			console.log('Success: ', gameID);
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-		});
-
-		setTimeout(() => {window.location.href = '/game/' + gameId}, 5);
 	}	
 }
