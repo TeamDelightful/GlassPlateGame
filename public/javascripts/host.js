@@ -39,6 +39,9 @@ window.addEventListener("load", () => {
 
 	function printCheckBoxes(){
 		var theDiv = document.getElementById("scroll-div");
+		var theDiv2 = document.getElementById("scroll-div-2");
+		theDiv.innerHTML = "";
+		theDiv2.innerHTML = "";
 		for (var i = 0; i < cardIds.length; i++) {
 			var check = document.createElement("INPUT");
 			check.setAttribute("type", "checkbox");
@@ -53,10 +56,11 @@ window.addEventListener("load", () => {
 		}
 	}
 
-//	var sizes = ["1x1","2x2", "3x3", "4x4", "5x5", "6x6"];
-
 	function printRadio(){
+		var theDiv = document.getElementById("scroll-div");
 		var theDiv2 = document.getElementById("scroll-div-2");
+		theDiv.innerHTML = "";
+		theDiv2.innerHTML = "";
 		for (var i = 0; i < sizes.length; i++) {
 			var radiobox = document.createElement('input');
 			radiobox.type = "radio";
@@ -76,15 +80,6 @@ window.addEventListener("load", () => {
 		}
 	}
 
-	function printSelectBox(){
-		var theDiv4 = document.getElementById("submitBtn");
-		var selButn = document.createElement("button");
-		selButn.type = "button";
-		selButn.innerHTML = "Submit";
-		selButn.id = "submitBtn"
-		theDiv4.appendChild(selButn);
-	}
-
 	var options = ["Random Deck", "Choose Deck"];
 
 	function printOptions(){
@@ -95,9 +90,6 @@ window.addEventListener("load", () => {
 			radiobox.id = options[i];
 			radiobox.name = "options";
 			radiobox.value = options[i];
-			if(i == 0){
-				radiobox.checked = true;
-			}
 			var label = document.createElement('label')
 			label.htmlFor = options[i];
 			label.appendChild(document.createTextNode(options[i]));
@@ -107,14 +99,11 @@ window.addEventListener("load", () => {
 			theDiv3.appendChild(linebreak);
 		}
 	}
-
 	printOptions();
-	printSelectBox();
-
-	//Select button code
-	const selectButton = document.getElementById("submitBtn");
-	const selectDiv = document.getElementById("scroll-div-3");
-	selectButton.addEventListener("click", x => {
+	var lock = 2;
+	const RandomButton = document.getElementById("Random Deck");
+	const ChooseButton = document.getElementById("Choose Deck");
+	RandomButton.addEventListener("click", x => {
 		var optionSelected = options[0];
 		for (var i = 0; i < options.length; i++) {
 			var optionStatus = document.getElementById(options[i]);
@@ -122,111 +111,207 @@ window.addEventListener("load", () => {
 				optionSelected = optionStatus.value;
 			}
 		}
-		if(optionSelected == options[0]){
-			selectButton.style.display = "none";
-			selectDiv.style.display = "none";
-			printRadio();
-			var theBDiv = document.getElementById("button-div");
-			var button = document.createElement('button');
-			button.type = "button";
-			button.className = "all-home-buttons start1";
-			button.id = "start-game";
-			button.ariaLabel = "start game button";
-			button.innerHTML = "start game";
-			theBDiv.appendChild(button);
-			var sd1 = document.getElementById("scroll-div");
-			sd1.parentNode.removeChild(sd1);
-		}
-		if(optionSelected == options[1]){
-			printCheckBoxes();
-			var theBDiv = document.getElementById("button-div");
-			var button = document.createElement('button');
-			button.type = "button";
-			button.className = "all-home-buttons start2";
-			button.id = "start-game";
-			button.ariaLabel = "start game button";
-			button.innerHTML = "start game";
-			theBDiv.appendChild(button);
-		}
-		//button events
-		const hostButton = document.getElementById("start-game");
-		hostButton.addEventListener("click", x => {
-			if(optionSelected == options[1]){
-				for (var i = 0; i < cardIds.length; i++) {
-					var idstatus = document.getElementById(cardIds[i]);
-					if(idstatus.checked){
-						cardSelected.push(cardIds[i]);
-					}
-				}
-			} 
-			else {
-				cardSelected = cardIds;
-			}
-			if(cardSelected.length <= 1){
-				cardSelected = [];
-				return;
-			}
-			var total = 4;
+		if(lock != 0){
+			lock = 0;
 			if(optionSelected == options[0]){
-				for (var i = 0; i < sizes.length; i++) {
-					var sizeStatus = document.getElementById(sizes[i]);
-					if(sizeStatus.checked){
-						total = sizeStatus.value;
-					}
-				}
-			} 
-			else {
-				total = cardSelected.length;
+				printRadio();
+				var theBDiv = document.getElementById("button-div");
+				theBDiv.innerHTML = "";
+				var button = document.createElement('button');
+				button.type = "button";
+				button.className = "all-home-buttons start1";
+				button.id = "start-game";
+				button.ariaLabel = "start game button";
+				button.innerHTML = "start game";
+				theBDiv.appendChild(button);
 			}
-			var deck = [];
-			var max = cardSelected.length;
-			if(total == max){
-				deck = cardSelected;
-			} 
-			else {
-				for(let i = 0; i < total; i++){
-					temp = Math.floor(Math.random() * max);
-					while(deck.includes(cardSelected[temp])){
+			//button events
+			const hostButton = document.getElementById("start-game");
+			hostButton.addEventListener("click", x => {
+				
+				if(optionSelected == options[1]){
+					for (var i = 0; i < cardIds.length; i++) {
+						var idstatus = document.getElementById(cardIds[i]);
+						if(idstatus.checked){
+							cardSelected.push(cardIds[i]);
+						}
+					}
+				} 
+				else {
+					cardSelected = cardIds;
+				}
+				if(cardSelected.length <= 1){
+					cardSelected = [];
+					return;
+				}
+				var total = 4;
+				if(optionSelected == options[0]){
+					for (var i = 0; i < sizes.length; i++) {
+						var sizeStatus = document.getElementById(sizes[i]);
+						if(sizeStatus.checked){
+							total = sizeStatus.value;
+						}
+					}
+				} 
+				else {
+					total = cardSelected.length;
+				}
+				var deck = [];
+				var max = cardSelected.length;
+				if(total == max){
+					deck = cardSelected;
+				} 
+				else {
+					for(let i = 0; i < total; i++){
 						temp = Math.floor(Math.random() * max);
+						while(deck.includes(cardSelected[temp])){
+							temp = Math.floor(Math.random() * max);
+						}
+						deck[i] = cardSelected[temp];
 					}
-					deck[i] = cardSelected[temp];
 				}
-			}
-
-			const gameData = {
-				"method": "host",
-                "boardState": [],
-			}
-						
-			for(let i = 0; i < total; i++) {
-				gameData.boardState[i] = {
-					name: deck[i],
-					connections: [
-					{
-						active: false,
-						number: 0,
-						state: "number"
-					},{
-						active: false,
-						number: 0,
-						state: "number"
-					},{
-						active: false,
-						number: 0,
-						state: "number"
-					},{
-						active: false,
-						number: 0,
-						state: "number"
+				console.log(deck);
+				const gameData = {
+					"method": "host",
+					"boardState": [],
+				}
+							
+				for(let i = 0; i < total; i++) {
+					gameData.boardState[i] = {
+						name: deck[i],
+						connections: [
+						{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						}
+						],
+						cardFlipped: false,
+						moveMade: '',
 					}
-					],
-					cardFlipped: false,
-					moveMade: '',
 				}
-			}
-			ws.send(JSON.stringify(gameData));
+				ws.send(JSON.stringify(gameData));
+				
 		});
+	}
+});
+	ChooseButton.addEventListener("click", x => {
+		var optionSelected = options[0];
+		for (var i = 0; i < options.length; i++) {
+			var optionStatus = document.getElementById(options[i]);
+			if(optionStatus.checked){
+				optionSelected = optionStatus.value;
+			}
+		}
+		if(lock != 1){
+			lock = 1;
+			if(optionSelected == options[1]){
+				printCheckBoxes();
+				var theBDiv = document.getElementById("button-div");
+				theBDiv.innerHTML = "";
+				var button = document.createElement('button');
+				button.type = "button";
+				button.className = "all-home-buttons start2";
+				button.id = "start-game";
+				button.ariaLabel = "start game button";
+				button.innerHTML = "start game";
+				theBDiv.appendChild(button);
+				var sd2 = document.getElementById("scroll-div-2");
+				sd2 = "";
+			}
+			//button events
+			const hostButton = document.getElementById("start-game");
+			hostButton.addEventListener("click", x => {
+				if(optionSelected == options[1]){
+					for (var i = 0; i < cardIds.length; i++) {
+						var idstatus = document.getElementById(cardIds[i]);
+						if(idstatus.checked){
+							cardSelected.push(cardIds[i]);
+						}
+					}
+				} 
+				else {
+					cardSelected = cardIds;
+				}
+				if(cardSelected.length <= 1){
+					cardSelected = [];
+					return;
+				}
+				var total = 4;
+				if(optionSelected == options[0]){
+					for (var i = 0; i < sizes.length; i++) {
+						var sizeStatus = document.getElementById(sizes[i]);
+						if(sizeStatus.checked){
+							total = sizeStatus.value;
+						}
+					}
+				} 
+				else {
+					total = cardSelected.length;
+				}
+				var deck = [];
+				var max = cardSelected.length;
+				if(total == max){
+					deck = cardSelected;
+				} 
+				else {
+					for(let i = 0; i < total; i++){
+						temp = Math.floor(Math.random() * max);
+						while(deck.includes(cardSelected[temp])){
+							temp = Math.floor(Math.random() * max);
+						}
+						deck[i] = cardSelected[temp];
+					}
+				}
+
+				const gameData = {
+					"method": "host",
+					"boardState": [],
+				}
+							
+				for(let i = 0; i < total; i++) {
+					gameData.boardState[i] = {
+						name: deck[i],
+						connections: [
+						{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						},{
+							active: false,
+							number: 0,
+							state: "number"
+						}
+						],
+						cardFlipped: false,
+						moveMade: '',
+					}
+				}
+				ws.send(JSON.stringify(gameData));
+			});
+		}
 	});
+	
 });
 
 //Websocket communication
