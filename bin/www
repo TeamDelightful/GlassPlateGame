@@ -71,8 +71,8 @@ wsServer.on("request", request => {
 	const connection = request.accept(null, request.origin);
 
 	connection.on("close", () => {
-		console.log("PlayerID: " + playerId + " disconnected.")}
-	);
+		//console.log("PlayerID: " + playerId + " disconnected.")
+	});
     
 	// receive message from the client here
 	connection.on("message", message => {

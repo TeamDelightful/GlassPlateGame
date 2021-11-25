@@ -80,6 +80,8 @@ https://pixijs.io/examples/index.html?s=demos&f=dragging.js&title=Dragging#/inte
 
 https://www.textfixer.com/tutorials/javascript-line-breaks.php
 
+http://www.webweaver.nu/html-tips/favicon.shtml
+
 
 ## Dependencies
 
