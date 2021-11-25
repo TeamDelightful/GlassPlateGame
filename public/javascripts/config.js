@@ -8,5 +8,5 @@ const ipSettings = {
 try{
 	module.exports = { ipSettings };
 }catch{
-	console.log('Client side loaded');
+	//console.log('Client side loaded');
 };

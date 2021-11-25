@@ -66,7 +66,7 @@ ws.onmessage = message => {
 	//connect
 	if (response.method === "connect"){
 		playerId = response.playerId;
-		console.log("Player ID: " + playerId + " connected.");
+		//console.log("Player ID: " + playerId + " connected.");
 	}
 	//update gamestate
 	if (response.method === "update") {
@@ -96,7 +96,6 @@ ws.onmessage = message => {
 		downloadLog(response.chatLog);
 	}
 	if (response.method === "join"){
-		console.log('game should load here');
 		
 		let leaveButton = document.getElementById('leave-button');
 		leaveButton.style.display = "block";
