@@ -32,6 +32,22 @@ function createLogFeed(chatLog) {
         document.getElementById('chatInput').value = null;
         ws.send(JSON.stringify(gameData));
     })
+    document.addEventListener("keyup", function(event){
+        if (event.code === 'Enter' | event.keyCode === 13){
+            let chatMessage = document.getElementById('chatInput').value;
+            if(chatMessage === '')
+                return;
+            const gameData = {
+                "method": "chat",
+                "gameId": gameId,
+                "playerId": playerId,
+                "chatMessage": chatMessage
+            }
+            document.getElementById('chatInput').value = null;
+            ws.send(JSON.stringify(gameData));
+        }
+    })
+
     form.appendChild(formBut);
     chatDiv.appendChild(form);
     divChatLog.appendChild(chatDiv);
