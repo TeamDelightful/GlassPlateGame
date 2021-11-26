@@ -82,6 +82,12 @@ https://www.textfixer.com/tutorials/javascript-line-breaks.php
 
 http://www.webweaver.nu/html-tips/favicon.shtml
 
+https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
+
+https://www.techiedelight.com/detect-enter-key-press-javascript/
+
+
+
 
 ## Dependencies
 

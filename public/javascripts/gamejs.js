@@ -10,8 +10,15 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
-
-window.onunload = function() {
+if ('onpagehide' in window){
+	window.addEventListener('pagehide', exitFunction, false);
+}
+else {
+	window.addEventListener('unload', exitFunction, false);
+}
+//window.onpagehide = function() {
+//window.onunload = function() {
+function exitFunction(){
 	const gameData = {
 		"method": "exit",
 		"playerId": playerId,
