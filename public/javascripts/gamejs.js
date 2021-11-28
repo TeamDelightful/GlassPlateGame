@@ -10,14 +10,14 @@ const theGameId = document.getElementById("theGameId");
 const divChatLog = document.getElementById("divChatLog");
 const divBoard = document.getElementById("divBoard");
 
+
 if ('onpagehide' in window){
 	window.addEventListener('pagehide', exitFunction, false);
 }
 else {
 	window.addEventListener('unload', exitFunction, false);
 }
-//window.onpagehide = function() {
-//window.onunload = function() {
+
 function exitFunction(){
 	const gameData = {
 		"method": "exit",
@@ -30,14 +30,16 @@ function exitFunction(){
 document.getElementById("leave-button").addEventListener("click", x => {
 	if (confirm("Are you sure you want to leave the game?")) {
 		
-		const gameData = {
+		if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+					
+			const gameData = {
 			"method": "exit",
 			"playerId": playerId,
 			"gameId": gameId
+			}
+			ws.send(JSON.stringify(gameData));
 		}
-		
-		ws.send(JSON.stringify(gameData));
-		//back to main page
+		//back to main page */
 		window.location.href = '/';
 	}
 	else {
