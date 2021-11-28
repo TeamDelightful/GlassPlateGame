@@ -219,21 +219,22 @@ wsServer.on("request", request => {
 		})
 	}
 
-	if(result.method === "exit") {
+	if (result.method === "exit") {
 		const gameId = result.gameId;
 		const playerId = result.playerId;
 		
-		if(players[playerId] === undefined)
+		if (players[playerId] === undefined)
 			return;
-					
+
+		getIPFromAmazonPlayerExit(playerId, gameId);
+		
 		if (games[gameId] !== null && games[gameId] !== undefined) {
-			getIPFromAmazonPlayerExit(playerId, gameId);
 			for (let i = 0; i < games[gameId].players.length; i++){ 
 				if (games[gameId].players[i].playerId === playerId) { 
 					games[gameId].players.splice(i, 1); 
 				}
 			}
-			if(games[gameId].players.length !== 0) {
+			if (games[gameId].players.length !== 0) {
 				let chatMessage = players[playerId].username + " has left the game.";
 				games[gameId].chatLog.push(chatMessage);
 				const gameData = {
@@ -250,7 +251,8 @@ wsServer.on("request", request => {
 						"method": "end",
 						"id": gameId
 					}
-					
+				
+			
 					
 				const gameNum = gameId;
 				
